@@ -1,0 +1,13 @@
+# vsim -voptargs="+acc" -c top -do "run -all; exit" 
+# Start time: 20:08:23 on Feb 26,2024
+# ** Note: (vsim-3812) Design is being optimized...
+# ** Error: top.sv(38): Module 'datapath' is not defined.
+# ** Error: top.sv(55): Module 'decoder' is not defined.
+# ** Error: top.sv(68): Module 'buffer_accum_signals' is not defined.
+# ** Error: top.sv(93): Module 'Load_Ex_controller' is not defined.
+# ** Error: top.sv(124): Module 'store_controller' is not defined.
+# ** Error: top.sv(154): Module 'memory_mapped' is not defined.
+# Optimization failed
+# Error loading design
+# End time: 20:08:24 on Feb 26,2024, Elapsed time: 0:00:01
+# Errors: 6, Warnings: 0
