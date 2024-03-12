@@ -11,9 +11,10 @@ module tb_top;
   logic [31:0] interface_addr;
   logic [127:0] interface_rd_data;
   logic [127:0] interface_wr_data;
-  localparam M = 16;
+  localparam M = 5;
   localparam K = 16;
-  localparam N = 16;
+  localparam N = 8;
+  //addresses
   localparam A = 0;
   // localparam B = M * K + (ksize - 1) * nsize;
   localparam B = M * K;

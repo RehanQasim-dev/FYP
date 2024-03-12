@@ -16,7 +16,6 @@ module top (
     output logic [31:0] interface_addr,
     input logic [127:0] interface_rd_data,
     output logic [127:0] interface_wr_data
-    
 );
 
 // Declare signals to connect to Main_controller

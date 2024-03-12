@@ -6,7 +6,7 @@ module Memory (
     input logic [31:0] interface_addr,
     output logic [127:0] interface_rd_data,
     input logic [127:0] interface_wr_data,
-    input logic [3:0] interface_control
+    input logic [4:0] interface_control
 );
 
   logic [7:0] mem[1500];

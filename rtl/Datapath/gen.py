@@ -2,10 +2,10 @@ import numpy as np
 import random
 # Define the matrices
 np.random
-rows_a = 16
+rows_a = 5
 cols_a = 16
-rows_b = 16
-cols_b = 16
+rows_b = 16 
+cols_b = 8
 random.seed(42)
 
 # Generate matrix A
