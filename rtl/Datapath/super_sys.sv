@@ -9,15 +9,13 @@ module super_sys (
     input logic [SUPER_SYS_COLS-1:0][W_BITWIDTH-1:0] wdata,
     input logic [SUPER_SYS_COLS-1:0][P_BITWIDTH-1:0] bias,
     ///control
-    input if_mux_sel,
-    input [CORE_COLS-1:0] w_mux_sel,
+    input [SMALL_SYS_ROWS-1:0] if_mux_sel,
+    input logic [SUPER_SYS_ROWS-1:0] w_mux_sel,
     //outputs
     output logic [SUPER_SYS_COLS-1:0][P_BITWIDTH-1:0] of_data,
-    output logic valid,
-    ready_for_HI
+    output logic valid
 );
   assign valid = core2_if_en[SMALL_SYS_ROWS-1];
-  //   assign ready_for_HI=
   //////////////////////////////////////////
   //
   logic [SMALL_SYS_COLS-1:0][P_BITWIDTH-1:0] core0_of_data;
@@ -40,21 +38,52 @@ module super_sys (
   logic [SMALL_SYS_COLS-1:0][W_BITWIDTH-1:0] core3_wdata;
   logic [SMALL_SYS_ROWS-1:0] core3_if_en;
   logic [SMALL_SYS_ROWS-1:0][A_BITWIDTH-1:0] core3_if_data;
-  logic [SUPER_SYS_COLS-1:0][P_BITWIDTH-1:0] core3_bias;
+  logic [SMALL_SYS_COLS-1:0][P_BITWIDTH-1:0] core3_bias;
 
   ///////////////////////////////////////////
 
-  assign core2_if_en=if_mux_sel?if_en[2*SMALL_SYS_ROWS-1:SMALL_SYS_ROWS]:if_en[SMALL_SYS_ROWS-1:0];
-  assign core2_if_data=if_mux_sel?if_data[2*SMALL_SYS_ROWS-1:SMALL_SYS_ROWS]:if_data[SMALL_SYS_ROWS-1:0];
-  assign core2_wdata = w_mux_sel[0] ? wdata[SMALL_SYS_COLS-1:0] : core0_wdata_out;
-  assign core2_wfetch = w_mux_sel[0] ? wfetch[SMALL_SYS_COLS-1:0] : core0_wfetch_out;
-  assign core2_bias=w_mux_sel[0]?bias[SMALL_SYS_COLS-1:0] :core0_of_data;   //technically not needed
+  muxes #(
+      .WIDTH(1)
+  ) muxes_instance1 (
+      .mux_sel(if_mux_sel),
+      .data2(if_en[2*SMALL_SYS_ROWS-1:SMALL_SYS_ROWS]),
+      .data1(if_en[SMALL_SYS_ROWS-1:0]),
+      .out(core2_if_en)
+  );
+  muxes #(
+      .WIDTH(8)
+  ) muxes_instance2 (
+      .mux_sel(if_mux_sel),
+      .data2(if_data[2*SMALL_SYS_ROWS-1:SMALL_SYS_ROWS]),
+      .data1(if_data[SMALL_SYS_ROWS-1:0]),
+      .out(core2_if_data)
+  );
 
+  assign core2_wdata  = w_mux_sel[0] ? wdata[SMALL_SYS_COLS-1:0] : core0_wdata_out;
+  assign core2_wfetch = w_mux_sel[0] ? wfetch[SMALL_SYS_COLS-1:0] : core0_wfetch_out;
+  //   assign core2_bias=w_mux_sel[0]?bias[SMALL_SYS_COLS-1:0] :core0_of_data;   //technically not needed
+  muxes #(
+      .WIDTH(24)
+  ) muxes_instance3 (
+      .mux_sel(w_mux_sel[7:0]),
+      .data2(bias[SMALL_SYS_COLS-1:0]),
+      .data1(core0_of_data),
+      .out(core2_bias)
+  );
+
+  muxes #(
+      .WIDTH(24)
+  ) muxes_instance4 (
+      .mux_sel(w_mux_sel[15:8]),
+      .data2(bias[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS]),
+      .data1(core1_of_data),
+      .out(core3_bias)
+  );
   //
 
-  assign core3_wdata = w_mux_sel[1] ? wdata[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS] : core1_wdata_out;
-  assign core3_wfetch = w_mux_sel[1] ? wfetch[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS] : core1_wfetch_out;
-  assign core3_bias = w_mux_sel[1] ? bias[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS] : core1_of_data;
+  assign core3_wdata = w_mux_sel[0] ? wdata[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS] : core1_wdata_out;
+  assign core3_wfetch = w_mux_sel[0] ? wfetch[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS] : core1_wfetch_out;
+  //   assign core3_bias = w_mux_sel[0] ? bias[2*SMALL_SYS_COLS-1:SMALL_SYS_COLS] : core1_of_data;
   /////////////////////////////////////////
   systolic core0 (
       .clk(clk),

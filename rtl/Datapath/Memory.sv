@@ -9,11 +9,10 @@ module Memory (
     input logic [4:0] interface_control
 );
 
-  logic [7:0] mem[1500];
+  logic [7:0] mem[2000];
   initial begin
     $readmemh("memory.mem", mem);
   end
-
 
   logic [16:1] mask;  // 16-bit output mask
   // Generate the mask

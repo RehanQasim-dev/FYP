@@ -6,7 +6,7 @@ module decoder (
     nsize,
     output logic [1:0] mode,
     output logic if_mux_sel,
-    output logic [1:0] w_mux_sel
+    output logic w_mux_sel
 
 );
 
@@ -20,23 +20,23 @@ module decoder (
     if (!Tallwave && Widewave) begin
       mode = 2'b00;
       if_mux_sel = 1;
-      w_mux_sel[0] = 0;
-      w_mux_sel[1] = 0;
+      w_mux_sel = 0;
+      // w_mux_sel[1] = 0;
     end else if (!Tallwave && !Widewave) begin
       mode = 2'b01;  //vertical
       if_mux_sel = 1;
-      w_mux_sel[0] = 0;
-      w_mux_sel[1] = 'x;
+      w_mux_sel = 0;
+      // w_mux_sel[1] = 'x;
     end else if (Tallwave && Widewave) begin
       mode = 2'b10;  //
       if_mux_sel = 0;
-      w_mux_sel[0] = 1;
-      w_mux_sel[1] = 1;
+      w_mux_sel = 1;
+      // w_mux_sel[1] = 1;
     end else if (Tallwave && !Widewave) begin
       mode = 2'b11;
       if_mux_sel = 0;
-      w_mux_sel[0] = 1;
-      w_mux_sel[1] = 'x;
+      w_mux_sel = 1;
+      // w_mux_sel[1] = 'x;
     end
   end
 endmodule

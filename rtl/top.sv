@@ -27,7 +27,7 @@ module top (
     logic [3:0] rd_result;
     logic prefetch_done;
     logic if_mux_sel;
-    logic [1:0] w_mux_sel;
+    logic w_mux_sel;
     logic overwrite;
     logic [1:0] mode_FV_if;
     logic store_buffered,overwrite_buffered;
@@ -39,6 +39,8 @@ module top (
     logic [4:0] interface_control_store;
     logic [31:0] next_addr_store;
     logic interface_rdwr_store;
+    logic w_mux_sel_buffered;
+
   logic [3:0][127:0]accum_o_data;
     datapath datapath_instance (
     .clk(clk),
@@ -50,12 +52,15 @@ module top (
     .store(store_buffered),
     .overwrite(overwrite_buffered),
     .if_mux_sel(if_mux_sel_buffered),
-    .w_mux_sel(w_mux_sel),
+    .w_mux_sel(w_mux_sel_buffered),
     .accums_rd_en(rd_result),
     .accum_o_data(accum_o_data),
     .acc_empty(buffer_empty),
     .mode_FV_if(mode_FV_if),
-    .ready_for_HI(ready_for_HI)
+    .ready_for_HI(ready_for_HI),
+    .accum_start(accum_start)
+    // .acc_is_done(acc_is_done),
+    // .if_sent(if_sent)
     );
     always_comb begin : blockName
       case(buffer_sel)
@@ -74,12 +79,37 @@ module top (
     .if_mux_sel(if_mux_sel),
     .w_mux_sel(w_mux_sel)  
 );
+
+
 always_ff @( posedge clk ) begin
-    if(prefetch_done) begin 
-    
-    if_mux_sel_buffered<=if_mux_sel;
+    if(accum_start) begin 
     store_buffered<=store;
     overwrite_buffered<=overwrite;
+    end
+end
+
+
+buffer #(
+  .DEPTH(2),
+  .DWIDTH(1)
+) buffer_instance2(
+  .rst(rst),
+  .clk(clk),
+  .wr_en(prefetch_done),
+  .rd_en(if_sent),
+  .din(if_mux_sel),
+  .dout(if_mux_sel_buffered),
+  .empty(),
+  .full()
+);
+always_ff @( posedge clk ) begin
+    if(prefetch_done) begin 
+    if_mux_sel_buffered<=if_mux_sel;
+    end
+end
+always_ff @( posedge clk ) begin
+    if(prefetch_start) begin 
+    w_mux_sel_buffered<=w_mux_sel;
     end
 end
 
@@ -128,7 +158,8 @@ end
       .interface_control_store(interface_control_store),
       .next_row_addr_store(next_row_addr_store),
       .interface_rdwr_store(interface_rdwr_store),
-      .gen_addr_store(gen_addr_store)
+      .gen_addr_store(gen_addr_store),
+      .prefetch_start(prefetch_start)
   );
 
   logic [31:0] current_store_addr;  // Current address

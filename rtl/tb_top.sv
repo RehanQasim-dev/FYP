@@ -11,9 +11,9 @@ module tb_top;
   logic [31:0] interface_addr;
   logic [127:0] interface_rd_data;
   logic [127:0] interface_wr_data;
-  localparam M = 5;
-  localparam K = 16;
-  localparam N = 8;
+  localparam M = 20;
+  localparam K = 20;
+  localparam N = 20;
   //addresses
   localparam A = 0;
   // localparam B = M * K + (ksize - 1) * nsize;
@@ -65,14 +65,7 @@ module tb_top;
     //configuration
     rst <= 1;
     @(posedge clk);
-    system_bus_en <= 1;
-    system_bus_rdwr <= 1;
-    system_bus_addr <= `base_addr + 12;
-    system_bus_wr_data <= K;
     rst <= 0;
-    @(posedge clk);
-    system_bus_addr <= `base_addr + 16;
-    system_bus_wr_data <= N;
     for (n = 0; n < N; n += blkn) begin
       nsize = (n + blkn <= N) ? blkn : N % blkn;
 
@@ -90,33 +83,51 @@ module tb_top;
           @(posedge clk);
           system_bus_en <= 1;
           system_bus_rdwr <= 1;
-          system_bus_wr_data <= Tile_A_Address;
+          system_bus_addr <= `base_addr + 12;  //tile_A_stride
+          system_bus_wr_data <= K;
+          @(posedge clk);
+          system_bus_addr <= `base_addr + 16;  //tile_B_stride
+          system_bus_wr_data <= N;
+          @(posedge clk);
+          system_bus_en <= 1;
+          system_bus_rdwr <= 1;
+          system_bus_wr_data <= Tile_A_Address;  //tile_A_addr
           system_bus_addr <= `base_addr;
           $display("Tile_A_addr= %d", Tile_A_Address);
           @(posedge clk);
           system_bus_addr <= `base_addr + 4;
-          system_bus_wr_data <= Tile_B_Address;
+          system_bus_wr_data <= Tile_B_Address;  //tile_B_addr
           $display("Tile_B_addr= %d", Tile_B_Address);
           @(posedge clk);
           system_bus_addr <= `base_addr + 8;
-          system_bus_wr_data <= Tile_C_Address;
+          system_bus_wr_data <= Tile_C_Address;  //tile_C_addr
           $display("Tile_C_addr= %d", Tile_C_Address);
 
           @(posedge clk);
-          system_bus_addr <= `base_addr + 20;
+          system_bus_addr <= `base_addr + 20;  //GEMM_control
           system_bus_wr_data <= first << 1 | last;
           @(posedge clk);
-          system_bus_addr <= `base_addr + 24;
+          system_bus_addr <= `base_addr + 24;  //GEMM_DIM
           system_bus_wr_data <= msize | ksize << 5 | nsize << 10;
           $display("msize=%d, nsize=%d, ksize=%d", msize, nsize, ksize);
           @(posedge clk);
           system_bus_en   <= 1;
           system_bus_rdwr <= 0;
-          system_bus_addr <= `base_addr;
+          system_bus_addr <= `base_addr;  //check if GEMM is FULLL
+          #1;
           while (system_bus_rd_data == 1'b1) begin
+            #1;
             // Wait for the GEMM operation to complete;
           end
         end
+      end
+      system_bus_en   <= 1;
+      system_bus_rdwr <= 0;
+      system_bus_addr <= `base_addr + 24;  //check if GEMM is done
+      #1;
+      while (system_bus_rd_data != 1'b1) begin
+        #1;
+        // Wait for the GEMM operation to complete;
       end
     end
 

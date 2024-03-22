@@ -13,8 +13,8 @@ module buffer #(
     output empty,  //
     full  //
 );
-  reg [$clog2(DEPTH)-1:0] wptr;
-  reg [$clog2(DEPTH)-1:0] rptr;
+  reg [$clog2(DEPTH):0] wptr;
+  reg [$clog2(DEPTH):0] rptr;
   reg [DWIDTH-1 : 0] fifo[DEPTH];
 
   // initial begin
@@ -30,7 +30,7 @@ module buffer #(
       wptr <= '0;
     end else begin
       if (wr_en & !full) begin
-        fifo[wptr] <= din;
+        fifo[wptr[$clog2(DEPTH)-1:0]] <= din;
         wptr <= wptr + 1;
       end
     end
@@ -45,7 +45,15 @@ module buffer #(
       // else if (empty) dout <= 0;
     end
   end
-  assign dout  = fifo[rptr];
-  assign full  = (wptr + 1) == rptr;
+  assign dout = fifo[rptr[$clog2(DEPTH)-1:0]];
+  assign full = wptr[$clog2(
+      DEPTH
+  )] != rptr[$clog2(
+      DEPTH
+  )] && wptr[$clog2(
+      DEPTH
+  )-1:0] == rptr[$clog2(
+      DEPTH
+  )-1:0];
   assign empty = wptr == rptr;
 endmodule

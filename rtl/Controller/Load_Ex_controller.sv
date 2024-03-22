@@ -26,6 +26,7 @@ module Load_Ex_controller (
     output logic [31:0] next_addr,                // Next address to generate
     output logic        gen_addr,                 // Generate address signal
     output logic        prefetch_done,
+    output logic        prefetch_start,
     if_en,
     wfetch,
     input  logic        gen_addr_store,
@@ -63,7 +64,6 @@ module Load_Ex_controller (
   logic test_gen;
   assign test_gen = gen_addr;
 
-
   // Combinational logic block
   always_comb begin
     // Default assignments
@@ -79,6 +79,7 @@ module Load_Ex_controller (
     if_en = 0;
     wfetch = 0;
     can_store = 0;
+    prefetch_start = 0;
     // State machine logic
     case (cs)
       IDLE:
@@ -91,6 +92,7 @@ module Load_Ex_controller (
         gen_addr = 1;
         en_size_counter = 1;
         clr_size_counter = 1;
+        prefetch_start = 1;
         ns = PREFETCH;
       end
 
@@ -145,17 +147,17 @@ module Load_Ex_controller (
         interface_rdwr = interface_rdwr_store;
         can_store = 1;
         ns = IDLE;
-      end else if (done_store & ~conf_empty) begin
-        interface_en = interface_en_store;
-        interface_control = interface_control_store;
-        interface_rdwr = interface_rdwr_store;
-        can_store = 1;
-        // interface_control = ksize;
-        next_addr = tile_B_addr;
-        gen_addr = 1;
-        en_size_counter = 1;
-        clr_size_counter = 1;
-        ns = PREFETCH;
+        // end else if (done_store & ~conf_empty) begin
+        //   interface_en = interface_en_store;
+        //   interface_control = interface_control_store;
+        //   interface_rdwr = interface_rdwr_store;
+        //   can_store = 1;
+        //   next_addr = tile_B_addr;
+        //   gen_addr = 1;
+        //   en_size_counter = 1;
+        //   clr_size_counter = 1;
+        //   prefetch_start = 1;
+        //   ns = PREFETCH;
       end else begin
         interface_en = interface_en_store;
         interface_control = interface_control_store;
@@ -170,19 +172,23 @@ module Load_Ex_controller (
       if (~ready_for_HI && (mode == HW || mode == IW) && ~conf_empty) begin
         ns = CHECK_NEXT;
       end else if (ready_for_HI && (mode == HW || mode == IW) && ~conf_empty) begin
+
         interface_en = 0;
         interface_control = nsize;
         next_addr = tile_B_addr;
         gen_addr = 1;
         en_size_counter = 'x;
         clr_size_counter = 1;
+        prefetch_start = 1;
         ns = PREFETCH;
       end else if ((mode == FW || mode == VW) && ~conf_empty) begin
+
         interface_control = ksize;
         next_addr = tile_B_addr;
         gen_addr = 1;
         en_size_counter = 1;
         clr_size_counter = 1;
+        prefetch_start = 1;
         ns = PREFETCH;
       end else begin
         ns = IDLE;

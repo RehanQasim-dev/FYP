@@ -3,8 +3,8 @@ import Config::*;
 module accumulator (
     input logic rst,
     clk,
-    store,
-    overwrite,
+    [3:0]store,
+    [3:0]overwrite,
     input logic [3:0] rd_en,
     input logic [3:0] true_valid,
     input logic [SUPER_SYS_COLS/4-1:0][3:0][P_BITWIDTH-1:0] i_data,
@@ -24,8 +24,8 @@ module accumulator (
           .rst(rst),
           .valid(true_valid[i]),
           .rd_en(rd_en[i]),
-          .store(store),
-          .overwrite(overwrite),
+          .store(store[i]),
+          .overwrite(overwrite[i]),
           .i_data(i_data[i]),
           .o_data(o_data[i]),
           .empty(empty[i])

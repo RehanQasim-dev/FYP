@@ -10,12 +10,15 @@ module datapath (
     overwrite,
     // From controller
     input logic [CORE_ROWS-2:0] if_mux_sel,
-    input logic [CORE_COLS-1:0] w_mux_sel,
+    input logic [CORE_COLS-2:0] w_mux_sel,
     input logic [3:0] accums_rd_en,
     output logic [3:0][127:0] accum_o_data,
     output logic [3:0] acc_empty,
     output logic [1:0] mode_FV_if,
-    output logic ready_for_HI
+    output logic ready_for_HI,
+    output logic acc_is_done,
+    output logic if_sent,
+    output logic accum_start
 );
 
   // Internal signals
@@ -83,6 +86,8 @@ module datapath (
       );
     end
   endgenerate
+  logic [SMALL_SYS_ROWS-2:0] all_if_mux_sel;
+  logic [SUPER_SYS_ROWS-2:0] all_w_mux_sel;
 
   // Instantiate super_sys module
   super_sys super_sys_instance (
@@ -93,13 +98,14 @@ module datapath (
       .if_data(if_data_setup),
       .wdata(wdata_setup),
       .bias(0),
-      .if_mux_sel(if_mux_sel),
-      .w_mux_sel(w_mux_sel),
+      .if_mux_sel({all_if_mux_sel, if_mux_sel}),
+      .w_mux_sel({all_w_mux_sel, w_mux_sel}),
       .of_data(of_data),
-      .valid(valid),
-      .ready_for_HI(ready_for_HI)
+      .valid(valid)
   );
 
+  assign ready_for_HI = ~if_en_setup[8] && if_en_setup[9];
+  assign accum_start  = ~valid_Psum[0] && valid;
   logic [SUPER_SYS_COLS:0] valid_Psum;
   //   assign valid_Psum[0] = valid;
   //   int j;
@@ -119,12 +125,14 @@ module datapath (
       end
     end
   end
+  logic [SUPER_SYS_ROWS-3:0] all_store, all_overwrite;
+
   // Instantiate acummulator module
   accumulator accumulator_instance (
       .clk(clk),
       .rst(rst),
-      .store(store),
-      .overwrite(overwrite),
+      .store({all_store[13], all_store[9], all_store[5], all_store[1]}),
+      .overwrite({all_overwrite[13], all_overwrite[9], all_overwrite[5], all_overwrite[1]}),
       .rd_en(accums_rd_en),
       .true_valid({valid_Psum[15], valid_Psum[11], valid_Psum[7], valid_Psum[3]}),
       .i_data(of_data_setup),
@@ -133,5 +141,47 @@ module datapath (
   );
   assign mode_FV_if[0] = valid_Psum[15];
   assign mode_FV_if[1] = valid_Psum[7];
+  logic old_valid_Psum_15;
+  always_ff @(posedge clk) begin : blockName
+    old_valid_Psum_15 <= valid_Psum[15];
+  end
+  assign acc_is_done = old_valid_Psum_15 && ~valid_Psum[15];
+  assign if_sent = ~valid && valid_Psum[0];
+
+  for (i = 0; i < SMALL_SYS_ROWS - 1; i++) begin
+    if (i == 0) begin
+      always_ff @(posedge clk) begin : blockName
+        all_if_mux_sel[i] <= if_mux_sel;
+      end
+    end else begin
+      always_ff @(posedge clk) begin : blockName
+        all_if_mux_sel[i] <= all_if_mux_sel[i-1];
+      end
+    end
+  end
+  for (i = 0; i < SUPER_SYS_ROWS - 1; i++) begin
+    if (i == 0) begin
+      always_ff @(posedge clk) begin : blockName
+        all_w_mux_sel[0] <= w_mux_sel;
+      end
+    end else begin
+      always_ff @(posedge clk) begin : blockName
+        all_w_mux_sel[i] <= all_w_mux_sel[i-1];
+      end
+    end
+  end
+  for (i = 0; i < SUPER_SYS_ROWS - 2; i++) begin
+    if (i == 0) begin
+      always_ff @(posedge clk) begin : blockName
+        all_store[0] <= store;
+        all_overwrite[0] <= overwrite;
+      end
+    end else begin
+      always_ff @(posedge clk) begin : blockName
+        all_store[i] <= all_store[i-1];
+        all_overwrite[i] <= all_overwrite[i-1];
+      end
+    end
+  end
 
 endmodule
