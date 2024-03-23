@@ -21,14 +21,14 @@ module Load_Ex_controller (
     interface_rdwr,  // Interface read/write signal
     interface_en,  // Interface enable signal
     output logic [ 4:0] interface_control,        // Interface control signal
-    output logic        conf_buff_read,           // Configuration buffer read signal
+    output logic        conf_buff_read_buffered,  // Configuration buffer read signal
     // Address generate block signals
     output logic [31:0] next_addr,                // Next address to generate
     output logic        gen_addr,                 // Generate address signal
-    output logic        prefetch_done,
+    output logic        prefetch_done_buffered,
     output logic        prefetch_start,
-    if_en,
-    wfetch,
+    if_en_buffered,
+    wfetch_buffered,
     input  logic        gen_addr_store,
     interface_en_store,
     input  logic [ 4:0] interface_control_store,
@@ -36,6 +36,15 @@ module Load_Ex_controller (
     input  logic        interface_rdwr_store
 );
 
+  logic conf_buff_read, prefetch_done;  // Configuration buffer read signal
+  logic if_en, wfetch;
+
+  always_ff @(posedge clk) begin : blockName
+    prefetch_done_buffered <= prefetch_done;
+    if_en_buffered <= if_en;
+    wfetch_buffered <= wfetch;
+    conf_buff_read_buffered <= conf_buff_read;
+  end
   // State definitions for the finite state machine
   localparam IDLE = 3'b000;
   localparam PREFETCH = 3'b001;
@@ -55,12 +64,12 @@ module Load_Ex_controller (
 
   logic [31:0] count;
 
-  always_ff @(posedge clk) begin : blockName
+  always_ff @(posedge clk) begin
     if (clr_size_counter) count <= 0;
     else if (en_size_counter) count <= count + 1;
   end
   assign do_read_B = ksize != (count + 1);
-  assign do_read_A = msize != (count);
+  assign do_read_A = msize != (count + 1);
   logic test_gen;
   assign test_gen = gen_addr;
 
@@ -86,8 +95,6 @@ module Load_Ex_controller (
       if (conf_empty) begin
         ns = IDLE;
       end else begin
-        interface_en = 0;
-        interface_control = nsize;
         next_addr = tile_B_addr;
         gen_addr = 1;
         en_size_counter = 1;
@@ -106,8 +113,10 @@ module Load_Ex_controller (
         wfetch = 1;
         ns = PREFETCH;
       end else begin
+        //these are being used combinationally for the last B vector
         interface_en = 1;
         interface_control = nsize;
+        // address of first row of A is to be generated next
         next_addr = tile_A_addr;
         gen_addr = 1;
         en_size_counter = 1;
@@ -127,13 +136,18 @@ module Load_Ex_controller (
         if_en = 1;
         ns = COMPUTE;
       end else if (~do_read_A && ~store) begin
+        interface_en = 1;
+        interface_control = ksize;
+        if_en = 1;
         conf_buff_read = 1;
         ns = CHECK_NEXT;
       end else begin
         can_store = 1;
-        interface_en = interface_en_store;
-        interface_control = interface_control_store;
-        interface_rdwr = interface_rdwr_store;
+        interface_en = 1;
+        interface_control = ksize;
+        if_en = 1;
+
+        //for first store
         gen_addr = gen_addr_store;
         next_addr = next_row_addr_store;
         ns = STORE;

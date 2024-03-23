@@ -11,9 +11,9 @@ module tb_top;
   logic [31:0] interface_addr;
   logic [127:0] interface_rd_data;
   logic [127:0] interface_wr_data;
-  localparam M = 20;
-  localparam K = 20;
-  localparam N = 20;
+  localparam M = 16;
+  localparam K = 16;
+  localparam N = 16;
   //addresses
   localparam A = 0;
   // localparam B = M * K + (ksize - 1) * nsize;
@@ -34,16 +34,47 @@ module tb_top;
       .interface_rd_data(interface_rd_data),
       .interface_wr_data(interface_wr_data)
   );
-  Memory Memory_instance (
+
+  // logic [127:0] interface_wr_data_packed;
+  // logic [127:0] interface_rd_data_packed;
+
+  memory #(
+      .NUM_RAMS(16),
+      .A_WID(7),
+      .D_WID(8)
+  ) memory_instance (
       .clk(clk),
-      .rst(rst),
+      .system_bus_en(0),
+      .system_bus_rdwr(system_bus_rdwr),
+      .system_bus_rd_data(),
+      .system_bus_wr_data(system_bus_wr_data),
+      .system_bus_addr(system_bus_addr),
       .interface_rdwr(interface_rdwr),
       .interface_en(interface_en),
+      .interface_control(interface_control),
       .interface_addr(interface_addr),
-      .interface_rd_data(interface_rd_data),
-      .interface_wr_data(interface_wr_data),
-      .interface_control(interface_control)
+      .din(interface_wr_data),
+      .bank_dout(interface_rd_data)
   );
+  // memory #(
+  //     .NUM_RAMS(16),
+  //     .A_WID(7),
+  //     .D_WID(8)
+  // ) memory_instance (
+  //     .clk(clk),
+  //     .interface_rdwr(interface_rdwr),
+  //     .interface_en(interface_en),
+  //     .interface_control(interface_control),
+  //     .interface_addr(interface_addr),
+  //     .din(interface_wr_data_packed),
+  //     .bank_dout(interface_rd_data_packed)
+  // );
+  // genvar i;
+  // for (i = 0; i < 16; i++) begin
+
+  //   assign interface_wr_data_packed[i] = interface_wr_data[(i+1)*8-1:i*8];
+  //   assign interface_rd_data[(i+1)*8-1:i*8] = interface_rd_data_packed[i];
+  // end
   //clock generation
   localparam CLK_PERIOD = 10;
   initial begin

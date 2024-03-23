@@ -89,19 +89,6 @@ always_ff @( posedge clk ) begin
 end
 
 
-buffer #(
-  .DEPTH(2),
-  .DWIDTH(1)
-) buffer_instance2(
-  .rst(rst),
-  .clk(clk),
-  .wr_en(prefetch_done),
-  .rd_en(if_sent),
-  .din(if_mux_sel),
-  .dout(if_mux_sel_buffered),
-  .empty(),
-  .full()
-);
 always_ff @( posedge clk ) begin
     if(prefetch_done) begin 
     if_mux_sel_buffered<=if_mux_sel;
@@ -148,12 +135,12 @@ end
       .interface_rdwr(interface_rdwr),
       .interface_en(interface_en),
       .interface_control(interface_control),
-      .conf_buff_read(read_all_buffers),
+      .conf_buff_read_buffered(read_all_buffers),
       .next_addr(next_addr),
       .gen_addr(gen_addr),
-      .prefetch_done(prefetch_done),
-      .if_en(if_en),
-      .wfetch(wfetch),
+      .prefetch_done_buffered(prefetch_done),
+      .if_en_buffered(if_en),
+      .wfetch_buffered(wfetch),
       .interface_en_store(interface_en_store),
       .interface_control_store(interface_control_store),
       .next_row_addr_store(next_row_addr_store),
