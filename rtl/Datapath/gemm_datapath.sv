@@ -1,5 +1,5 @@
 import Config::*;
-module datapath (
+module gemm_datapath (
     input logic clk,
     input logic rst,
     input logic if_en,

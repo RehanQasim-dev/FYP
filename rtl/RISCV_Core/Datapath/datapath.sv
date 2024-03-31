@@ -1,0 +1,135 @@
+//`include "wb_stage.sv"
+//`include "Fetch.sv"
+//`include "Decode.sv"
+//`include "Hazard_detection.sv"
+module datapath (
+    input logic clk,
+    rst,
+    reg_wr,
+    A_sel,
+    B_sel,
+    mem_wr,
+    mem_read,
+    PC_sel,
+    csr_reg_r,
+    csr_reg_wr,
+    is_mret,
+    input logic [3:0] interrupt,
+    input logic [1:0] wb_sel,
+    input logic [3:0] ALUctrl,
+    input logic is_GemmInstr,
+    gemm_done,
+    output logic [31:0] instruction,
+    output logic br_taken,
+    main_flush,
+    stall,
+    output logic [31:0] mem_wr_data,
+    rdata1_wb,
+    output logic gemm_valid,
+    output logic [31:0] gemm_instruction,
+    output logic system_bus_en,
+    system_bus_rdwr,
+    input logic [31:0] system_bus_rd_data,
+    output logic [31:0] system_bus_wr_data,
+    system_bus_addr,
+    output logic [3:0] system_bus_mask
+);
+  logic [31:0] PC_decode, PC_wb, ALU_wb, wb_data;
+  logic [4:0] rs2, rs1, rd_wb;
+  logic forw_a, forw_b, flush;
+  logic [31:0] epc;
+  logic epc_taken, loaded;
+  assign rs1 = instruction[19:15];
+  assign rs2 = instruction[24:20];
+  assign rd_wb = gemm_instruction[11:7];
+  assign main_flush = flush | rst;
+  logic wait_for_gemm;
+  Fetch Fetch (
+      .clk(clk),
+      .rst(rst),
+      .PC_sel(PC_sel),
+      .flush(main_flush),
+      .stall(stall),
+      .epc_taken(epc_taken),
+      .epc(epc),
+      .instruction_ppl(instruction),
+      .PC_ppl(PC_decode),
+      .ALU_o(ALU_wb)
+  );
+  Decode Decode_instance (
+      .clk(clk),
+      .rst(rst),
+      .flush(main_flush),
+      .stall(stall),
+      .reg_wr(reg_wr),
+      .A_sel(A_sel),
+      .B_sel(B_sel),
+      .forw_a(forw_a),
+      .forw_b(forw_b),
+      .instruction(instruction),
+      .PC(PC_decode),
+      .wdata(wb_data),
+      .ALUctrl(ALUctrl),
+      .br_taken(br_taken),
+      .PC_ppl(PC_wb),
+      .ALU_ppl(ALU_wb),
+      .rdata2_forwarded_ppl(mem_wr_data),
+      .rdata1_forwarded_ppl(rdata1_wb),
+      .instruction_ppl(gemm_instruction)
+  );
+
+  wb_stage wb_stage_instance (
+      .clk(clk),
+      .rst(rst),
+      .mem_wr(mem_wr),
+      .mem_read(mem_read),
+      .csr_reg_wr(csr_reg_wr),
+      .csr_reg_r(csr_reg_r),
+      .is_mret(is_mret),
+      .ALU_o(ALU_wb),
+      .wb_sel(wb_sel),
+      .PC(PC_wb),
+      .rdata1(rdata1_wb),
+      .interrupt(interrupt),
+      .mem_wr_data(mem_wr_data),
+      .instruction(gemm_instruction),
+      .wb_data(wb_data),
+      .epc(epc),
+      .epc_taken(epc_taken),
+      //   .loaded(loaded),
+      .system_bus_en(system_bus_en),
+      .system_bus_rdwr(system_bus_rdwr),
+      .system_bus_rd_data(system_bus_rd_data),
+      .system_bus_wr_data(system_bus_wr_data),
+      .system_bus_addr(system_bus_addr),
+      .system_bus_mask(system_bus_mask)
+  );
+  Hazard_detection Hazard_detection_instance (
+      .clk(clk),
+      .rst(rst),
+      .reg_wr(reg_wr),
+      .mem_read(mem_read),
+      //   .loaded(loaded),
+      .PC_sel(PC_sel),
+      .epc_taken(epc_taken),
+      .raddr1(rs1),
+      .raddr2(rs2),
+      .rd_wb(rd_wb),
+      .wb_sel(wb_sel),
+      .wait_for_gemm(wait_for_gemm),
+      .forw_a(forw_a),
+      .forw_b(forw_b),
+      .flush(flush),
+      .stall(stall)
+  );
+
+  Rocc_Controller Rocc_Controller_instance (
+      .clk(clk),
+      .rst(rst),
+      .is_GemmInstr(is_GemmInstr),
+      .done(gemm_done),
+      .stall(wait_for_gemm),
+      .valid(gemm_valid)
+  );
+
+endmodule

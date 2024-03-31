@@ -1,5 +1,5 @@
 import Config::*;
-module decoder (
+module gemm_decoder (
     input logic clk,
     rst,
     input logic [4:0] ksize,
