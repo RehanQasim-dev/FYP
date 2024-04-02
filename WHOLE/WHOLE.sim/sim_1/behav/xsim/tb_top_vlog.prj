@@ -1,0 +1,45 @@
+# compile verilog/system verilog design source files
+sv xil_defaultlib  \
+"../../../../../rtl/Config.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/ALU.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/Branch_block.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/CSR_reg.sv" \
+"../../../../../rtl/RISCV_Core/Controller/Controller.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/Decode.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/Fetch.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/Hazard_detection.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/Instrmem.sv" \
+"../../../../../rtl/RISCV_Core/Controller/LS_controller.sv" \
+"../../../../../rtl/Controller/Load_Ex_controller.sv" \
+"../../../../../rtl/RISCV_Core/Utilities/Pipeline_reg.sv" \
+"../../../../../rtl/RISCV_Core/RISC_V.sv" \
+"../../../../../rtl/RISCV_Core/Utilities/Regfile.sv" \
+"../../../../../rtl/RISCV_Core/Controller/Rocc_controller.sv" \
+"../../../../../rtl/Controller/Store_Controller.sv" \
+"../../../../../rtl/Datapath/accumulator.sv" \
+"../../../../../rtl/Datapath/acum_buffer.sv" \
+"../../../../../rtl/Utilities/buffer.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/datapath.sv" \
+"../../../../../rtl/gemm.sv" \
+"../../../../../rtl/Datapath/gemm_datapath.sv" \
+"../../../../../rtl/Datapath/gemm_decoder.sv" \
+"../../../../../rtl/Datapath/mac.sv" \
+"../../../../../rtl/Datapath/memory.sv" \
+"../../../../../rtl/Datapath/memory_mapped.sv" \
+"../../../../../rtl/RISCV_Core/Utilities/mux16x1.sv" \
+"../../../../../rtl/Utilities/muxes.sv" \
+"../../../../../rtl/Datapath/pipeline_gen.sv" \
+"../../../../../rtl/Datapath/super_sys.sv" \
+"../../../../../rtl/Datapath/systolic _setup _reverse.sv" \
+"../../../../../rtl/Datapath/systolic _setup.sv" \
+"../../../../../rtl/Datapath/systolic.sv" \
+"../../../../../rtl/RISCV_Core/Utilities/timer.sv" \
+"../../../../../rtl/RISCV_Core/Datapath/wb_stage.sv" \
+"../../../../../rtl/top.sv" \
+"../../../../../rtl/tb_top.sv" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort

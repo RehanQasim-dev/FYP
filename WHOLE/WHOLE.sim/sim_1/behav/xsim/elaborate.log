@@ -1,0 +1,14 @@
+Vivado Simulator 2019.2
+Copyright 1986-1999, 2001-2019 Xilinx, Inc. All Rights Reserved.
+Running: D:/Vivado/Vivado_installed/Vivado/2019.2/bin/unwrapped/win64.o/xelab.exe -wto 52eedb703d444783a34f4943546cebef --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot tb_top_behav xil_defaultlib.tb_top xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Pass Through NonSizing Optimizer
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'timer_en' [D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/rtl/top.sv:22]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 1 for port 'ext_inter' [D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/rtl/top.sv:23]
+WARNING: [VRFC 10-3091] actual bit length 32 differs from formal bit length 384 for port 'bias' [D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/rtl/Datapath/gemm_datapath.sv:100]
+WARNING: [VRFC 10-5021] port 'gemm_done' is not connected on this instance [D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/rtl/top.sv:19]
+WARNING: [VRFC 10-526] concatenation with unsized literal; will interpret as 32 bits [D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/rtl/Datapath/memory_mapped.sv:190]
+WARNING: [VRFC 10-526] concatenation with unsized literal; will interpret as 32 bits [D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/rtl/Datapath/memory_mapped.sv:196]
+Completed static elaboration
+INFO: [XSIM 43-4323] No Change in HDL. Linking previously generated obj files to create kernel

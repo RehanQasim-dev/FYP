@@ -21,9 +21,9 @@ module Branch_block (
       //bge
       3'b101:  branch_taken = ~branch_sub[31];
       //bltu
-      3'b110:  branch_taken = ~carry;
+      3'b110:  branch_taken = carry;
       //bgeu
-      3'b111:  branch_taken = carry;
+      3'b111:  branch_taken = ~carry;
       default: branch_taken = 1'b0;
     endcase
   end

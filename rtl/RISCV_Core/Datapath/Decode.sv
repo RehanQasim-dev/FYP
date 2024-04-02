@@ -103,8 +103,8 @@ module Decode (
   );
 
   Branch_block Branch_block_instance (
-      .op_a(ALU_op_a),
-      .op_b(ALU_op_b),
+      .op_a(rdata1_forwarded),
+      .op_b(rdata2_forwarded),
       .func3(func3),
       .branch_taken(br_taken)
   );
