@@ -12,15 +12,35 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="461524fs"></ZoomStartTime>
-      <ZoomEndTime time="481425fs"></ZoomEndTime>
-      <Cursor1Time time="326086fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="73101fs"></ZoomEndTime>
+      <Cursor1Time time="23000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="304"></NameColumnWidth>
-      <ValueColumnWidth column_width="113"></ValueColumnWidth>
+      <ValueColumnWidth column_width="95"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="7" />
+   <WVObjectSize size="17" />
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_en" type="logic">
+      <obj_property name="ElementShortName">interface_en</obj_property>
+      <obj_property name="ObjectShortName">interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_rdwr" type="logic">
+      <obj_property name="ElementShortName">interface_rdwr</obj_property>
+      <obj_property name="ObjectShortName">interface_rdwr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_control" type="array">
+      <obj_property name="ElementShortName">interface_control[4:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_control[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_addr" type="array">
+      <obj_property name="ElementShortName">interface_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_rd_data" type="array">
+      <obj_property name="ElementShortName">interface_rd_data[127:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_rd_data[127:0]</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb_top/DUT/gemm_instance/datapath_instance/of_data_setup" type="array">
       <obj_property name="ElementShortName">of_data_setup[15:0][23:0]</obj_property>
       <obj_property name="ObjectShortName">of_data_setup[15:0][23:0]</obj_property>
@@ -30,24 +50,45 @@
       <obj_property name="ElementShortName">o_data[3:0][127:0]</obj_property>
       <obj_property name="ObjectShortName">o_data[3:0][127:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_addr" type="array">
-      <obj_property name="ElementShortName">interface_addr[31:0]</obj_property>
-      <obj_property name="ObjectShortName">interface_addr[31:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_control" type="array">
-      <obj_property name="ElementShortName">interface_control[4:0]</obj_property>
-      <obj_property name="ObjectShortName">interface_control[4:0]</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_en" type="logic">
-      <obj_property name="ElementShortName">interface_en</obj_property>
-      <obj_property name="ObjectShortName">interface_en</obj_property>
-   </wvobject>
-   <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_rdwr" type="logic">
-      <obj_property name="ElementShortName">interface_rdwr</obj_property>
-      <obj_property name="ObjectShortName">interface_rdwr</obj_property>
-   </wvobject>
    <wvobject fp_name="/tb_top/DUT/gemm_instance/interface_wr_data" type="array">
       <obj_property name="ElementShortName">interface_wr_data[127:0]</obj_property>
       <obj_property name="ObjectShortName">interface_wr_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/msize" type="array">
+      <obj_property name="ElementShortName">msize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">msize[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/nsize" type="array">
+      <obj_property name="ElementShortName">nsize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">nsize[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/ksize" type="array">
+      <obj_property name="ElementShortName">ksize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ksize[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/memory_instance/bank_dina" type="array">
+      <obj_property name="ElementShortName">bank_dina[15:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">bank_dina[15:0][7:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/memory_instance/bank_douta" type="array">
+      <obj_property name="ElementShortName">bank_douta[15:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">bank_douta[15:0][7:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/memory_instance/bank_addra" type="array">
+      <obj_property name="ElementShortName">bank_addra[15:0][8:0]</obj_property>
+      <obj_property name="ObjectShortName">bank_addra[15:0][8:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/memory_instance/bank_ena" type="array">
+      <obj_property name="ElementShortName">bank_ena[15:0]</obj_property>
+      <obj_property name="ObjectShortName">bank_ena[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/memory_instance/bank_wea" type="array">
+      <obj_property name="ElementShortName">bank_wea[15:0]</obj_property>
+      <obj_property name="ObjectShortName">bank_wea[15:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/memory_instance/mem" type="array">
+      <obj_property name="ElementShortName">mem[511:0][15:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">mem[511:0][15:0][7:0]</obj_property>
    </wvobject>
 </wave_config>

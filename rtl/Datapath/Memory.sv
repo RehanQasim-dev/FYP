@@ -2,7 +2,7 @@
 // File:rams_tdp_3d.sv
 module memory #(
     parameter NUM_RAMS = 16,
-    A_WID = 9,
+    A_WID = 12,
     D_WID = 8
 ) (
     input logic clk,

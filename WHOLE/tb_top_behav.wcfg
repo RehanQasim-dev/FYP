@@ -12,15 +12,15 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="990781fs"></ZoomStartTime>
-      <ZoomEndTime time="992772fs"></ZoomEndTime>
-      <Cursor1Time time="335000fs"></Cursor1Time>
+      <ZoomStartTime time="284277fs"></ZoomStartTime>
+      <ZoomEndTime time="294528fs"></ZoomEndTime>
+      <Cursor1Time time="407000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="304"></NameColumnWidth>
-      <ValueColumnWidth column_width="113"></ValueColumnWidth>
+      <ValueColumnWidth column_width="107"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="153" />
+   <WVObjectSize size="156" />
    <wvobject type="divider" fp_name="divider44">
       <obj_property name="label">Fetch</obj_property>
       <obj_property name="DisplayName">label</obj_property>
@@ -644,5 +644,17 @@
    <wvobject fp_name="/tb_top/DUT/interface_wr_data" type="array">
       <obj_property name="ElementShortName">interface_wr_data[127:0]</obj_property>
       <obj_property name="ObjectShortName">interface_wr_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/ksize" type="array">
+      <obj_property name="ElementShortName">ksize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">ksize[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/msize" type="array">
+      <obj_property name="ElementShortName">msize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">msize[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_top/DUT/gemm_instance/nsize" type="array">
+      <obj_property name="ElementShortName">nsize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">nsize[4:0]</obj_property>
    </wvobject>
 </wave_config>

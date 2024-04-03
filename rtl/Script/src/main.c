@@ -12,13 +12,6 @@
 #define ACCUM_SIZE 16
 #define SYS_ROWS 16
 #define SYS_COLS 16
-// `base_addr: tile_A_addr_wr_en = 1;
-// `base_addr + 4: tile_B_addr_wr_en = 1;
-// `base_addr + 8: tile_C_addr_wr_en = 1;
-// `base_addr + 12: tile_A_stride_wr_en = 1;
-// `base_addr + 16: tile_B_stride_wr_en = 1;
-// `base_addr + 20: GEMM_control_wr_en = 1;
-// `base_addr + 24: tile_dimension_wr_en = 1;
 #define Configure_GEMM(A_addr, B_addr, C_addr, A_stride, B_stride, msize, ksize, nsize, overwrite, store) \
     {                                                                                                     \
         GEMM_stride_A = A_stride;                                                                         \
@@ -109,12 +102,8 @@ void main()
                 last = (k + SYS_ROWS >= K);
                 first = k == 0;
                 ksize = (k + SYS_ROWS <= K) ? SYS_ROWS : K % SYS_ROWS;
-                // Tile_A_Address = (uint32_t)(&A[k][m * K]);
-                // Tile_B_Address = (uint32_t)(&B[n + k * N + (ksize - 1) * N]);
-                // Tile_C_Address = (uint32_t)(&C[n + m * K]);
                 Tile_A_Address = &(A[m][k]);
                 Tile_B_Address = &(B[(k + ksize - 1)][n]);
-                // Tile_B_Address = B + 1;
                 Tile_C_Address = &(C[m][n]);
                 Configure_GEMM(Tile_A_Address, Tile_B_Address, Tile_C_Address, K, N, msize, ksize, nsize, first, last);
                 while (GEMM_A == 1)
@@ -129,56 +118,3 @@ void main()
         // check if GEMM is done
     }
 }
-// void main()
-// {
-//     // GEMM_A = 3;
-//     // *((uint32_t *)(0x13UL)) = 6;
-//     // uint32_t test = *((uint32_t *)(0x13UL));
-//     uint32_t n = 0;
-//     // uint32_t SYS_COLS = 16;
-//     // uint32_t N = 16;
-//     const uint32_t opa = 16;
-//     const uint32_t opb = 15;
-//     uint32_t nsize = (n + SYS_COLS <= N) ? SYS_COLS : opa % opb;
-//     uint32_t a = 8;
-//     uint32_t b = 3;
-// }
-// #include <stdio.h>
-
-// #define ROWS_A 3
-// #define COLS_A 2
-// #define ROWS_B 2
-// #define COLS_B 3
-// int i, j, k;
-// int A[ROWS_A][COLS_A] = {{1, 2}, {3, 4}, {5, 6}};
-// int B[ROWS_B][COLS_B] = {{7, 8, 9}, {10, 11, 12}};
-// int C[ROWS_A][COLS_B] = {{5, 6, 7}, {0, 4, 2}, {4, 5, 8}};
-// int main()
-// {
-
-//     // Matrix multiplication
-//     for (i = 0; i < ROWS_A; i++)
-//     {
-//         for (j = 0; j < COLS_B; j++)
-//         {
-//             C[i][j] = 0;
-//             for (k = 0; k < COLS_A; k++)
-//             {
-//                 C[i][j] += A[i][k] * B[k][j];
-//             }
-//         }
-//     }
-
-//     // Print out the resulting matrix C
-//     printf("Resulting matrix C after multiplication:\n");
-//     for (i = 0; i < ROWS_A; i++)
-//     {
-//         for (j = 0; j < COLS_B; j++)
-//         {
-//             printf("%d ", C[i][j]);
-//         }
-//         printf("\n");
-//     }
-
-//     return 0;
-// }
