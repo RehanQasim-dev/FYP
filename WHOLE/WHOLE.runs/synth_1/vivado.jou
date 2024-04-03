@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2019.2 (64-bit)
+# SW Build 2708876 on Wed Nov  6 21:40:23 MST 2019
+# IP Build 2700528 on Thu Nov  7 00:09:20 MST 2019
+# Start of session at: Wed Apr  3 09:03:03 2024
+# Process ID: 10464
+# Current directory: D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/WHOLE/WHOLE.runs/synth_1
+# Command line: vivado.exe -log top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source top.tcl
+# Log file: D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/WHOLE/WHOLE.runs/synth_1/top.vds
+# Journal file: D:/Study/FYP/ALL_TRIES/GEMM_accelerator v3 - Copy/WHOLE/WHOLE.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source top.tcl -notrace
