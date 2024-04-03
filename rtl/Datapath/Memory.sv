@@ -2,7 +2,7 @@
 // File:rams_tdp_3d.sv
 module memory #(
     parameter NUM_RAMS = 16,
-    A_WID = 10,
+    A_WID = 9,
     D_WID = 8
 ) (
     input logic clk,
@@ -18,55 +18,64 @@ module memory #(
     input logic interface_en,
     input logic [4:0] interface_control,
     input logic [31:0] interface_addr,
-    input logic [NUM_RAMS-1:0][D_WID-1:0] din,
-    output logic [NUM_RAMS-1:0][D_WID-1:0] bank_dout
+    input logic [NUM_RAMS-1:0][D_WID-1:0] interface_wr_data,
+    output logic [NUM_RAMS-1:0][D_WID-1:0] interface_rd_data
 );
 
+
   logic [15:0] mask;  // 16-bit output mask
-  logic [D_WID-1:0] bank_din[NUM_RAMS-1:0];
-  logic [D_WID-1:0] dout[NUM_RAMS-1:0];
-  logic [A_WID-1:0] bank_addr[NUM_RAMS-1:0];
-  logic [15:0] bank_mask;
-  logic [3:0] starting_addr;
+  //portA
+  logic [D_WID-1:0] bank_dina[NUM_RAMS-1:0];
+  logic [D_WID-1:0] bank_douta[NUM_RAMS-1:0];
+  logic [A_WID-1:0] bank_addra[NUM_RAMS-1:0];
+  logic [15:0]bank_ena;
+  logic [15:0] bank_wea;
+  //PortB
+  logic [D_WID-1:0] bank_doutb[NUM_RAMS-1:0];
+  logic [A_WID-1:0] bank_addrb[NUM_RAMS-1:0];
+  logic [D_WID-1:0] bank_dinb[NUM_RAMS-1:0],bank_dinb_ [NUM_RAMS-1:0];
+  logic [15:0]bank_enb,bank_enb_;
+  logic [15:0] bank_web,bank_web_;
 
-
-  logic [31:0] true_addr;
-  logic [15:0]true_en,bank_en,bank_wren;
-  logic [NUM_RAMS-1:0][D_WID-1:0] true_datain;
-  assign system_bus_rd_data=bank_dout[3:0];
-  assign true_addr=system_bus_en?system_bus_addr:interface_addr;
-    always_ff @(posedge clk) begin : blockName
-    starting_addr <= true_addr[3:0];
+  logic [3:0] interface_addr_ppl,system_bus_addr_ppl;
+    always_ff @(posedge clk) begin
+     system_bus_addr_ppl<= system_bus_addr[3:0];
+    interface_addr_ppl<= interface_addr[3:0];
   end
-  genvar i;
+genvar i;
+    for (i = 0; i < NUM_RAMS; i++) begin
+           assign bank_wea[i] = interface_rdwr && mask[(16+i-interface_addr[3:0])%16];
+           assign bank_ena[i] = interface_en;
+           assign bank_dina[i]  = interface_wr_data[(16+i-interface_addr[3:0])%16];
+           assign bank_addra[i] = {4'b0,interface_addr[31:4]} + (i < interface_addr[3:0]);
+    end
+    for (i = 0; i < NUM_RAMS; i++) begin
+          assign interface_rd_data[i] = bank_douta[(i+interface_addr_ppl)%16];
+    end
+
+    ////////////
+
   for (i = 0; i<16 ;i++ ) begin
   if (i<4)begin
-      assign true_datain[i]=system_bus_en?system_bus_wr_data[i]:din[i];
-      assign true_en[i]=system_bus_en?1'b1:interface_en;
-      assign bank_wren[i]=system_bus_en?system_bus_rdwr && system_bus_mask[i] :interface_rdwr && mask[i];
+      assign bank_dinb_[i]=system_bus_wr_data[i];
+      assign bank_enb_[i]=system_bus_en;
+      assign bank_web_[i]=system_bus_rdwr && system_bus_mask[i] ;
       end
   else begin
-      assign true_datain[i]=din[i];
-      assign true_en[i]=system_bus_en?1'b0:interface_en;
-      assign bank_wren[i]=system_bus_en?1'b0:interface_rdwr && mask[i];
+      assign bank_dinb_[i]=interface_wr_data[i];
+      assign bank_enb_[i]=1'b0;
+      assign bank_web_[i]=1'b0;
   end
   end
-
     for (i = 0; i < NUM_RAMS; i++) begin
-           assign bank_mask[i] = bank_wren[(16+i-true_addr[3:0])%16];
-           assign bank_en[i] = true_en[(16+i-true_addr[3:0])%16];
-           assign bank_din[i]  = true_datain[(16+i-true_addr[3:0])%16];
-          // assign bank_mask[(i+true_addr[3:0])%16] = bank_wren[i];
-          //  assign bank_en[(i+true_addr[3:0])%16] = true_en[i];
-          //  assign bank_din[(i+true_addr[3:0])%16]  = true_datain[i];
-          //  assign bank_addr[(i+true_addr[3:0])%16] = true_addr[31:4] + i < interface_addr[3:0];
-          assign bank_addr[i] = {4'b0,true_addr[31:4]} + (i < true_addr[3:0]);
-          // assign bank_addr[i] = {4'b0,true_addr[31:4]};
+           assign bank_web[i] = bank_web_[(16+i-system_bus_addr[3:0])%16];
+           assign bank_enb[i] = bank_enb_[(16+i-system_bus_addr[3:0])%16];
+           assign bank_dinb[i]  = bank_dinb_[(16+i-system_bus_addr[3:0])%16];
+          assign bank_addrb[i] = {4'b0,system_bus_addr[31:4]} + (i < system_bus_addr[3:0]);
     end
-    for (i = 0; i < NUM_RAMS; i++) begin
-          assign bank_dout[i] = dout[(i+starting_addr)%16];
+    for (i = 0; i < 4; i++) begin
+          assign system_bus_rd_data[i] = bank_doutb[(i+system_bus_addr_ppl)%16];
     end
-
     always_comb begin
     mask = 0;  // Initialize all bits to 0
     for (int i = 1; i <= 16; i++) begin
@@ -84,11 +93,11 @@ module memory #(
   generate
     for (i = 0; i < NUM_RAMS; i = i + 1) begin : port_a_ops
       always @(posedge clk) begin
-        if (bank_en[i]) begin
-          if (bank_mask[i]) begin
-            mem[bank_addr[i]][i] <= bank_din[i];
+        if (bank_ena[i]) begin
+          if (bank_wea[i]) begin
+            mem[bank_addra[i]][i] <= bank_dina[i];
           end
-          dout[i] <= mem[bank_addr[i]][i];
+          bank_douta[i] <= mem[bank_addra[i]][i];
         end
       end
     end
@@ -96,17 +105,17 @@ module memory #(
 
   
   // //PORT_B
-  // generate
-  //   for (i = 0; i < NUM_RAMS; i = i + 1) begin : port_b_ops
-  //     always @(posedge clk) begin
-  //       if (enb[i]) begin
-  //         if (web[i]) begin
-  //           mem[i][addrb[i]] <= dinb[i];
-  //         end
-  //         doutb[i] <= mem[i][addrb[i]];
-  //       end
-  //     end
-  //   end
-  // endgenerate
+   generate
+    for (i = 0; i < NUM_RAMS; i = i + 1) begin
+      always @(posedge clk) begin
+        if (bank_enb[i]) begin
+          if (bank_web[i]) begin
+            mem[bank_addrb[i]][i] <= bank_dinb[i];
+          end
+          bank_doutb[i] <= mem[bank_addrb[i]][i];
+        end
+      end
+    end
+  endgenerate
 
 endmodule

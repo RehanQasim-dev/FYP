@@ -54,8 +54,8 @@ module top (
       .interface_en(interface_en),
       .interface_control(interface_control),
       .interface_addr(interface_addr),
-      .din(interface_wr_data),
-      .bank_dout(interface_rd_data)
+      .interface_wr_data(interface_wr_data),
+      .interface_rd_data(interface_rd_data)
   );
 
   gemm gemm_instance (

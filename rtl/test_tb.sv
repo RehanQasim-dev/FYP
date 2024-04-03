@@ -11,22 +11,21 @@ module memory_tb;
   logic [4:0] interface_control;
   logic [31:0] interface_addr;
   logic [15:0][7:0] interface_wr_data, interface_rd_data;
-  memory memory_instance (
-      .clk(clk),
-      .system_bus_en(system_bus_en),
-      .system_bus_rdwr(system_bus_rdwr),
-      .system_bus_mask(system_bus_mask),
-      .system_bus_rd_data(system_bus_rd_data),
-      .system_bus_wr_data(system_bus_wr_data),
-      .system_bus_addr(system_bus_addr),
-      .interface_rdwr(interface_rdwr),
-      .interface_en(interface_en),
-      .interface_control(interface_control),
-      .interface_addr(interface_addr),
-      .interface_wr_data(interface_wr_data),
-      .interface_rd_data(interface_rd_data)
-  );
 
+  test test_instance (
+      .clka (clka),
+      .clkb (clkb),
+      .wea  (system_bus_rdwr),
+      .web  (interface_rdwr),
+      .ena  (system_bus_en),
+      .enb  (interface_en),
+      .addra(system_bus_addr),
+      .addrb(),
+      .dina (dina),
+      .dinb (dinb),
+      .douta(douta),
+      .doutb(doutb)
+  );
   //clock generation
   localparam CLK_PERIOD = 10;
   initial begin
@@ -42,7 +41,7 @@ module memory_tb;
     //write
     repeat (50) begin  // Repeat 3 times
       // Write operation
-      interface_en <= 0;
+      system_bus_en <= 0;
       system_bus_en <= 1;
       system_bus_rdwr <= 1;
       system_bus_addr <= $urandom_range(500);  // Generate random address
