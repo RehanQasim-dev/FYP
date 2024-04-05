@@ -5,3 +5,4 @@ transcript
 .library_mapping.xml
 .project
 .ipynb_checkpoints
+test*

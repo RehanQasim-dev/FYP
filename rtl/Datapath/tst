@@ -1,2 +1,0 @@
-assign accum_i_data[0] = mux3_sel ? of_data[2] : of_data[0];
-assign accum_enable[0] = mux3_sel ? ibuff_o_valid[2][sys_rows-1] && demux3[1] : ibuff_o_valid[0][sys_rows-1] && demux1[1];
