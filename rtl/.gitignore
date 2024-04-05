@@ -4,4 +4,4 @@ transcript
 .settings/
 .library_mapping.xml
 .project
-.ipynb_checkpoints/
+.ipynb_checkpoints

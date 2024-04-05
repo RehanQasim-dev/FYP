@@ -145,6 +145,7 @@ module Load_Ex_controller (
         can_store = 1;
         interface_en = 1;
         interface_control = ksize;
+
         if_en = 1;
 
         //for first store

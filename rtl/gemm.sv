@@ -179,7 +179,8 @@ end
 
 
   ///////////////////////////// Address generate block//////////////////
-  assign interface_addr = can_store ? current_store_addr : current_addr;
+  // assign interface_addr = can_store ? current_store_addr : current_addr;
+  assign interface_addr=current_addr;
   always_ff @(posedge clk) begin
     if (rst) current_addr <= 0;
     else if (gen_addr) current_addr <= next_addr;

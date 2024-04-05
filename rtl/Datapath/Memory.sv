@@ -23,7 +23,7 @@ module memory #(
 );
 
 
-  logic [15:0] mask;  // 16-bit output mask
+  logic [15:0] mask,mask_ppl;  // 16-bit output mask
   //portA
   logic [D_WID-1:0] bank_dina[NUM_RAMS-1:0];
   logic [D_WID-1:0] bank_douta[NUM_RAMS-1:0];
@@ -41,6 +41,7 @@ module memory #(
     always_ff @(posedge clk) begin
      system_bus_addr_ppl<= system_bus_addr[3:0];
     interface_addr_ppl<= interface_addr[3:0];
+    mask_ppl<=mask;
   end
 genvar i;
     for (i = 0; i < NUM_RAMS; i++) begin
@@ -50,7 +51,7 @@ genvar i;
            assign bank_addra[i] = {4'b0,interface_addr[31:4]} + (i < interface_addr[3:0]);
     end
     for (i = 0; i < NUM_RAMS; i++) begin
-          assign interface_rd_data[i] = bank_douta[(i+interface_addr_ppl)%16];
+          assign interface_rd_data[i] = mask_ppl[i]?bank_douta[(i+interface_addr_ppl)%16]:8'd0;
     end
 
     ////////////
