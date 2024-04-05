@@ -1,7 +1,7 @@
-WHOLE/
 work/
 .vscode/
 transcript
 .settings/
 .library_mapping.xml
 .project
+vivado_gemm/

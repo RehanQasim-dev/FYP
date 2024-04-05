@@ -1,4 +1,3 @@
-`include "top.sv"
 import Config::*;
 `define base_addr 32'h9000_0000
 

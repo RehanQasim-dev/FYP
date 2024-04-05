@@ -1,5 +1,3 @@
-`include "memory.sv"
-
 module memory_tb;
   logic clk, system_bus_en, system_bus_rdwr;
   logic [3:0] system_bus_mask;
