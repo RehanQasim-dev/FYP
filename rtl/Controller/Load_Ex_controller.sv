@@ -27,6 +27,7 @@ module Load_Ex_controller (
     output logic        gen_addr,                 // Generate address signal
     output logic        prefetch_done_buffered,
     output logic        prefetch_start,
+    output logic        use_store_addr,
     if_en_buffered,
     wfetch_buffered,
     input  logic        gen_addr_store,
@@ -35,15 +36,16 @@ module Load_Ex_controller (
     input  logic [31:0] next_row_addr_store,
     input  logic        interface_rdwr_store
 );
-
+  // logic use_store_addr;
+  assign use_store_addr = cs == STORE;
   logic conf_buff_read, prefetch_done;  // Configuration buffer read signal
   logic if_en, wfetch;
-
+  assign conf_buff_read_buffered = conf_buff_read;
   always_ff @(posedge clk) begin : blockName
     prefetch_done_buffered <= prefetch_done;
     if_en_buffered <= if_en;
     wfetch_buffered <= wfetch;
-    conf_buff_read_buffered <= conf_buff_read;
+    // conf_buff_read_buffered <= conf_buff_read;
   end
   // State definitions for the finite state machine
   localparam IDLE = 3'b000;

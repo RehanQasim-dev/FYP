@@ -18,7 +18,10 @@ module gemm_datapath (
     output logic ready_for_HI,
     output logic acc_is_done,
     output logic if_sent,
-    output logic accum_start
+    output logic accum_start,
+    input logic gt4,
+    gt8,
+    gt12
 );
 
   // Internal signals
@@ -127,14 +130,42 @@ module gemm_datapath (
   end
   logic [SUPER_SYS_ROWS-3:0] all_store, all_overwrite;
 
-  // Instantiate acummulator module
+  pipeline_gen #(
+      .data_type(logic),
+      .Number(7)
+  ) pipeline_gen_instance (
+      .clk(clk),
+      .a  (gt4),
+      .y  (accum1_valid)
+  );
+  pipeline_gen #(
+      .data_type(logic),
+      .Number(11)
+  ) pipeline_gen_instance2 (
+      .clk(clk),
+      .a  (gt8),
+      .y  (accum2_valid)
+  );
+  pipeline_gen #(
+      .data_type(logic),
+      .Number(15)
+  ) pipeline_gen_instance3 (
+      .clk(clk),
+      .a  (gt12),
+      .y  (accum3_valid)
+  );
   accumulator accumulator_instance (
       .clk(clk),
       .rst(rst),
       .store({all_store[13], all_store[9], all_store[5], all_store[1]}),
       .overwrite({all_overwrite[13], all_overwrite[9], all_overwrite[5], all_overwrite[1]}),
       .rd_en(accums_rd_en),
-      .true_valid({valid_Psum[15], valid_Psum[11], valid_Psum[7], valid_Psum[3]}),
+      .true_valid({
+        valid_Psum[15] && accum3_valid,
+        valid_Psum[11] && accum2_valid,
+        valid_Psum[7] && accum1_valid,
+        valid_Psum[3]
+      }),
       .i_data(of_data_setup),
       .o_data(accum_o_data),
       .empty(acc_empty)

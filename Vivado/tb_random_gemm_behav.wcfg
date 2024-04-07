@@ -12,15 +12,36 @@
       </db_ref>
    </db_ref_list>
    <zoom_setting>
-      <ZoomStartTime time="166666fs"></ZoomStartTime>
-      <ZoomEndTime time="1166667fs"></ZoomEndTime>
-      <Cursor1Time time="1000000fs"></Cursor1Time>
+      <ZoomStartTime time="0fs"></ZoomStartTime>
+      <ZoomEndTime time="69201fs"></ZoomEndTime>
+      <Cursor1Time time="2000000fs"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="285"></NameColumnWidth>
+      <NameColumnWidth column_width="279"></NameColumnWidth>
       <ValueColumnWidth column_width="90"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="4" />
+   <WVObjectSize size="59" />
+   <wvobject fp_name="/tb_random_gemm/test_interface_addr" type="array">
+      <obj_property name="ElementShortName">test_interface_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">test_interface_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/test_interface_wr_data" type="array">
+      <obj_property name="ElementShortName">test_interface_wr_data[127:0]</obj_property>
+      <obj_property name="ObjectShortName">test_interface_wr_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/test_interface_control" type="array">
+      <obj_property name="ElementShortName">test_interface_control[4:0]</obj_property>
+      <obj_property name="ObjectShortName">test_interface_control[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/test_interface_en" type="logic">
+      <obj_property name="ElementShortName">test_interface_en</obj_property>
+      <obj_property name="ObjectShortName">test_interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/test_interface_rdwr" type="logic">
+      <obj_property name="ElementShortName">test_interface_rdwr</obj_property>
+      <obj_property name="ObjectShortName">test_interface_rdwr</obj_property>
+   </wvobject>
    <wvobject fp_name="/tb_random_gemm/sel_for_test" type="logic">
       <obj_property name="ElementShortName">sel_for_test</obj_property>
       <obj_property name="ObjectShortName">sel_for_test</obj_property>
@@ -29,12 +50,217 @@
       <obj_property name="ElementShortName">total_tiles[31:0]</obj_property>
       <obj_property name="ObjectShortName">total_tiles[31:0]</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_random_gemm/horizontal" type="array">
-      <obj_property name="ElementShortName">horizontal[31:0]</obj_property>
-      <obj_property name="ObjectShortName">horizontal[31:0]</obj_property>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_control" type="array">
+      <obj_property name="ElementShortName">interface_control[4:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_control[4:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
    </wvobject>
-   <wvobject fp_name="/tb_random_gemm/veritical" type="array">
-      <obj_property name="ElementShortName">veritical[31:0]</obj_property>
-      <obj_property name="ObjectShortName">veritical[31:0]</obj_property>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_rdwr" type="logic">
+      <obj_property name="ElementShortName">interface_rdwr</obj_property>
+      <obj_property name="ObjectShortName">interface_rdwr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_en" type="logic">
+      <obj_property name="ElementShortName">interface_en</obj_property>
+      <obj_property name="ObjectShortName">interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_addr" type="array">
+      <obj_property name="ElementShortName">interface_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_rd_data" type="array">
+      <obj_property name="ElementShortName">interface_rd_data[127:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_rd_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_wr_data" type="array">
+      <obj_property name="ElementShortName">interface_wr_data[3:0][31:0]</obj_property>
+      <obj_property name="ObjectShortName">interface_wr_data[3:0][31:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/buffer_sel" type="array">
+      <obj_property name="ElementShortName">buffer_sel[1:0]</obj_property>
+      <obj_property name="ObjectShortName">buffer_sel[1:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/of_data_setup" type="array">
+      <obj_property name="ElementShortName">of_data_setup[15:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">of_data_setup[15:0][23:0]</obj_property>
+      <obj_property name="Radix">UNSIGNEDDECRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/empty" type="array">
+      <obj_property name="ElementShortName">empty[3:0]</obj_property>
+      <obj_property name="ObjectShortName">empty[3:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/cs" type="array">
+      <obj_property name="ElementShortName">cs[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cs[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/done_store" type="logic">
+      <obj_property name="ElementShortName">done_store</obj_property>
+      <obj_property name="ObjectShortName">done_store</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/done_store" type="logic">
+      <obj_property name="ElementShortName">done_store</obj_property>
+      <obj_property name="ObjectShortName">done_store</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/cs" type="array">
+      <obj_property name="ElementShortName">cs[2:0]</obj_property>
+      <obj_property name="ObjectShortName">cs[2:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/conf_empty" type="logic">
+      <obj_property name="ElementShortName">conf_empty</obj_property>
+      <obj_property name="ObjectShortName">conf_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/conf_buff_read_buffered" type="logic">
+      <obj_property name="ElementShortName">conf_buff_read_buffered</obj_property>
+      <obj_property name="ObjectShortName">conf_buff_read_buffered</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/conf_buff_read" type="logic">
+      <obj_property name="ElementShortName">conf_buff_read</obj_property>
+      <obj_property name="ObjectShortName">conf_buff_read</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/current_row_addr" type="array">
+      <obj_property name="ElementShortName">current_row_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">current_row_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/current_addr" type="array">
+      <obj_property name="ElementShortName">current_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">current_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/\genblk1[1].acum_buffer_instance /i_data" type="array">
+      <obj_property name="ElementShortName">i_data[3:0][23:0]</obj_property>
+      <obj_property name="ObjectShortName">i_data[3:0][23:0]</obj_property>
+      <obj_property name="Radix">HEXRADIX</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/\genblk1[1].acum_buffer_instance /valid" type="logic">
+      <obj_property name="ElementShortName">valid</obj_property>
+      <obj_property name="ObjectShortName">valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/gt4" type="logic">
+      <obj_property name="ElementShortName">gt4</obj_property>
+      <obj_property name="ObjectShortName">gt4</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/gt8" type="logic">
+      <obj_property name="ElementShortName">gt8</obj_property>
+      <obj_property name="ObjectShortName">gt8</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/gt12" type="logic">
+      <obj_property name="ElementShortName">gt12</obj_property>
+      <obj_property name="ObjectShortName">gt12</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/gt4" type="logic">
+      <obj_property name="ElementShortName">gt4</obj_property>
+      <obj_property name="ObjectShortName">gt4</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/ovf" type="logic">
+      <obj_property name="ElementShortName">ovf</obj_property>
+      <obj_property name="ObjectShortName">ovf</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/msize" type="array">
+      <obj_property name="ElementShortName">msize[31:0]</obj_property>
+      <obj_property name="ObjectShortName">msize[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/count" type="array">
+      <obj_property name="ElementShortName">count[4:0]</obj_property>
+      <obj_property name="ObjectShortName">count[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/msize" type="array">
+      <obj_property name="ElementShortName">msize[4:0]</obj_property>
+      <obj_property name="ObjectShortName">msize[4:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/interface_en" type="logic">
+      <obj_property name="ElementShortName">interface_en</obj_property>
+      <obj_property name="ObjectShortName">interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_store_controller/interface_rdwr" type="logic">
+      <obj_property name="ElementShortName">interface_rdwr</obj_property>
+      <obj_property name="ObjectShortName">interface_rdwr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/interface_en" type="logic">
+      <obj_property name="ElementShortName">interface_en</obj_property>
+      <obj_property name="ObjectShortName">interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/my_controller/interface_en_store" type="logic">
+      <obj_property name="ElementShortName">interface_en_store</obj_property>
+      <obj_property name="ObjectShortName">interface_en_store</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/interface_en" type="logic">
+      <obj_property name="ElementShortName">interface_en</obj_property>
+      <obj_property name="ObjectShortName">interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/true_valid" type="array">
+      <obj_property name="ElementShortName">true_valid[3:0]</obj_property>
+      <obj_property name="ObjectShortName">true_valid[3:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/\genblk1[1].acum_buffer_instance /o_data" type="array">
+      <obj_property name="ElementShortName">o_data[127:0]</obj_property>
+      <obj_property name="ObjectShortName">o_data[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/\genblk1[1].acum_buffer_instance /dout_1" type="array">
+      <obj_property name="ElementShortName">dout_1[127:0]</obj_property>
+      <obj_property name="ObjectShortName">dout_1[127:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/\genblk1[1].acum_buffer_instance /wr_en_1" type="logic">
+      <obj_property name="ElementShortName">wr_en_1</obj_property>
+      <obj_property name="ObjectShortName">wr_en_1</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accumulator_instance/\genblk1[1].acum_buffer_instance /wr_en_2" type="logic">
+      <obj_property name="ElementShortName">wr_en_2</obj_property>
+      <obj_property name="ObjectShortName">wr_en_2</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/valid_Psum" type="array">
+      <obj_property name="ElementShortName">valid_Psum[16:0]</obj_property>
+      <obj_property name="ObjectShortName">valid_Psum[16:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accum1_valid" type="logic">
+      <obj_property name="ElementShortName">accum1_valid</obj_property>
+      <obj_property name="ObjectShortName">accum1_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accum2_valid" type="logic">
+      <obj_property name="ElementShortName">accum2_valid</obj_property>
+      <obj_property name="ObjectShortName">accum2_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/datapath_instance/accum3_valid" type="logic">
+      <obj_property name="ElementShortName">accum3_valid</obj_property>
+      <obj_property name="ObjectShortName">accum3_valid</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/system_bus_en" type="logic">
+      <obj_property name="ElementShortName">system_bus_en</obj_property>
+      <obj_property name="ObjectShortName">system_bus_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/system_bus_rdwr" type="logic">
+      <obj_property name="ElementShortName">system_bus_rdwr</obj_property>
+      <obj_property name="ObjectShortName">system_bus_rdwr</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/system_bus_rd_data" type="array">
+      <obj_property name="ElementShortName">system_bus_rd_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">system_bus_rd_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/system_bus_wr_data" type="array">
+      <obj_property name="ElementShortName">system_bus_wr_data[31:0]</obj_property>
+      <obj_property name="ObjectShortName">system_bus_wr_data[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/system_bus_addr" type="array">
+      <obj_property name="ElementShortName">system_bus_addr[31:0]</obj_property>
+      <obj_property name="ObjectShortName">system_bus_addr[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/memory_mapped_instance/tile_dimension_buff_empty" type="logic">
+      <obj_property name="ElementShortName">tile_dimension_buff_empty</obj_property>
+      <obj_property name="ObjectShortName">tile_dimension_buff_empty</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/DUT/memory_mapped_instance/read_all_buffers" type="logic">
+      <obj_property name="ElementShortName">read_all_buffers</obj_property>
+      <obj_property name="ObjectShortName">read_all_buffers</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/count_rows_compared" type="array">
+      <obj_property name="ElementShortName">count_rows_compared[31:0]</obj_property>
+      <obj_property name="ObjectShortName">count_rows_compared[31:0]</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/interface_en" type="logic">
+      <obj_property name="ElementShortName">interface_en</obj_property>
+      <obj_property name="ObjectShortName">interface_en</obj_property>
+   </wvobject>
+   <wvobject fp_name="/tb_random_gemm/interface_rdwr" type="logic">
+      <obj_property name="ElementShortName">interface_rdwr</obj_property>
+      <obj_property name="ObjectShortName">interface_rdwr</obj_property>
    </wvobject>
 </wave_config>

@@ -30,11 +30,11 @@ module store_controller (
 
   // Counter for tracking the number of stores
   logic [$clog2(32)-1:0] count;
-  logic ovf, count_en;
+  logic ovf, count_en, count_clr;
 
   // Counter logic
   always_ff @(posedge clk) begin
-    if (rst) count <= 0;
+    if (rst || count_clr) count <= 1;
     else if (count_en) count <= count + 1;
   end
   assign ovf = count == msize;
@@ -52,12 +52,15 @@ module store_controller (
     count_en = 0;
     done_store = 0;
     buffer_sel = 'x;
+    count_clr = 0;
+
     case (cs)
       IDLE:
       if (can_do_store) begin
         ns = STORE0;
         next_row_addr = tile_C_addr;
         gen_addr = 1;
+        count_clr = 1;
       end else begin
         gen_addr = 'x;
         interface_en = 'x;
@@ -75,7 +78,6 @@ module store_controller (
         interface_control = 5'd16;
         rd_result[0] = 1;
         buffer_sel = 0;
-        count_en = 1;
         ns = STORE1;
       end else if (~ovf && ~buffer_empty[0] && ~gt4) begin
         current_addr = current_row_addr;
@@ -93,7 +95,6 @@ module store_controller (
         interface_control = {nsize[2:0], 2'b00};
         rd_result[0] = 1;
         buffer_sel = 0;
-        count_en = 1;
         done_store = 1;
         ns = IDLE;
       end
@@ -116,6 +117,8 @@ module store_controller (
         interface_control = {nsize - 5'd4, 2'b00};
         rd_result[1] = 1;
         buffer_sel = 1;
+        count_en = 1;
+
         ns = STORE0;
       end else begin
         current_addr = current_row_addr + 16;
@@ -136,7 +139,6 @@ module store_controller (
         interface_control = 5'd16;
         rd_result[2] = 1;
         buffer_sel = 2;
-        // count_en = 1;
         ns = STORE3;
       end else if (~ovf && ~buffer_empty[2] && ~gt12) begin
         current_addr = current_row_addr + 32;
@@ -146,6 +148,8 @@ module store_controller (
         interface_control = {nsize - 5'd8, 2'b00};
         rd_result[2] = 1;
         buffer_sel = 2;
+        count_en = 1;
+
         ns = STORE0;
       end else begin
         current_addr = current_row_addr + 32;
@@ -168,6 +172,8 @@ module store_controller (
         interface_control = {nsize - 5'd12, 2'b00};
         rd_result[3] = 1;
         buffer_sel = 3;
+        count_en = 1;
+
         ns = STORE0;
       end else if (ovf && ~buffer_empty[3]) begin
         current_addr = current_row_addr + 48;
@@ -184,136 +190,5 @@ module store_controller (
     if (rst) cs <= IDLE;  // Reset current state to IDLE
     else cs <= ns;  // Transition to next state
   end
-  //     always_comb begin
-  //         // Default signal assignments
-  //         gen_addr = 0;
-  //         interface_en = 0;
-  //         interface_control = 'x;
-  //         next_row_addr = current_row_addr;
-  //         current_addr = 'x;
-  //         interface_rdwr = 1; // Write operation by default
-  //         rd_result = 0;
-  //         count_en = 0;
 
-  //         case (cs)
-  //             IDLE: begin
-  //                 if (can_do_store) begin
-  //                     ns = STORE0;
-  //                     next_row_addr = tile_C_addr;
-  //                     gen_addr = 1;
-  //                 end else begin
-  //                     gen_addr = 'z;
-  //                     interface_en = 'z;
-  //                     interface_control = 'z;
-  //                     next_row_addr = 'z;
-  //                     interface_rdwr = 'z;
-  //                     ns = IDLE;
-  //                 end
-  //             end
-
-  //             STORE0: begin
-  //                 if (!buffer_empty[0]) begin
-  //                     current_addr = current_row_addr;
-  //                     if (gt4) begin
-  //                         interface_en = 1;
-  //                         interface_control = 16;
-  //                         rd_result[0] = 1;
-  //                         count_en = 1;
-  //                         ns = STORE1;
-  //                     end else if (~ovf && ~gt4) begin
-  //                         next_row_addr = current_row_addr + (tile_B_stride << 2);
-  //                         gen_addr = 1;
-  //                         interface_en = 1;
-  //                         interface_control = nsize[2:0];
-  //                         rd_result[0] = 1;
-  //                         count_en = 1;
-  //                         ns = STORE0;
-  //                     end else begin
-  //                         interface_en = 1;
-  //                         interface_control = nsize[2:0];
-  //                         rd_result[0] = 1;
-  //                         count_en = 1;
-  //                         ns = IDLE;
-  //                     end
-  //                 end else begin
-  //                     ns = STORE0;
-  //                 end
-  //             end
-
-  //             STORE1: begin
-  //     if (!buffer_empty[1]) begin
-  //         current_addr = current_row_addr + 16;
-  //         if (gt8) begin
-  //             interface_en = 1;
-  //             interface_control = 16;
-  //             rd_result[1] = 1;
-  //             ns = STORE2;
-  //         end else if (~ovf && ~gt8) begin
-  //             next_row_addr = current_row_addr + (tile_B_stride << 2);
-  //             gen_addr = 1;
-  //             interface_en = 1;
-  //             interface_control = nsize[2:0];
-  //             rd_result[1] = 1;
-  //             ns = STORE0;
-  //         end else begin
-  //             interface_en = 1;
-  //             interface_control = nsize[2:0];
-  //             rd_result[1] = 1;
-  //             ns = IDLE;
-  //         end
-  //     end else begin
-  //         ns = STORE1;
-  //     end
-  // end
-
-  // STORE2: begin
-  //     if (!buffer_empty[2]) begin
-  //         current_addr = current_row_addr + 32;
-  //         if (gt12) begin
-  //             interface_en = 1;
-  //             interface_control = 16;
-  //             rd_result[2] = 1;
-  //             ns = STORE3;
-  //         end else if (~ovf && ~gt12) begin
-  //             next_row_addr = current_row_addr + (tile_B_stride << 2);
-  //             gen_addr = 1;
-  //             interface_en = 1;
-  //             interface_control = nsize[2:0];
-  //             rd_result[2] = 1;
-  //             ns = STORE0;
-  //         end else begin
-  //             interface_en = 1;
-  //             interface_control = nsize[2:0];
-  //             rd_result[2] = 1;
-  //             ns = IDLE;
-  //         end
-  //     end else begin
-  //         ns = STORE2;
-  //     end
-  // end
-
-  // STORE3: begin
-  //     if (!buffer_empty[3]) begin
-  //         if (~ovf) begin
-  //         current_addr=current_row_addr+48;
-  //         next_row_addr=current_row_addr+tile_B_stride<<2;
-  //         gen_addr=1;
-  //         interface_en=1;
-  //         interface_control=nsize[2:0];
-  //         rd_result[3] = 1;
-  //         ns = STORE0;
-  //     end else begin
-  //         current_addr=current_row_addr + 48;
-  //         interface_en=1;
-  //         interface_control=nsize[2:0];
-  //         rd_result[3] = 1;
-  //         ns = IDLE;
-  //         end
-  //     end else begin
-  //         ns = STORE3;
-  //     end
-  // end
-
-  //         endcase
-  //     end
 endmodule

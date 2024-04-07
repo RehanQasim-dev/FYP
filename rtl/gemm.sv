@@ -15,7 +15,7 @@ module gemm (
     output logic interface_en,
     output logic [31:0] interface_addr,
     input logic [127:0] interface_rd_data,
-    output logic [127:0] interface_wr_data
+    output logic [3:0][31:0] interface_wr_data
 );
 
 // Declare signals to connect to Main_controller
@@ -58,9 +58,12 @@ module gemm (
     .acc_empty(buffer_empty),
     .mode_FV_if(mode_FV_if),
     .ready_for_HI(ready_for_HI),
-    .accum_start(accum_start)
+    .accum_start(accum_start),
     // .acc_is_done(acc_is_done),
     // .if_sent(if_sent)
+    .gt4(gt4_buffered),
+    .gt8(gt8_buffered),
+    .gt12(gt12_buffered)
     );
     always_comb begin : blockName
       case(buffer_sel)
@@ -80,11 +83,14 @@ module gemm (
     .w_mux_sel(w_mux_sel)  
 );
 
-
+logic gt4_buffered,gt8_buffered,gt12_buffered;
 always_ff @( posedge clk ) begin
     if(accum_start) begin 
     store_buffered<=store;
     overwrite_buffered<=overwrite;
+    gt4_buffered<=gt4;
+    gt8_buffered<=gt8;
+    gt12_buffered<=gt12;
     end
 end
 
@@ -146,7 +152,8 @@ end
       .next_row_addr_store(next_row_addr_store),
       .interface_rdwr_store(interface_rdwr_store),
       .gen_addr_store(gen_addr_store),
-      .prefetch_start(prefetch_start)
+      .prefetch_start(prefetch_start),
+      .use_store_addr(use_store_addr)
   );
 
   logic [31:0] current_store_addr;  // Current address
@@ -179,7 +186,7 @@ end
 
 
   ///////////////////////////// Address generate block//////////////////
-  // assign interface_addr = can_store ? current_store_addr : current_addr;
+  assign interface_addr = use_store_addr ? current_store_addr : current_addr;
   assign interface_addr=current_addr;
   always_ff @(posedge clk) begin
     if (rst) current_addr <= 0;

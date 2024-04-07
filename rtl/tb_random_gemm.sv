@@ -29,7 +29,7 @@ module tb_random_gemm;
 
   // Additional test input signals
   logic [31:0] test_interface_addr;
-  logic [31:0] test_interface_wr_data;
+  logic [127:0] test_interface_wr_data;
   logic [4:0] test_interface_control;
   logic test_interface_en;
   logic test_interface_rdwr;
@@ -37,7 +37,7 @@ module tb_random_gemm;
 
   // Define internal signals
   logic [31:0] selected_interface_addr;
-  logic [31:0] selected_interface_wr_data;
+  logic [127:0] selected_interface_wr_data;
   logic [4:0] selected_interface_control;
   logic selected_interface_en;
   logic selected_interface_rdwr;
@@ -50,7 +50,7 @@ module tb_random_gemm;
   assign selected_interface_rdwr = sel_for_test ? test_interface_rdwr : interface_rdwr; // Assuming default rdwr value if not provided
   memory #(
       .NUM_RAMS(16),
-      .A_WID(8),
+      .A_WID(10),
       .D_WID(8)
   ) memory_instance (
       .clk(clk),
@@ -82,7 +82,7 @@ module tb_random_gemm;
   int Tile_A_Address, Tile_B_Address, Tile_C_Address;
   // SystemVerilog does not support dynamic array sizes in module scope, 
   // so we use the maximum expected sizes and only use portions as needed.
-  localparam MAX_SIZE = 5;  // Maximum dimension size for matrices
+  localparam MAX_SIZE = 22;  // Maximum dimension size for matrices
   localparam MAX_VAL = 8;  // Maximum value for matrix elements
   logic [MAX_SIZE-1:0][ 7:0] A[MAX_SIZE];
   logic [MAX_SIZE-1:0][ 7:0] B[MAX_SIZE];
@@ -95,17 +95,17 @@ module tb_random_gemm;
     rst <= 0;
     sel_for_test <= 1;
     @(posedge clk);
-    for (int test_no = 0; test_no < 30; test_no++) begin
+    for (int test_no = 0; test_no < 2; test_no++) begin
       $display(
           "------------------------------------Test No %d--------------------------------------",
-          test_no);
-      M = $urandom_range(3, MAX_SIZE);
-      N = $urandom_range(3, MAX_SIZE);
-      K = $urandom_range(3, MAX_SIZE);
+          test_no + 1);
+      M = $urandom_range(20, MAX_SIZE);
+      N = $urandom_range(20, MAX_SIZE);
+      K = $urandom_range(20, MAX_SIZE);
 
       A_addr = 0;
-      B_addr = 100;
-      C_addr = 200;
+      B_addr = M * K;
+      C_addr = B_addr + K * N;
 
       for (int i = 0; i < M; i++) begin
         for (int j = 0; j < K; j++) begin
@@ -131,6 +131,8 @@ module tb_random_gemm;
       $display("C=%p", C);
       //////////////////////////////////////////send A Matrix///////////////////////////////////////////////
       for (i = 0; i < M; i++) begin
+      for (j = 0; j < N; j+=blkk) begin
+      
         test_interface_addr <= A_addr + i * K;
         test_interface_wr_data <= A[i];
         test_interface_control <= K;
@@ -152,13 +154,16 @@ module tb_random_gemm;
       //////////////////////////////////////////Do Configurations///////////////////////////////////////////////
       sel_for_test <= 0;
       for (n = 0; n < N; n += blkn) begin
+        // $display("n= %d=", n);
+
         nsize = (n + blkn <= N) ? blkn : N % blkn;
+
 
         for (m = 0; m < M; m += blkm) begin
           msize = (m + blkm <= M) ? blkm : M % blkm;
-
+          // $display("m = %d", m);
           for (k = 0; k < K; k += blkk) begin
-            $display("n= %d, m= %d, k= %d", n, m, k);
+            // $display("k = %d", k);
             last = (k + blkk >= K);
             first = k == 0;
             ksize = (k + blkk <= K) ? blkk : K % blkk;
@@ -178,15 +183,15 @@ module tb_random_gemm;
             system_bus_rdwr <= 1;
             system_bus_wr_data <= Tile_A_Address;  //tile_A_addr
             system_bus_addr <= `base_addr;
-            $display("Tile_A_addr= %d", Tile_A_Address);
+            // $display("Tile_A_addr= %d", Tile_A_Address);
             @(posedge clk);
             system_bus_addr <= `base_addr + 4;
             system_bus_wr_data <= Tile_B_Address;  //tile_B_addr
-            $display("Tile_B_addr= %d", Tile_B_Address);
+            // $display("Tile_B_addr= %d", Tile_B_Address);
             @(posedge clk);
             system_bus_addr <= `base_addr + 8;
             system_bus_wr_data <= Tile_C_Address;  //tile_C_addr
-            $display("Tile_C_addr= %d", Tile_C_Address);
+            // $display("Tile_C_addr= %d", Tile_C_Address);
 
             @(posedge clk);
             system_bus_addr <= `base_addr + 20;  //GEMM_control
@@ -200,10 +205,13 @@ module tb_random_gemm;
             system_bus_rdwr <= 0;
             system_bus_addr <= `base_addr;  //check if GEMM is FULLL
             @(posedge clk);
+            $display("check");
             while (system_bus_rd_data == 1'b1) begin
               @(posedge clk);
               // Wait for the GEMM operation to complete;
             end
+            $display("check2");
+
           end
         end
       end
@@ -211,48 +219,58 @@ module tb_random_gemm;
       system_bus_rdwr <= 0;
       system_bus_addr <= `base_addr + 24;  //check if GEMM is done
       @(posedge clk);
+      // $display("test1");
       while (system_bus_rd_data != 1'b1) begin
         @(posedge clk);
         // Wait for the GEMM operation to complete;
       end
+      // $display("test2");
+
     end
     $finish;
   end
 
   int count_rows_compared;
-  int total_tiles, horizontal, veritical;
+  int total_tiles;
+
   initial begin
     forever begin
       count_rows_compared <= 0;
       @(negedge sel_for_test);
-      horizontal  <= (N + SUPER_SYS_COLS - 1) / SUPER_SYS_COLS;
-      veritical   <= (K + SUPER_SYS_ROWS - 1) / SUPER_SYS_ROWS;
-      total_tiles <= horizontal * veritical;
+      total_tiles = ((N + SUPER_SYS_COLS - 1) / SUPER_SYS_COLS) * ((K + SUPER_SYS_ROWS - 1) / SUPER_SYS_ROWS);
+
       // total_tiles <= 1;
+      // $display("total tiles:", total_tiles);
 
       repeat (total_tiles) begin
-        while (count_rows_compared < msize) begin
-          if (interface_en && interface_rdwr) begin
-            for (int i = 0; i < nsize; i++) begin
-              $display("C[count_rows_compared][i]=%d, interface_wr_data[i]=%d",
-                       C[count_rows_compared][i], interface_wr_data[i]);
-              if (C[count_rows_compared][i] != interface_wr_data[i]) begin
-                // Your comparison logic here
-                // For example, if you want to print a message when there's a mismatch:
+        // $display("msize= %d , nsize=%d", msize, nsize);
 
-                $display("Mismatch found at index %d", i);
+        while (count_rows_compared < msize) begin
+          $display("count_rows_compared = %d", count_rows_compared);
+          for (int i = 0; i < nsize; i++) begin
+            if (i % 4 == 0) begin
+              @(posedge clk);
+              while (!(interface_en && interface_rdwr)) begin
+                @(posedge clk);
+                // $display("hii guys");
               end
             end
 
-            count_rows_compared++;
+            // $display("en = %d , rdwr = %d", interface_en, interface_rdwr);
+            $display("C[count_rows_compared][%d]=%d, interface_wr_data[%d]=%d", i,
+                     C[count_rows_compared][i], i, interface_wr_data[i%4]);
+            if (C[count_rows_compared][i] != interface_wr_data[i%4]) begin
+              // Your comparison logic here
+              // For example, if you want to print a message when there's a mismatch:
+              $display("Mismatch found at index %d", i);
+            end
           end
-          @(posedge clk);
+          count_rows_compared++;
         end
-        $display("Tile Test Passed");
       end
-      $display("Matrix Test Passed");
+      $display("Tile Test Passed");
     end
-
+    $display("Matrix Test Passed");
   end
 
   //Value change dump
