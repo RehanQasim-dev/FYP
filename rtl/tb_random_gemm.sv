@@ -242,7 +242,7 @@ module tb_random_gemm;
     end
     $finish;
   end
-
+end
   int count_rows_compared;
   int total_tiles, n_, nsize_;
 
