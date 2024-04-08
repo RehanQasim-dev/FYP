@@ -32,7 +32,8 @@ module datapath (
     input logic [31:0] system_bus_rd_data,
     output logic [31:0] system_bus_wr_data,
     system_bus_addr,
-    output logic [3:0] system_bus_mask
+    output logic [3:0] system_bus_mask,
+    output logic [31:0] data_to_seven_led
 );
   logic [31:0] PC_decode, PC_wb, ALU_wb, wb_data;
   logic [4:0] rs2, rs1, rd_wb;
@@ -75,7 +76,8 @@ module datapath (
       .ALU_ppl(ALU_wb),
       .rdata2_forwarded_ppl(mem_wr_data),
       .rdata1_forwarded_ppl(rdata1_wb),
-      .instruction_ppl(gemm_instruction)
+      .instruction_ppl(gemm_instruction),
+      .data_to_sevseg(data_to_seven_led)
   );
 
   wb_stage wb_stage_instance (

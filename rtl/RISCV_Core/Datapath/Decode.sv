@@ -22,7 +22,8 @@ module Decode (
     ALU_ppl,
     rdata2_forwarded_ppl,
     rdata1_forwarded_ppl,
-    instruction_ppl
+    instruction_ppl,
+    data_to_sevseg
 );
 
   localparam I_type = 5'b00100;
@@ -92,7 +93,8 @@ module Decode (
       .rd(waddr_ppl),
       .write_data(wdata),
       .rs1_out(rdata1),
-      .rs2_out(rdata2)
+      .rs2_out(rdata2),
+      .data_to_seven_led(data_to_sevseg)
   );
 
   ALU ALU_instance (

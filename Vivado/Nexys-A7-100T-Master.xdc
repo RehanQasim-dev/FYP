@@ -4,12 +4,12 @@
 ## - rename the used ports (in each line, after get_ports) according to the top level signal names in the project
 
 ## Clock signal
-set_property -dict { PACKAGE_PIN E3    IOSTANDARD LVCMOS33 } [get_ports { clk }]; #IO_L12P_T1_MRCC_35 Sch=clk100mhz
+set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports clk]
 #create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports {CLK100MHZ}];
 
 
 ##Switches
-set_property -dict { PACKAGE_PIN J15   IOSTANDARD LVCMOS33 } [get_ports { rst }]; #IO_L24N_T3_RS0_15 Sch=sw[0]
+set_property -dict {PACKAGE_PIN J15 IOSTANDARD LVCMOS33} [get_ports rst]
 #set_property -dict { PACKAGE_PIN L16   IOSTANDARD LVCMOS33 } [get_ports { SW[1] }]; #IO_L3N_T0_DQS_EMCCLK_14 Sch=sw[1]
 #set_property -dict { PACKAGE_PIN M13   IOSTANDARD LVCMOS33 } [get_ports { SW[2] }]; #IO_L6N_T0_D08_VREF_14 Sch=sw[2]
 #set_property -dict { PACKAGE_PIN R15   IOSTANDARD LVCMOS33 } [get_ports { SW[3] }]; #IO_L13N_T2_MRCC_14 Sch=sw[3]
@@ -209,3 +209,39 @@ set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { is_gem
 #set_property -dict { PACKAGE_PIN L14   IOSTANDARD LVCMOS33 } [get_ports { QSPI_DQ[2] }]; #IO_L2P_T0_D02_14 Sch=qspi_dq[2]
 #set_property -dict { PACKAGE_PIN M14   IOSTANDARD LVCMOS33 } [get_ports { QSPI_DQ[3] }]; #IO_L2N_T0_D03_14 Sch=qspi_dq[3]
 #set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { QSPI_CSN }]; #IO_L6P_T0_FCS_B_14 Sch=qspi_csn
+
+set_property IOSTANDARD LVCMOS33 [get_ports ext_inter]
+set_property IOSTANDARD LVCMOS33 [get_ports timer_en]
+set_property PACKAGE_PIN L16 [get_ports ext_inter]
+set_property PACKAGE_PIN M13 [get_ports timer_en]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[6]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[0]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[7]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[6]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[5]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[4]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[3]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[2]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[1]}]
+set_property IOSTANDARD LVCMOS33 [get_ports {an[0]}]
+set_property PACKAGE_PIN T10 [get_ports {a_to_g[6]}]
+set_property PACKAGE_PIN R10 [get_ports {a_to_g[5]}]
+set_property PACKAGE_PIN K16 [get_ports {a_to_g[4]}]
+set_property PACKAGE_PIN K13 [get_ports {a_to_g[3]}]
+set_property PACKAGE_PIN P15 [get_ports {a_to_g[2]}]
+set_property PACKAGE_PIN T11 [get_ports {a_to_g[1]}]
+set_property PACKAGE_PIN L18 [get_ports {a_to_g[0]}]
+set_property PACKAGE_PIN J14 [get_ports {an[3]}]
+set_property PACKAGE_PIN T9 [get_ports {an[2]}]
+set_property PACKAGE_PIN J18 [get_ports {an[1]}]
+set_property PACKAGE_PIN J17 [get_ports {an[0]}]
+
+set_property PACKAGE_PIN P14 [get_ports {an[4]}]
+set_property PACKAGE_PIN T14 [get_ports {an[5]}]
+set_property PACKAGE_PIN K2 [get_ports {an[6]}]
+set_property PACKAGE_PIN U13 [get_ports {an[7]}]

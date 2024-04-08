@@ -9,4 +9,4 @@ addi sp, sp, %lo(_sp)  # Add lower 12 bits of _sp
 # Call user 'main(0,0)' (.data/.bss sections initialized there)
   li   a0, 0
   li   a1, 0
-  call main
+  j testing

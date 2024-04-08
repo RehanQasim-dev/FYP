@@ -18,7 +18,8 @@ module CEP (
       .gemm_valid(gemm_valid),
       .gemm_rdata1(gemm_rdata1),
       .gemm_rdata2(gemm_rdata2),
-      .gemm_instruction(gemm_instruction)
+      .gemm_instruction(gemm_instruction),
+      .data_to_sevseg (result)
   );
 
 

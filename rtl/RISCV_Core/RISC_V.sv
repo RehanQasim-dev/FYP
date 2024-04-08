@@ -13,7 +13,8 @@ module RISC_V (
     input logic [31:0] system_bus_rd_data,
     output logic [31:0] system_bus_wr_data,
     system_bus_addr,
-    output logic [3:0] system_bus_mask
+    output logic [3:0] system_bus_mask,
+    output logic [31:0] data_to_sevseg
 );
   logic [31:0] instruction;
   logic [ 3:0] interrupt;
@@ -87,7 +88,8 @@ module RISC_V (
       .system_bus_rd_data(system_bus_rd_data),
       .system_bus_wr_data(system_bus_wr_data),
       .system_bus_addr(system_bus_addr),
-      .system_bus_mask(system_bus_mask)
+      .system_bus_mask(system_bus_mask),
+      .data_to_seven_led(data_to_sevseg)
   );
 
   always_comb begin
