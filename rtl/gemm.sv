@@ -17,6 +17,7 @@ module gemm (
     input logic [127:0] interface_rd_data,
     output logic [3:0][31:0] interface_wr_data
 );
+logic gt4_buffered,gt8_buffered,gt12_buffered;
 
 // Declare signals to connect to Main_controller
     logic [3:0] buffer_empty;
@@ -83,7 +84,6 @@ module gemm (
     .w_mux_sel(w_mux_sel)  
 );
 
-logic gt4_buffered,gt8_buffered,gt12_buffered;
 always_ff @( posedge clk ) begin
     if(accum_start) begin 
     store_buffered<=store;
@@ -187,7 +187,7 @@ end
 
   ///////////////////////////// Address generate block//////////////////
   assign interface_addr = use_store_addr ? current_store_addr : current_addr;
-  assign interface_addr=current_addr;
+  //assign interface_addr=current_addr;
   always_ff @(posedge clk) begin
     if (rst) current_addr <= 0;
     else if (gen_addr) current_addr <= next_addr;
