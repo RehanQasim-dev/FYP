@@ -13,9 +13,11 @@ module super_sys (
     input logic [SUPER_SYS_ROWS-1:0] w_mux_sel,
     //outputs
     output logic [SUPER_SYS_COLS-1:0][P_BITWIDTH-1:0] of_data,
-    output logic valid
+    output logic valid,
+    output logic accum_start
 );
   assign valid = core2_if_en[SMALL_SYS_ROWS-1];
+  assign accum_start = core2_if_en[SMALL_SYS_ROWS-2] && ~core2_if_en[SMALL_SYS_ROWS-1];
   //////////////////////////////////////////
   //
   logic [SMALL_SYS_COLS-1:0][P_BITWIDTH-1:0] core0_of_data;

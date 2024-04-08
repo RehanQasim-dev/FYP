@@ -104,11 +104,12 @@ module gemm_datapath (
       .if_mux_sel({all_if_mux_sel, if_mux_sel}),
       .w_mux_sel({all_w_mux_sel, w_mux_sel}),
       .of_data(of_data),
-      .valid(valid)
+      .valid(valid),
+      .accum_start(accum_start)
   );
 
   assign ready_for_HI = ~if_en_setup[8] && if_en_setup[9];
-  assign accum_start  = ~valid_Psum[0] && valid;
+  // assign accum_start  = ~valid_Psum[0] && valid;
   logic [SUPER_SYS_COLS:0] valid_Psum;
   //   assign valid_Psum[0] = valid;
   //   int j;

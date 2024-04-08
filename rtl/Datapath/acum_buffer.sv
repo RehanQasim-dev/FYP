@@ -23,7 +23,7 @@ module acum_buffer (
       .rd_en(rd_en_1),
       .din  (din_1),
       .dout (dout_1),
-      .empty(),
+      .empty(empty_),
       .full ()
   );
   buffer #(
