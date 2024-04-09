@@ -83,16 +83,30 @@ logic gt4_buffered,gt8_buffered,gt12_buffered;
     .if_mux_sel(if_mux_sel),
     .w_mux_sel(w_mux_sel)  
 );
+  logic gt4, gt8, gt12;  // Greater than 4, 8, 12 signals
 
-always_ff @( posedge clk ) begin
-    if(accum_start) begin 
-    store_buffered<=store;
-    overwrite_buffered<=overwrite;
-    gt4_buffered<=gt4;
-    gt8_buffered<=gt8;
-    gt12_buffered<=gt12;
-    end
-end
+buffer_accum_ctrl #(
+  .DEPTH(2),
+  .DWIDTH(5)
+) buffer_instance(
+  .rst(rst),
+  .clk(clk),
+  .wr_en(prefetch_done),
+  .rd_en(accum_start),
+  .din({store,overwrite,gt4,gt8,gt12}),
+  .dout({store_buffered,overwrite_buffered,gt4_buffered,gt8_buffered,gt12_buffered}),
+  .empty(),
+  .full()
+);
+// always_ff @( posedge clk ) begin
+//     if(accum_start) begin 
+//     store_buffered<=store;
+//     overwrite_buffered<=overwrite;
+//     gt4_buffered<=gt4;
+//     gt8_buffered<=gt8;
+//     gt12_buffered<=gt12;
+//     end
+// end
 
 
 always_ff @( posedge clk ) begin
@@ -109,7 +123,6 @@ end
 
 //////////////////////////////////////////////////////////////////////////
 // Controller
-  logic gt4, gt8, gt12;  // Greater than 4, 8, 12 signals
   assign gt4  = nsize > 4;
   assign gt8  = nsize > 8;
   assign gt12 = nsize > 12;
@@ -153,7 +166,8 @@ end
       .interface_rdwr_store(interface_rdwr_store),
       .gen_addr_store(gen_addr_store),
       .prefetch_start(prefetch_start),
-      .use_store_addr(use_store_addr)
+      .use_store_addr(use_store_addr),
+      .we_accum_ctrl(we_accum_ctrl)
   );
 
   logic [31:0] current_store_addr;  // Current address
