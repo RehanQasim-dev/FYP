@@ -86,7 +86,7 @@ logic gt4_buffered,gt8_buffered,gt12_buffered;
   logic gt4, gt8, gt12;  // Greater than 4, 8, 12 signals
 
 buffer_accum_ctrl #(
-  .DEPTH(2),
+  .DEPTH(4),
   .DWIDTH(5)
 ) buffer_instance(
   .rst(rst),

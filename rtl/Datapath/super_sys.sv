@@ -60,9 +60,24 @@ module super_sys (
       .data1(if_data[SMALL_SYS_ROWS-1:0]),
       .out(core2_if_data)
   );
-
-  assign core2_wdata  = w_mux_sel[0] ? wdata[SMALL_SYS_COLS-1:0] : core0_wdata_out;
-  assign core2_wfetch = w_mux_sel[0] ? wfetch[SMALL_SYS_COLS-1:0] : core0_wfetch_out;
+  muxes #(
+      .WIDTH(1)
+  ) muxes_instance10 (
+      .mux_sel(w_mux_sel[7:0]),
+      .data2(wfetch[SMALL_SYS_COLS-1:0]),
+      .data1(core0_wfetch_out),
+      .out(core2_wfetch)
+  );
+  muxes #(
+      .WIDTH(8)
+  ) muxes_instance11 (
+      .mux_sel(w_mux_sel[7:0]),
+      .data2(wdata[SMALL_SYS_COLS-1:0]),
+      .data1(core0_wdata_out),
+      .out(core2_wdata)
+  );
+  //   assign core2_wdata  = w_mux_sel[0] ? wdata[SMALL_SYS_COLS-1:0] : core0_wdata_out;
+  //   assign core2_wfetch = w_mux_sel[0] ? wfetch[SMALL_SYS_COLS-1:0] : core0_wfetch_out;
   //   assign core2_bias=w_mux_sel[0]?bias[SMALL_SYS_COLS-1:0] :core0_of_data;   //technically not needed
   muxes #(
       .WIDTH(24)
