@@ -6,7 +6,7 @@
 // int32_t C[M][N];
 //register int asm ("r10");
 
-void display_on_led (uint32_t *C, uint32_t rows,uint32_t  colmn);
+void load_value_reg (int x);
 
 void delay  (int i);
 
@@ -24,23 +24,19 @@ void main()
 
     // Call the matrix multiplication function
     MATMUL(2, 3, 2, A, B, C);
-    display_on_led(*C, 2,2);
+
+    for (int i=0 ; i<2; i++){
+        for (int w=0; w<0;w++){
+            load_value_reg(C[i][w]);
+        }
+    }
 }
 
 void delay (int i){
     for (int e=0 ; e < i ; e++){}
 }
 
-void display_on_led (uint32_t *C, uint32_t rows, uint32_t colmn){
-    uint32_t q =0;
-    uint32_t w=0;
-    uint32_t value=0;
-    for (q ; q<rows ; q++){
-        for (w ; w<colmn ; w++){
-            value = C[q][w];
-            asm ("mv a0, %0": : "r"(value));
-            delay(10000);
-        }
-    }
-    
+void load_value_reg (int x){
+    asm("mv a0, %0" : : "r" (x));
+	delay(1000);
 }
