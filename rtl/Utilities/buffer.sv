@@ -29,7 +29,7 @@ module buffer #(
       fifo <= '{default: '0};
       wptr <= '0;
     end else begin
-      if (wr_en & !full) begin
+      if (wr_en & (!full || rd_en)) begin
         fifo[wptr[$clog2(DEPTH)-1:0]] <= din;
         wptr <= wptr + 1;
       end
