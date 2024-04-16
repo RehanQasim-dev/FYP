@@ -25,10 +25,11 @@ src_gemm :=  ./rtl/tb_random_gemm.sv							\
 	   $(wildcard ./rtl/Common/*.*)							\
 	   $(wildcard ./rtl/Controller/*.sv)						\
 	   $(wildcard ./rtl/Datapath/*.sv)						\
+	   $(wildcard ./rtl/Utilities/*.sv)			\
 	   $(wildcard ./rtl/RISCV_Core/Datapath/*.sv)							\
 	   $(wildcard ./rtl/RISCV_Core/Decoders/*.sv)						\
 	   $(wildcard ./rtl/RISCV_Core/*.sv)						\
-	   $(wildcard ./rtl/RISCV_Core/Utilities/x7segb8.sv)			
+	   $(wildcard ./rtl/RISCV_Core/Utilities/*.sv)			
  			
 	  
 	  
@@ -46,6 +47,7 @@ verilate_command_core := $(verilator) +define+$(defines) \
 					-Wno-UNOPTFLAT 				\
 					-Wno-IMPLICIT 				\
 					-Wno-PINMISSING 			\
+					--timing	\
 					--Mdir $(ver-library)				\
 					--exe bench/tb_CEP.cpp		\
 					--trace-structs --trace
@@ -60,6 +62,7 @@ verilate_command_gemm := $(verilator) 	+define+$(defines)		\
 					-Wno-UNOPTFLAT 				\
 					-Wno-IMPLICIT 				\
 					-Wno-PINMISSING 			\
+					--timing	\
 					--Mdir $(ver-library)			\
 					--exe bench/tb_random_gemm.cpp		\
 					--trace-structs --trace

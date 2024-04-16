@@ -2,18 +2,18 @@
 #include<iostream>
 #include<verilated.h>
 #include<verilated_vcd_c.h>
-#include<VCEP.h>
+#include<Vtb_random_gemm.h>
 #define MAX_SIM_TIME 20000
 
 
 vluint64_t sim_time =0;
 vluint64_t posedge_cnt=0;
 
-void dut_reset (VCEP *dut , vluint64_t &sim_time);
+void dut_reset (Vtb_random_gemm *dut , vluint64_t &sim_time);
 
 int main (int argc, char** argv , char** env) {
 	Verilated::commandArgs(argc,argv);
-	VCEP *dut = new VCEP;
+	Vtb_random_gemm *dut = new Vtb_random_gemm;
 
 	Verilated::traceEverOn(true);
 	VerilatedVcdC *m_trace = new VerilatedVcdC;
@@ -38,7 +38,7 @@ int main (int argc, char** argv , char** env) {
 	exit(EXIT_SUCCESS);
 }
 
-void dut_reset (VCEP *dut, vluint64_t &sim_time){
+void dut_reset (Vtb_random_gemm *dut, vluint64_t &sim_time){
     dut->reset = 0;
     if(sim_time >= 3 && sim_time < 6){
         dut->reset = 1;

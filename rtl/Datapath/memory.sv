@@ -88,7 +88,7 @@ genvar i;
   end
   logic [D_WID-1:0] mem[2**A_WID-1:0][NUM_RAMS-1:0];
   initial begin
-    $readmemh("DCACHE.mem", mem);
+    $readmemh("/home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem", mem);
   end
   // PORT_A
   generate
