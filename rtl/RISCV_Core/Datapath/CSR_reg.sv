@@ -115,6 +115,11 @@ module CSR_reg (
         mtvec_addr: begin
           mtvec_wr_flag = 1'b1;
         end
+        default : begin
+          mie_wr_flag = 1'b0;
+    mstatus_wr_flag = 1'b0;
+    mtvec_wr_flag = 1'b0;
+        end
       endcase
     end
   end

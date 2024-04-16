@@ -111,7 +111,7 @@ module Decode (
 
   //Immidiate generation
   always_comb begin
-    casex (instruction[6:2])
+    case (instruction[6:2])
       Load_type, I_type: imm = {{20{instruction[31]}}, instruction[31:20]};  //load,I
       Jalr_type: imm = {{20{instruction[31]}}, instruction[31:20]};
       S_type: imm = {{20{instruction[31]}}, instruction[31:25], instruction[11:7]};  //save

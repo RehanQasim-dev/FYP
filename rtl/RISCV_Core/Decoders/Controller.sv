@@ -57,7 +57,7 @@ module Controller (
   always_comb begin
     case (opcode[6:2])
       R_type: begin
-        casex ({
+        casez ({
           instruction[25], instruction[30], func3
         })
           5'b00000: ALUctrl = 4'd0;  //ADD
@@ -89,18 +89,18 @@ module Controller (
         is_GemmInstr = 1'b0;
       end
       I_type: begin
-        casex ({
+        casez ({
           func7, func3
         })
-          4'bX000: ALUctrl = 4'd0;  //ADD
-          4'bX001: ALUctrl = 4'd2;  //SLL
-          4'bX010: ALUctrl = 4'd3;  //SLT
-          4'bX100: ALUctrl = 4'd4;  //XOR
-          4'bX011: ALUctrl = 4'd5;  //SLTU
+          4'b?000: ALUctrl = 4'd0;  //ADD
+          4'b?001: ALUctrl = 4'd2;  //SLL
+          4'b?010: ALUctrl = 4'd3;  //SLT
+          4'b?100: ALUctrl = 4'd4;  //XOR
+          4'b?011: ALUctrl = 4'd5;  //SLTU
           4'b0101: ALUctrl = 4'd6;  //SRL
           4'b1101: ALUctrl = 4'd7;  //SRA
-          4'bX110: ALUctrl = 4'd8;  //OR
-          4'bX111: ALUctrl = 4'd9;  //AND
+          4'b?110: ALUctrl = 4'd8;  //OR
+          4'b?111: ALUctrl = 4'd9;  //AND
           default: begin
             ALUctrl = 4'bXXXX;
           end
@@ -231,7 +231,7 @@ module Controller (
         ALUctrl = 4'd0;
         PC_sel = 1'b0;
         is_GemmInstr = 1'b0;
-        casex ({
+        casez ({
           func7_mret, func3
         })
           4'b1000: begin
@@ -239,7 +239,7 @@ module Controller (
             csr_reg_wr = 1'b0;
             is_mret = 1'b1;
           end
-          4'bx001: begin
+          4'b?001: begin
             csr_reg_r = 1'b1;
             csr_reg_wr = 1'b1;
             is_mret = 1'b0;

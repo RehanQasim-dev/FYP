@@ -1,40 +1,58 @@
-#*********************************************************************
-#  * Filename :    Makefile
-#  * Date     :    02-5-2023
-#  * Author   :    @abdulwadoodd
-#  *
-#  * Description:  Makefile for simulating and testing UETRV_PCORE
-#  *********************************************************************
 
 verilator   ?= verilator
 ver-library ?= ver_work
 defines     ?= 
-
-# default command line arguments
-imem_uart  ?= sdk/example-uart/hello.hex
-imem_linux ?= sdk/example-linux/imem.txt
 max_cycles ?= 100000
-vcd        ?= 0
+vcd        ?= 1
+imem ?= ./rtl/Script/build/ICACHE.mem
+dmem ?= ./rtl/Script/build/DCACHE.mem
 
-uartbuild_root := sdk/example-uart/build/
 
-src := bench/pcore_tb.sv							\
-	   $(wildcard rtl/*.sv)							\
-	   $(wildcard rtl/core/*.sv)						\
-	   $(wildcard rtl/core/*/*.sv)						\
-	   $(wildcard rtl/c_extension/*.sv)				\
-	   $(wildcard rtl/interconnect/*.sv)					\
-	   $(wildcard rtl/memory/*.sv)						\
-	   $(wildcard rtl/memory/*/*.sv)					\
-       	   $(wildcard rtl/peripherals/*/*.sv)					\
-      
-
-incdir 	:= 	rtl/defines/
+incdir 	:= 	rtl/
 list_incdir := $(foreach dir, ${incdir}, +incdir+$(dir))
 
-verilate_command := $(verilator) +define+$(defines) 				\
-					--cc $(src) $(list_incdir)		\
-					--top-module pcore_tb			\
+
+
+src_core := ./rtl/RISCV_Core/CEP.sv 						\
+			./rtl/RISCV_Core/RISC_V.sv			\
+	   $(wildcard ./rtl/RISCV_Core/Datapath/*.sv)							\
+	   $(wildcard ./rtl/RISCV_Core/Decoders/*.sv)						\
+	   $(wildcard ./rtl/RISCV_Core/Utilities/*.sv)				
+	 
+	  
+
+src_gemm :=  ./rtl/tb_random_gemm.sv							\
+	   $(wildcard ./rtl/Common/*.*)							\
+	   $(wildcard ./rtl/Controller/*.sv)						\
+	   $(wildcard ./rtl/Datapath/*.sv)						\
+	   $(wildcard ./rtl/RISCV_Core/Datapath/*.sv)							\
+	   $(wildcard ./rtl/RISCV_Core/Decoders/*.sv)						\
+	   $(wildcard ./rtl/RISCV_Core/*.sv)						\
+	   $(wildcard ./rtl/RISCV_Core/Utilities/x7segb8.sv)			
+ 			
+	  
+	  
+	  
+      
+
+
+verilate_command_core := $(verilator) +define+$(defines) \
+					--cc $(src_core) $(list_incdir)	\
+					--top-module CEP			\
+					-Wno-TIMESCALEMOD 			\
+					-Wno-MULTIDRIVEN 			\
+					-Wno-CASEOVERLAP 			\
+        				-Wno-WIDTH  			\
+					-Wno-UNOPTFLAT 				\
+					-Wno-IMPLICIT 				\
+					-Wno-PINMISSING 			\
+					--Mdir $(ver-library)				\
+					--exe bench/tb_CEP.cpp		\
+					--trace-structs --trace
+					
+verilate_command_gemm := $(verilator) 	+define+$(defines)		\
+					--cc $(src_gemm) $(list_incdir)	\
+					--top-module tb_random_gemm			\
 					-Wno-TIMESCALEMOD 			\
 					-Wno-MULTIDRIVEN 			\
 					-Wno-CASEOVERLAP 			\
@@ -43,38 +61,28 @@ verilate_command := $(verilator) +define+$(defines) 				\
 					-Wno-IMPLICIT 				\
 					-Wno-PINMISSING 			\
 					--Mdir $(ver-library)			\
-					--exe bench/pcore_tb.cpp		\
+					--exe bench/tb_random_gemm.cpp		\
 					--trace-structs --trace
 
-verilate:
+
+verilate_core: 
 	@echo "Building verilator model"
-	$(verilate_command)
-	cd $(ver-library) && $(MAKE) -f Vpcore_tb.mk
+	$(verilate_command_core)
+	cd $(ver-library) && $(MAKE) -f VCEP.mk
+	@echo "hello entering simulation"
+	$(ver-library)/CEP +imem=$(imem) +dmem=$(dmem) +max_cycles=$(max_cycles) +vcd=$(vcd)
 
-sim-verilate-uart: verilate
-	@echo
-	@echo
-	@echo "Running User Program available at $(imem)"
-	@echo "Output is captured in uart_logdata.log"
-	@echo
-	$(ver-library)/Vpcore_tb +imem=$(imem_uart) +max_cycles=$(max_cycles) +vcd=$(vcd)
 
-sim-verilate-linux: verilate
-	@echo
-	@echo
-	@echo "Output is captured in uart_logdata.log"
-	@echo "Press ctrl+c to exit to the simulation"
-	@echo
-	@echo "Initiating Linux Bootup in Verilator Simulation..."
-	@echo
-	rm  -f  ./sdk/example-linux/imem.txt
-	unzip ./sdk/example-linux/imem.zip -d ./sdk/example-linux/
-	$(ver-library)/Vpcore_tb +imem=$(imem_linux) +max_cycles=300000000 +vcd=$(vcd)
+verilate_gemm:
+	@echo "Building verilator model"
+	$(verilate_command_gemm)
+	cd $(ver-library) && $(MAKE) -f Vtb_random_gemm.mk
+	@echo "hello entering simulation"
+	$(ver-library)/tb_random_gemm +imem=$(imem) +dmem=$(dmem) +max_cycles=$(max_cycles) +vcd=$(vcd)
+
 
 clean-all:
 	rm -rf ver_work/ *.log *.vcd 					\
-	$(uartbuild_root)*.o  $(uartbuild_root)*.bin 			\
-	$(uartbuild_root)*.hex $(uartbuild_root)*.elf 			\
-	$(uartbuild_root)*.dump						\
 	verif/*work/
+
 
