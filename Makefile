@@ -70,7 +70,7 @@ verilate_core:
 	$(verilate_command_core)
 	cd $(ver-library) && $(MAKE) -f VCEP.mk
 	@echo "hello entering simulation"
-	$(ver-library)/CEP +imem=$(imem) +dmem=$(dmem) +max_cycles=$(max_cycles) +vcd=$(vcd)
+	$(ver-library)/VCEP  +max_cycles=$(max_cycles) +vcd=$(vcd)
 
 
 verilate_gemm:
@@ -78,7 +78,7 @@ verilate_gemm:
 	$(verilate_command_gemm)
 	cd $(ver-library) && $(MAKE) -f Vtb_random_gemm.mk
 	@echo "hello entering simulation"
-	$(ver-library)/tb_random_gemm +imem=$(imem) +dmem=$(dmem) +max_cycles=$(max_cycles) +vcd=$(vcd)
+	$(ver-library)/Vtb_random_gemm  +max_cycles=$(max_cycles) +vcd=$(vcd)
 
 
 clean-all:
