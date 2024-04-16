@@ -59,6 +59,12 @@ verilate_command_gemm := $(verilator) 	+define+$(defines)		\
 					-Wno-MULTIDRIVEN 			\
 					-Wno-CASEOVERLAP 			\
         				-Wno-WIDTH  			\
+					-Wno-MODDUP	\
+					-Wno-WIDTHCONCAT \
+					-Wno-CMPCONST	\
+					-Wno-CASEINCOMPLETE	\
+					-Wno-INITIALDLY	\
+					-Wno-LATCH	\
 					-Wno-UNOPTFLAT 				\
 					-Wno-IMPLICIT 				\
 					-Wno-PINMISSING 			\
