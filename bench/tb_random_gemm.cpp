@@ -39,9 +39,9 @@ int main (int argc, char** argv , char** env) {
 }
 
 void dut_reset (Vtb_random_gemm *dut, vluint64_t &sim_time){
-    dut->reset = 0;
+    dut->rst = 0;
     if(sim_time >= 3 && sim_time < 6){
-        dut->reset = 1;
+        dut->rst = 1;
         
     }
 }
