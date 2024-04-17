@@ -2,7 +2,7 @@
 verilator   ?= verilator
 ver-library ?= ver_work
 defines     ?= 
-max_cycles ?= 100000
+max_cycles ?= 100000000
 vcd        ?= 1
 imem ?= ./rtl/Script/build/ICACHE.mem
 dmem ?= ./rtl/Script/build/DCACHE.mem
