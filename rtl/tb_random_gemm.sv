@@ -91,6 +91,19 @@ module tb_random_gemm(input bit clk , rst);
   logic [MAX_SIZE-1:0][ 7:0] B[MAX_SIZE];
   logic [MAX_SIZE-1:0][31:0] C[MAX_SIZE];
   int A_addr, B_addr, C_addr;
+  int file_handle;
+
+  /////////////////////////////////////
+  int old_sel_for_test;
+  logic [31:0] cycles_count;
+  initial begin
+    forever begin
+      @(posedge clk);
+      if (old_sel_for_test == 1 && sel_for_test == 0) cycles_count <= 0;
+      else cycles_count <= cycles_count + 1;
+      old_sel_for_test <= sel_for_test;
+    end
+  end
   /////////////////////////////////////////////Unit Testing/////////////////////////////////////////////
   initial begin
     // rst <= 1;
@@ -98,7 +111,8 @@ module tb_random_gemm(input bit clk , rst);
     // rst <= 0;
     sel_for_test <= 1;
     @(posedge clk);
-    for (int test_no = 0; test_no < 14; test_no++) begin
+    file_handle = $fopen("d:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/log.csv", "w");
+    for (int test_no = 0; test_no < 2000; test_no++) begin
       $display(
           "------------------------------------Test No %d--------------------------------------",
           test_no + 1);
@@ -121,17 +135,6 @@ module tb_random_gemm(input bit clk , rst);
         end
       end
       $display("M=%d, K=%d, N=%d ", M, K, N);
-      // $display("MatrixA: ");
-      // for (int i = 0; i < M; i++) begin
-      //   $display("A[%d]%p", i, A[i]);
-      // end
-      // $display("MatrixB: ");
-      // for (int i = 0; i < K; i++) begin
-      //   $display("B[%d]=%p", i, B[i]);
-      // end
-
-      // $display("A=%p", A);
-      // $display("B=%p", B);
       for (i = 0; i < M; i++) begin
         for (j = 0; j < N; j++) begin
           C[i][j] = 0;
@@ -140,8 +143,7 @@ module tb_random_gemm(input bit clk , rst);
           end
         end
       end
-      // $display("C=%p", C);
-      //////////////////////////////////////////send A Matrix///////////////////////////////////////////////
+      //////////////////////////////////////////Store A Matrix///////////////////////////////////////////////
       for (i = 0; i < M; i++) begin
         for (j = 0; j < K; j += blkk) begin
           ksize = (j + blkk <= K) ? blkk : K % blkk;
@@ -154,7 +156,7 @@ module tb_random_gemm(input bit clk , rst);
           @(posedge clk);
         end
       end
-      //////////////////////////////////////////send B Matrix///////////////////////////////////////////////
+      //////////////////////////////////////////Store B Matrix///////////////////////////////////////////////
       for (i = 0; i < K; i++) begin
         for (j = 0; j < N; j += blkn) begin
           nsize = (j + blkn <= N) ? blkn : N % blkn;
@@ -219,12 +221,10 @@ module tb_random_gemm(input bit clk , rst);
             system_bus_rdwr <= 0;
             system_bus_addr <= `base_addr;  //check if GEMM is FULLL
             @(posedge clk);
-            // $display("check");
             while (system_bus_rd_data == 1'b1) begin
               @(posedge clk);
               // Wait for the GEMM operation to complete;
             end
-            // $display("check2");
 
           end
         end
@@ -233,14 +233,14 @@ module tb_random_gemm(input bit clk , rst);
       system_bus_rdwr <= 0;
       system_bus_addr <= `base_addr + 24;  //check if GEMM is done
       @(posedge clk);
-      // $display("test1");
       while (system_bus_rd_data != 1'b1) begin
         @(posedge clk);
         // Wait for the GEMM operation to complete;
       end
-      // $display("test2");
+      $fwrite(file_handle, "%0d,%0d,%0d,%0d\n", M, K, N, cycles_count);
 
     end
+    $fclose(file_handle);
     $finish;
   end
   // Define variables

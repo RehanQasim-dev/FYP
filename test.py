@@ -1,20 +1,29 @@
-B=[6,0,
-3,
-3,
-8,
-5,
-2,
-3,
-5,
-5,
-3,
-3,
-1,
-2,
-3,
-7]
-A=[2, 6, 6, 7 ,8, 6, 4, 1, 3, 0 ,8 ,2 ,2 ,2 ,7, 0]
-c=0
-for i in range (len(B)):
-    c+=A[i]*B[i]
-    print(c)
+import pandas as pd
+import matplotlib.pyplot as plt
+from mpl_toolkits.mplot3d import Axes3D
+
+# Read the CSV file without header
+data = pd.read_csv('log.csv', header=None)
+
+# Extract data for plotting
+x = data.iloc[:, 0]  # First column
+y = data.iloc[:, 1]  # Second column
+z = data.iloc[:, 2]  # Third column
+c = data.iloc[:, 3]  # Fourth column
+
+# Create 3D plot
+fig = plt.figure()
+ax = fig.add_subplot(111, projection='3d')
+
+# Plot the 3D scatter plot
+scatter = ax.scatter(x, y, z, c=c, cmap='viridis')
+plt.colorbar(scatter, label='No of Cycles')
+
+# Label axes and add title
+ax.set_xlabel('M dim size')
+ax.set_ylabel('K dim size')
+ax.set_zlabel('N dim size')
+ax.set_title('3D Plot')
+
+# Show plot
+plt.show()
