@@ -1,49 +1,66 @@
-#include<stdlib.h>
-#include<iostream>
-#include<verilated.h>
-#include<verilated_vcd_c.h>
-#include<Vtb_random_gemm.h>
-#define MAX_SIM_TIME 20000
+#include <stdint.h>
+#include <iostream>
+#include <signal.h>
+
+#include "Vtb_random_gemm.h"
+#include "verilated_vcd_c.h"
 
 
-vluint64_t sim_time =0;
-vluint64_t posedge_cnt=0;
+static bool done = false;
 
-void dut_reset (Vtb_random_gemm *dut , vluint64_t &sim_time);
+vluint64_t main_time = 0;
 
-int main (int argc, char** argv , char** env) {
-	Verilated::commandArgs(argc,argv);
-	Vtb_random_gemm *dut = new Vtb_random_gemm;
-
-	Verilated::traceEverOn(true);
-	VerilatedVcdC *m_trace = new VerilatedVcdC;
-	dut->trace(m_trace,10);
-	m_trace->open("waveform.vcd");
-
-	while (sim_time <MAX_SIM_TIME) {
-
-		dut_reset(dut,sim_time);
-		dut->clk^= 1;
-		dut->eval();		
-		if (dut->clk == 1) {
-		posedge_cnt++ ;
-		}				
-	
-	m_trace-> dump(sim_time);
-	sim_time++;
-	}
-
-	m_trace->close();
-	delete dut;
-	exit(EXIT_SUCCESS);
+double sc_time_stamp () {
+ return main_time;
 }
 
-void dut_reset (Vtb_random_gemm *dut, vluint64_t &sim_time){
-    dut->rst = 0;
-    if(sim_time >= 3 && sim_time < 6){
-        dut->rst = 1;
-        
+void INThandler(int signal)
+{
+  printf("\nCaught ctrl-c\n");
+  done = true;
+}
+
+int main(int argc, char** argv) {
+
+  Verilated::commandArgs(argc, argv);
+
+  Vtb_random_gemm* tb = new Vtb_random_gemm;
+
+  // init trace dump
+  VerilatedVcdC* tfp = NULL;
+  const char *vcd = Verilated::commandArgsPlusMatch("vcd=");
+  if (atoi(vcd+5)) {
+    Verilated::traceEverOn(true);
+    tfp = new VerilatedVcdC;
+    tb->trace (tfp, 99);
+    tfp->open ("trace.vcd");
+  }
+
+  signal(SIGINT, INThandler);
+
+  vluint64_t vcd_start = 0;
+  const char *arg_vcd_start = Verilated::commandArgsPlusMatch("vcd_start=");
+  if (arg_vcd_start[0])
+    vcd_start = atoi(arg_vcd_start+11);
+
+  bool dump = false;
+  tb->clk = 1;
+
+  // Simulate 
+  while (!(done || Verilated::gotFinish())) {
+    if (tfp && !dump && (main_time > vcd_start)) {
+      dump = true;
     }
+    tb->rst = main_time > 100;
+    tb->eval();
+    if (dump)
+      tfp->dump(main_time);
+    tb->clk = !tb->clk;
+    main_time+=5;
+  }
+
+  if (tfp)
+    tfp->close();
+
+  exit(EXIT_SUCCESS);
 }
-
-

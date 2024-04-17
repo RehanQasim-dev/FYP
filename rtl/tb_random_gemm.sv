@@ -86,7 +86,7 @@ module tb_random_gemm(input bit clk , rst);
   // SystemVerilog does not support dynamic array sizes in module scope, 
   // so we use the maximum expected sizes and only use portions as needed.
   localparam MAX_SIZE = 500;  // Maximum dimension size for matrices
-  localparam MAX_VAL = 5;  // Maximum value for matrix elements
+  localparam MAX_VAL = 100;  // Maximum value for matrix elements
   logic [MAX_SIZE-1:0][ 7:0] A[MAX_SIZE];
   logic [MAX_SIZE-1:0][ 7:0] B[MAX_SIZE];
   logic [MAX_SIZE-1:0][31:0] C[MAX_SIZE];
@@ -111,7 +111,7 @@ module tb_random_gemm(input bit clk , rst);
     // rst <= 0;
     sel_for_test <= 1;
     @(posedge clk);
-    file_handle = $fopen("d:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/log.csv", "w");
+    file_handle = $fopen("/home/abdul_waheed/Music/FYP/log.csv", "w");
     for (int test_no = 0; test_no < 2000; test_no++) begin
       $display(
           "------------------------------------Test No %d--------------------------------------",
