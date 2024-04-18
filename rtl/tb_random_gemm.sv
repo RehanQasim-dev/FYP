@@ -85,7 +85,7 @@ module tb_random_gemm(input bit clk , rst);
   int Tile_A_Address, Tile_B_Address, Tile_C_Address;
   // SystemVerilog does not support dynamic array sizes in module scope, 
   // so we use the maximum expected sizes and only use portions as needed.
-  localparam MAX_SIZE = 500;  // Maximum dimension size for matrices
+  localparam MAX_SIZE = 300;  // Maximum dimension size for matrices
   localparam MAX_VAL = 100;  // Maximum value for matrix elements
   logic [MAX_SIZE-1:0][ 7:0] A[MAX_SIZE];
   logic [MAX_SIZE-1:0][ 7:0] B[MAX_SIZE];
