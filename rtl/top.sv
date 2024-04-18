@@ -1,7 +1,9 @@
 module top (
     input clk,
     rst,
-    output logic is_gemm_addr_late
+    output logic is_gemm_addr_late,
+    output logic [7:0] an,
+    output logic [6:0] a_to_g
 
 );
 
@@ -28,8 +30,20 @@ module top (
       .system_bus_rd_data(system_bus_rd_data),
       .system_bus_wr_data(system_bus_wr_data),
       .system_bus_addr(system_bus_addr),
-      .system_bus_mask(system_bus_mask)
+      .system_bus_mask(system_bus_mask),
+      .data_to_sevseg (result)
   );
+
+  
+  x7segb8 x7segb8_instance (
+      .x(result),
+      .clk(clk),
+      .clr(rst),
+      .a_to_g(a_to_g),
+      .an(an),
+      .dp()
+  );
+
   assign is_gemm_addr = system_bus_addr[31:28] == 4'b1001;
   always_ff @(posedge clk) begin : blockName
     is_gemm_addr_late  <= is_gemm_addr;

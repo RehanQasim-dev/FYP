@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 
 build/main.o:     file format elf32-littleriscv
 
@@ -413,4 +411,3 @@ Disassembly of section .text:
  458:	01812403          	lw	s0,24(sp)
  45c:	02010113          	add	sp,sp,32
  460:	00008067          	ret
->>>>>>> abdul_branch_experimental

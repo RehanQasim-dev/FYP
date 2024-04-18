@@ -210,10 +210,6 @@ set_property -dict { PACKAGE_PIN H17   IOSTANDARD LVCMOS33 } [get_ports { is_gem
 #set_property -dict { PACKAGE_PIN M14   IOSTANDARD LVCMOS33 } [get_ports { QSPI_DQ[3] }]; #IO_L2N_T0_D03_14 Sch=qspi_dq[3]
 #set_property -dict { PACKAGE_PIN L13   IOSTANDARD LVCMOS33 } [get_ports { QSPI_CSN }]; #IO_L6P_T0_FCS_B_14 Sch=qspi_csn
 
-set_property IOSTANDARD LVCMOS33 [get_ports ext_inter]
-set_property IOSTANDARD LVCMOS33 [get_ports timer_en]
-set_property PACKAGE_PIN L16 [get_ports ext_inter]
-set_property PACKAGE_PIN M13 [get_ports timer_en]
 set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[6]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[5]}]
 set_property IOSTANDARD LVCMOS33 [get_ports {a_to_g[4]}]

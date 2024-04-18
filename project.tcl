@@ -57,8 +57,8 @@
 #    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Utilities/muxes.sv"
 #    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/pipeline_gen.sv"
 #    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/super_sys.sv"
-#    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/systolic _setup _reverse.sv"
-#    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/systolic _setup.sv"
+#    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/systolic_setup_reverse.sv"
+#    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/systolic_setup.sv"
 #    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/Datapath/systolic.sv"
 #    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/RISCV_Core/Utilities/timer.sv"
 #    "D:/Study/FYP/ALL_TRIES/GEMM_accelerator_v3/rtl/RISCV_Core/Datapath/wb_stage.sv"
@@ -204,8 +204,8 @@ set files [list \
  [file normalize "${origin_dir}/rtl/Utilities/muxes.sv"] \
  [file normalize "${origin_dir}/rtl/Datapath/pipeline_gen.sv"] \
  [file normalize "${origin_dir}/rtl/Datapath/super_sys.sv"] \
- [file normalize "${origin_dir}/rtl/Datapath/systolic _setup _reverse.sv"] \
- [file normalize "${origin_dir}/rtl/Datapath/systolic _setup.sv"] \
+ [file normalize "${origin_dir}/rtl/Datapath/systolic_setup_reverse.sv"] \
+ [file normalize "${origin_dir}/rtl/Datapath/systolic_setup.sv"] \
  [file normalize "${origin_dir}/rtl/Datapath/systolic.sv"] \
  [file normalize "${origin_dir}/rtl/RISCV_Core/Utilities/timer.sv"] \
  [file normalize "${origin_dir}/rtl/RISCV_Core/Datapath/wb_stage.sv"] \
@@ -368,12 +368,12 @@ set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/rtl/Datapath/systolic _setup _reverse.sv"
+set file "$origin_dir/rtl/Datapath/systolic_setup_reverse.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
 
-set file "$origin_dir/rtl/Datapath/systolic _setup.sv"
+set file "$origin_dir/rtl/Datapath/systolic_setup.sv"
 set file [file normalize $file]
 set file_obj [get_files -of_objects [get_filesets sources_1] [list "*$file"]]
 set_property -name "file_type" -value "SystemVerilog" -objects $file_obj
