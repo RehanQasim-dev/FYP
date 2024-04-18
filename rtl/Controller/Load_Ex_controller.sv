@@ -34,7 +34,9 @@ module Load_Ex_controller (
     interface_en_store,
     input  logic [ 4:0] interface_control_store,
     input  logic [31:0] next_row_addr_store,
-    input  logic        interface_rdwr_store
+    input  logic        interface_rdwr_store,
+    output logic        we_accum_ctrl
+
 );
   // logic use_store_addr;
   assign use_store_addr = cs == STORE;
@@ -74,7 +76,6 @@ module Load_Ex_controller (
   assign do_read_A = msize != (count + 1);
   logic test_gen;
   assign test_gen = gen_addr;
-
   // Combinational logic block
   always_comb begin
     // Default assignments
@@ -91,6 +92,8 @@ module Load_Ex_controller (
     wfetch = 0;
     can_store = 0;
     prefetch_start = 0;
+    we_accum_ctrl = 0;
+
     // State machine logic
     case (cs)
       IDLE:
@@ -125,6 +128,7 @@ module Load_Ex_controller (
         clr_size_counter = 1;
         prefetch_done = 1;
         wfetch = 1;
+        we_accum_ctrl = 1;
         ns = COMPUTE;
       end
 

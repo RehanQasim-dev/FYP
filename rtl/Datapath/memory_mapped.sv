@@ -193,7 +193,7 @@ module memory_mapped (
         // `base_addr+12: tile_A_stride_wr_en=1;
         // `base_addr+16: tile_B_stride_wr_en=1;
         // `base_addr+20: GEMM_control_wr_en=1;
-        `base_addr + 24: system_bus_rd_data = {0, tile_dimension_buff_empty};
+        `base_addr + 24: system_bus_rd_data = {31'b0, tile_dimension_buff_empty};
         default: system_bus_rd_data = 0;
       endcase
   end

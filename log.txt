@@ -1,0 +1,207 @@
+make verilate_gemm 
+Building verilator model
+verilator 	+define+ --cc ./rtl/tb_random_gemm.sv ./rtl/Common/Interfaces.sv ./rtl/Common/types.svh ./rtl/Common/Config.sv ./rtl/Controller/Load_Ex_controller.sv ./rtl/Controller/buffer_accum_ctrl.sv ./rtl/Controller/Store_Controller.sv ./rtl/Datapath/memory_mapped.sv ./rtl/Datapath/accumulator.sv ./rtl/Datapath/systolic.sv ./rtl/Datapath/acum_buffer.sv ./rtl/Datapath/super_sys.sv ./rtl/Datapath/Memory_test.sv ./rtl/Datapath/systolic_setup_reverse.sv ./rtl/Datapath/memory_tb.sv ./rtl/Datapath/pipeline_gen.sv ./rtl/Datapath/gemm_decoder.sv ./rtl/Datapath/mac.sv ./rtl/Datapath/gemm_datapath.sv ./rtl/Datapath/systolic_setup.sv ./rtl/Datapath/memory.sv ./rtl/Utilities/buffer.sv ./rtl/Utilities/muxes.sv ./rtl/RISCV_Core/Datapath/Branch_block.sv ./rtl/RISCV_Core/Datapath/wb_stage.sv ./rtl/RISCV_Core/Datapath/Hazard_detection.sv ./rtl/RISCV_Core/Datapath/datapath.sv ./rtl/RISCV_Core/Datapath/Fetch.sv ./rtl/RISCV_Core/Datapath/CSR_reg.sv ./rtl/RISCV_Core/Datapath/Decode.sv ./rtl/RISCV_Core/Datapath/refreshcounter.sv ./rtl/RISCV_Core/Datapath/Instrmem.sv ./rtl/RISCV_Core/Datapath/ALU.sv ./rtl/RISCV_Core/Decoders/Rocc_controller.sv ./rtl/RISCV_Core/Decoders/Controller.sv ./rtl/RISCV_Core/Decoders/LS_controller.sv ./rtl/RISCV_Core/CEP.sv ./rtl/RISCV_Core/RISC_V.sv ./rtl/RISCV_Core/Utilities/mux16x1.sv ./rtl/RISCV_Core/Utilities/x7segb8.sv ./rtl/RISCV_Core/Utilities/sevenseg.sv ./rtl/RISCV_Core/Utilities/timer.sv ./rtl/RISCV_Core/Utilities/Regfile.sv ./rtl/RISCV_Core/Utilities/Pipeline_reg.sv ./rtl/RISCV_Core/Utilities/anodecontroller.sv			  +incdir+rtl/ --top-module tb_random_gemm -Wno-TIMESCALEMOD -Wno-MULTIDRIVEN -Wno-CASEOVERLAP -Wno-WIDTH -Wno-UNOPTFLAT -Wno-IMPLICIT -Wno-PINMISSING --timing --Mdir ver_work --exe bench/tb_random_gemm.cpp --trace-structs --trace
+%Warning-MODDUP: rtl/Common/Config.sv:1:9: Duplicate declaration of module: 'Config'
+    1 | package Config;
+      |         ^~~~~~
+                 /home/abdul_waheed/Music/FYP/rtl/Common/Config.sv:1:9: ... Location of original declaration
+    1 | package Config;
+      |         ^~~~~~
+                 ... For warning description see https://verilator.org/warn/MODDUP?v=5.013
+                 ... Use "/* verilator lint_off MODDUP */" and lint_on around source to disable this message.
+%Warning-WIDTHCONCAT: rtl/Datapath/memory_mapped.sv:190:46: Unsized numbers/parameters not allowed in concatenations.
+                                                          : ... In instance tb_random_gemm.DUT.memory_mapped_instance
+  190 |         32'h9000_0000: system_bus_rd_data = {0, tile_A_buff_full};
+      |                                              ^
+%Warning-WIDTHCONCAT: rtl/Datapath/memory_mapped.sv:190:47: Unsized numbers/parameters not allowed in replications.
+                                                          : ... In instance tb_random_gemm.DUT.memory_mapped_instance
+  190 |         32'h9000_0000: system_bus_rd_data = {0, tile_A_buff_full};
+      |                                               ^
+%Warning-WIDTHCONCAT: rtl/Datapath/memory_mapped.sv:196:51: Unsized numbers/parameters not allowed in concatenations.
+                                                          : ... In instance tb_random_gemm.DUT.memory_mapped_instance
+  196 |         32'h9000_0000 + 24: system_bus_rd_data = {0, tile_dimension_buff_empty};
+      |                                                   ^
+%Warning-WIDTHCONCAT: rtl/Datapath/memory_mapped.sv:196:52: Unsized numbers/parameters not allowed in replications.
+                                                          : ... In instance tb_random_gemm.DUT.memory_mapped_instance
+  196 |         32'h9000_0000 + 24: system_bus_rd_data = {0, tile_dimension_buff_empty};
+      |                                                    ^
+%Warning-CMPCONST: rtl/Datapath/memory.sv:51:68: Comparison is constant due to limited range
+                                               : ... In instance tb_random_gemm.memory_instance
+   51 |            assign bank_addra[i] = {4'b0,interface_addr[31:4]} + (i < interface_addr[3:0]);
+      |                                                                    ^
+%Warning-CMPCONST: rtl/Datapath/memory.sv:75:68: Comparison is constant due to limited range
+                                               : ... In instance tb_random_gemm.memory_instance
+   75 |           assign bank_addrb[i] = {4'b0,system_bus_addr[31:4]} + (i < system_bus_addr[3:0]);
+      |                                                                    ^
+%Warning-CASEINCOMPLETE: rtl/Controller/Load_Ex_controller.sv:98:5: Case values incompletely covered (example pattern 0x5)
+   98 |     case (cs)
+      |     ^~~~
+%Warning-CASEINCOMPLETE: rtl/Controller/Store_Controller.sv:57:5: Case values incompletely covered (example pattern 0x5)
+   57 |     case (cs)
+      |     ^~~~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:99:18: Non-blocking assignment '<=' in initial/final block
+                                                : ... This will be executed as a blocking assignment '='!
+   99 |     sel_for_test <= 1;
+      |                  ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:148:31: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  148 |           test_interface_addr <= A_addr + i * K + j;
+      |                               ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:149:69: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  149 |           for (int l = 0; l < ksize; l++) test_interface_wr_data[l] <= A[i][j+l];
+      |                                                                     ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:150:34: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  150 |           test_interface_control <= ksize;
+      |                                  ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:151:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  151 |           test_interface_en <= 1;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:152:31: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  152 |           test_interface_rdwr <= 1;
+      |                               ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:153:24: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  153 |           sel_for_test <= 1;
+      |                        ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:161:31: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  161 |           test_interface_addr <= B_addr + i * N + j;
+      |                               ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:162:69: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  162 |           for (int l = 0; l < nsize; l++) test_interface_wr_data[l] <= B[i][j+l];
+      |                                                                     ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:163:34: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  163 |           test_interface_control <= nsize;
+      |                                  ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:164:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  164 |           test_interface_en <= 1;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:165:31: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  165 |           test_interface_rdwr <= 1;
+      |                               ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:166:24: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  166 |           sel_for_test <= 1;
+      |                        ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:171:20: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  171 |       sel_for_test <= 0;
+      |                    ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:188:27: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  188 |             system_bus_en <= 1;
+      |                           ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:189:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  189 |             system_bus_rdwr <= 1;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:190:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  190 |             system_bus_addr <= 32'h9000_0000 + 12;   
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:191:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  191 |             system_bus_wr_data <= K;
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:193:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  193 |             system_bus_addr <= 32'h9000_0000 + 16;   
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:194:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  194 |             system_bus_wr_data <= N;
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:196:27: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  196 |             system_bus_en <= 1;
+      |                           ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:197:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  197 |             system_bus_rdwr <= 1;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:198:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  198 |             system_bus_wr_data <= Tile_A_Address;   
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:199:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  199 |             system_bus_addr <= 32'h9000_0000;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:202:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  202 |             system_bus_addr <= 32'h9000_0000 + 4;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:203:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  203 |             system_bus_wr_data <= Tile_B_Address;   
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:206:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  206 |             system_bus_addr <= 32'h9000_0000 + 8;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:207:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  207 |             system_bus_wr_data <= Tile_C_Address;   
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:211:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  211 |             system_bus_addr <= 32'h9000_0000 + 20;   
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:212:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  212 |             system_bus_wr_data <= first << 1 | last;
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:214:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  214 |             system_bus_addr <= 32'h9000_0000 + 24;   
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:215:32: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  215 |             system_bus_wr_data <= msize | ksize << 5 | nsize << 10;
+      |                                ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:218:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  218 |             system_bus_en   <= 1;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:219:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  219 |             system_bus_rdwr <= 0;
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:220:29: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  220 |             system_bus_addr <= 32'h9000_0000;   
+      |                             ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:232:23: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  232 |       system_bus_en   <= 1;
+      |                       ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:233:23: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  233 |       system_bus_rdwr <= 0;
+      |                       ^~
+%Warning-INITIALDLY: rtl/tb_random_gemm.sv:234:23: Non-blocking assignment '<=' in initial/final block
+                                                 : ... This will be executed as a blocking assignment '='!
+  234 |       system_bus_addr <= 32'h9000_0000 + 24;   
+      |                       ^~
+%Warning-LATCH: rtl/Datapath/gemm_decoder.sv:19:3: Latch inferred for signal 'tb_random_gemm.DUT.mode' (not all control paths of combinational always assign a value)
+                                                 : ... Suggest use of always_latch for intentional latches
+   19 |   always_comb begin
+      |   ^~~~~~~~~~~
+%Warning-LATCH: rtl/Datapath/gemm_decoder.sv:19:3: Latch inferred for signal 'tb_random_gemm.DUT.if_mux_sel' (not all control paths of combinational always assign a value)
+                                                 : ... Suggest use of always_latch for intentional latches
+   19 |   always_comb begin
+      |   ^~~~~~~~~~~
+%Warning-LATCH: rtl/Datapath/gemm_decoder.sv:19:3: Latch inferred for signal 'tb_random_gemm.DUT.w_mux_sel' (not all control paths of combinational always assign a value)
+                                                 : ... Suggest use of always_latch for intentional latches
+   19 |   always_comb begin
+      |   ^~~~~~~~~~~
+%Error: Exiting due to 50 warning(s)
+make: *** [Makefile:81: verilate_gemm] Error 1

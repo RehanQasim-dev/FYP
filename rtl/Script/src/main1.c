@@ -4,6 +4,11 @@
 #include "gemm.h"
 
 // int32_t C[M][N];
+//register int asm ("r10");
+
+void load_value_reg (int x);
+
+void delay  (int i);
 
 void main()
 
@@ -19,4 +24,19 @@ void main()
 
     // Call the matrix multiplication function
     MATMUL(2, 3, 2, A, B, C);
+
+    for (int i=0 ; i<2; i++){
+        for (int w=0; w<0;w++){
+            load_value_reg(C[i][w]);
+        }
+    }
+}
+
+void delay (int i){
+    for (int e=0 ; e < i ; e++){}
+}
+
+void load_value_reg (int x){
+    asm("mv a0, %0" : : "r" (x));
+	delay(1000);
 }
