@@ -86,7 +86,7 @@ genvar i;
       end
     end
   end
-  logic [D_WID-1:0] mem[2**A_WID-1:0][NUM_RAMS-1:0];
+  logic [D_WID-1:0] mem [NUM_RAMS-1:0][2**A_WID-1:0];
   initial begin
     $readmemh("DCACHE.mem", mem);
   end
@@ -96,9 +96,9 @@ genvar i;
       always @(posedge clk) begin
         if (bank_ena[i]) begin
           if (bank_wea[i]) begin
-            mem[bank_addra[i]][i] <= bank_dina[i];
+            mem[i][bank_addra[i]] <= bank_dina[i];
           end
-          bank_douta[i] <= mem[bank_addra[i]][i];
+          bank_douta[i] <= mem[i][bank_addra[i]];
         end
       end
     end
@@ -111,9 +111,9 @@ genvar i;
       always @(posedge clk) begin
         if (bank_enb[i]) begin
           if (bank_web[i]) begin
-            mem[bank_addrb[i]][i] <= bank_dinb[i];
+            mem[i][bank_addrb[i]] <= bank_dinb[i];
           end
-          bank_doutb[i] <= mem[bank_addrb[i]][i];
+          bank_doutb[i] <= mem[i][bank_addrb[i]];
         end
       end
     end
