@@ -1,7 +1,6 @@
 import Config::*;
 module gemm_decoder (
     input logic clk,
-    rst,
     input logic [4:0] ksize,
     nsize,
     output logic [1:0] mode,
@@ -32,11 +31,14 @@ module gemm_decoder (
       if_mux_sel = 0;
       w_mux_sel = 1;
       // w_mux_sel[1] = 1;
-    end else if (Tallwave && !Widewave) begin
+//    end else if (Tallwave && !Widewave) begin
+    end else begin
+
       mode = 2'b11;
       if_mux_sel = 0;
       w_mux_sel = 1;
       // w_mux_sel[1] = 'x;
     end
+    
   end
 endmodule

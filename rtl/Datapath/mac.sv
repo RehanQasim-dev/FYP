@@ -21,13 +21,11 @@ module mac #(
     input  logic [P_BITWIDTH-1:0] P_in,
     output logic [P_BITWIDTH-1:0] P_out
 );
-  logic [W_BITWIDTH-1:0] W_current;
   always_ff @(posedge clk) begin
     if (rst) begin
       A_out <= 0;
       A_ready <= 0;
       W_out <= 0;
-      W_current <= 0;
       W_ready <= 0;
       P_out <= 0;
     end else begin

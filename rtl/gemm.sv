@@ -76,7 +76,6 @@ logic gt4_buffered,gt8_buffered,gt12_buffered;
     end
   gemm_decoder decoder_instance (
     .clk(clk),              
-    .rst(rst),              
     .ksize(ksize),          
     .nsize(nsize),          
     .mode(mode),            

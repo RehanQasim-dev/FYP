@@ -187,7 +187,7 @@ module memory_mapped (
   always_comb begin
     if (system_bus_en && !system_bus_rdwr)
       case (system_bus_addr)
-        `base_addr: system_bus_rd_data = {0, tile_A_buff_full};
+        `base_addr: system_bus_rd_data = {31'd0, tile_A_buff_full};
         // `base_addr+4: tile_B_addr_wr_en=1;
         // `base_addr+8: tile_C_addr_wr_en=1;
         // `base_addr+12: tile_A_stride_wr_en=1;

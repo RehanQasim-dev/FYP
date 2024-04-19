@@ -1,15 +1,14 @@
 module top (
     input clk,
-    rst,
-    output logic is_gemm_addr_late,
+    rst88888,
     output logic [7:0] an,
     output logic [6:0] a_to_g
 
 );
-
+logic is_gemm_addr_late;
   logic system_bus_en, system_bus_rdwr;
   logic [31:0]
-      system_bus_rd_data, system_bus_wr_data, gemm_conf_read, mem_read_data, gemm_conf_read_ppl;
+      system_bus_rd_data, system_bus_wr_data, gemm_conf_read, mem_read_data, gemm_conf_read_ppl,result;
   logic [31:0] system_bus_addr;
   logic [4:0] interface_control;
   logic interface_rdwr;
@@ -20,10 +19,10 @@ module top (
   logic [3:0] system_bus_mask;
   RISC_V RISC_V_instance (
       .clk(clk),
-      .rst(rst),
+      .rst(rst88888),
       .timer_en(0),
       .ext_inter(0),
-      //        .reset(rst),
+      //        .reset(rst88888),
       //       .interrupt(1'b0),
       .system_bus_en(system_bus_en),
       .system_bus_rdwr(system_bus_rdwr),
@@ -38,7 +37,7 @@ module top (
   x7segb8 x7segb8_instance (
       .x(result),
       .clk(clk),
-      .clr(rst),
+      .clr(rst88888),
       .a_to_g(a_to_g),
       .an(an),
       .dp()
@@ -74,7 +73,7 @@ module top (
 
   gemm gemm_instance (
       .clk(clk),
-      .rst(rst),
+      .rst(rst88888),
       .system_bus_en(en_gemm_conf),
       .system_bus_rdwr(system_bus_rdwr),
       .system_bus_rd_data(gemm_conf_read),

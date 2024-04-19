@@ -4,7 +4,6 @@ module systolic_setup #(
     parameter PORTS = 8
 ) (
     input clk,
-    rst,
     input logic [PORTS-1:0][DATA_WIDTH-1:0] in,
     output logic [PORTS-1:0][DATA_WIDTH-1:0] out
 );

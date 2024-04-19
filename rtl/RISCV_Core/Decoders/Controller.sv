@@ -2,7 +2,6 @@
 //`include "Pipeline_reg.sv"
 module Controller (
     input clk,
-    input rst,
     stall,
     input logic [31:0] instruction,
     input logic br_taken,

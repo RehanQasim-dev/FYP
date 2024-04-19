@@ -71,7 +71,10 @@ module buffer_accum_ctrl #(
         rd_en_true = 0;
         ns = IDLE;
       end
-      USED: rd_en_true = rd_en;
+      USED: begin rd_en_true = rd_en;
+              ns = USED;
+
+       end
     endcase
   end
   always_ff @(posedge clk) begin : blockName

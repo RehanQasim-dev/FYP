@@ -39,7 +39,6 @@ module gemm_datapath (
       .PORTS(SUPER_SYS_COLS)
   ) weight_data_setup (
       .clk(clk),
-      .rst(rst),
       .in (wdata),
       .out(wdata_setup)
   );
@@ -49,7 +48,6 @@ module gemm_datapath (
       .PORTS(SUPER_SYS_COLS)
   ) weight_valid_setup (
       .clk(clk),
-      .rst(rst),
       .in ({SUPER_SYS_ROWS{wfetch}}),
       .out(wfetch_setup)
   );
@@ -59,7 +57,6 @@ module gemm_datapath (
       .PORTS(SUPER_SYS_ROWS)
   ) input_data_setup (
       .clk(clk),
-      .rst(rst),
       .in (if_data),
       .out(if_data_setup)
   );
@@ -69,7 +66,6 @@ module gemm_datapath (
       .PORTS(SUPER_SYS_ROWS)
   ) input_valid_setup (
       .clk(clk),
-      .rst(rst),
       .in ({SUPER_SYS_ROWS{if_en}}),
       .out(if_en_setup)
   );

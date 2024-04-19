@@ -37,7 +37,6 @@ module RISC_V (
   logic is_GemmInstr;
   Controller Controller (
       .clk(clk),
-      .rst(rst),
       .stall(stall),
       .instruction(instruction),
       .br_taken(br_taken),

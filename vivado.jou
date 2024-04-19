@@ -1,0 +1,70 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Apr 19 10:59:31 2024
+# Process ID: 8065
+# Current directory: /home/abdul_waheed/Music/FYP
+# Command line: vivado
+# Log file: /home/abdul_waheed/Music/FYP/vivado.log
+# Journal file: /home/abdul_waheed/Music/FYP/vivado.jou
+#-----------------------------------------------------------
+start_gui
+source /home/abdul_waheed/Music/FYP/project.tcl
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/Controller/buffer_accum_ctrl.sv
+add_files -norecurse {/home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem}
+synth_design -rtl -name rtl_1
+refresh_design
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+refresh_design
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+refresh_design
+refresh_design
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+refresh_design
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+refresh_design
+refresh_design
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+open_run synth_1 -name synth_1
+startgroup
+route_design -nets [get_nets rst88888_IBUF]
+select_objects [get_nets rst88888_IBUF]
+endgroup
+current_design rtl_1
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top gemm [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+refresh_design
+set_property IOSTANDARD LVCMOS33 [get_ports [list rst]]
+place_ports rst C12
+set_property target_constrs_file /home/abdul_waheed/Music/FYP/Vivado/Nexys-A7-100T-Master.xdc [current_fileset -constrset]
+save_constraints -force
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+refresh_design
+current_design synth_1
+refresh_design
