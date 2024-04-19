@@ -2,8 +2,8 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Fri Apr 19 16:49:52 2024
-# Process ID: 440393
+# Start of session at: Fri Apr 19 15:13:58 2024
+# Process ID: 360874
 # Current directory: /home/abdul_waheed/Music/FYP
 # Command line: vivado
 # Log file: /home/abdul_waheed/Music/FYP/vivado.log
@@ -11,7 +11,10 @@
 #-----------------------------------------------------------
 start_gui
 open_project /home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.xpr
-reset_run impl_1 -prev_step 
+reset_run impl_1
+launch_runs impl_1 -jobs 10
+wait_on_run impl_1
+open_run impl_1
 launch_runs impl_1 -to_step write_bitstream -jobs 10
 wait_on_run impl_1
 open_hw
@@ -25,7 +28,12 @@ set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
 set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/CEP.bit} [get_hw_devices xc7a100t_0]
 program_hw_devices [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
-reset_run impl_1 -prev_step 
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem] -no_script -reset -force -quiet
+remove_files  -fileset sim_1 /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem] -no_script -reset -force -quiet
+remove_files  /home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem
+synth_design -rtl -name rtl_1
+reset_run synth_1
 launch_runs impl_1 -to_step write_bitstream -jobs 10
 wait_on_run impl_1
 set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
@@ -33,27 +41,6 @@ set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
 set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/CEP.bit} [get_hw_devices xc7a100t_0]
 program_hw_devices [get_hw_devices xc7a100t_0]
 refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
-set_property SOURCE_SET sources_1 [get_filesets sim_1]
-add_files -fileset sim_1 -norecurse /home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP_tb.sv
-# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
-set_property source_mgmt_mode None [current_project]
-set_property top CEP_tb [get_filesets sim_1]
-set_property top_lib xil_defaultlib [get_filesets sim_1]
-# Re-enabling previously disabled source management mode.
-set_property source_mgmt_mode DisplayOnly [current_project]
-launch_simulation
-open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
-open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
-open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
-source CEP_tb.tcl
-current_wave_config {tb_top_behav1.wcfg}
-add_wave {{/CEP_tb/dut/RISC_V_instance/datapath/Decode_instance/Regfile_instance/register_memory}} 
-restart
-run 10 us
-current_wave_config {tb_top_behav1.wcfg}
-add_wave {{/CEP_tb/dut/RISC_V_instance/datapath/Decode_instance/PC}} 
-current_wave_config {tb_top_behav1.wcfg}
-add_wave {{/CEP_tb/dut/RISC_V_instance/datapath/Decode_instance/Regfile_instance/write_en}} {{/CEP_tb/dut/RISC_V_instance/datapath/Decode_instance/Regfile_instance/rd}} {{/CEP_tb/dut/RISC_V_instance/datapath/Decode_instance/Regfile_instance/write_data}} {{/CEP_tb/dut/RISC_V_instance/datapath/Decode_instance/Regfile_instance/data_to_seven_led}} 
-restart
-run 10 us
-close_sim
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem] -no_script -reset -force -quiet
+remove_files  /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem

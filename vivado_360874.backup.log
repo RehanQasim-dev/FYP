@@ -1,0 +1,354 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Fri Apr 19 15:13:58 2024
+# Process ID: 360874
+# Current directory: /home/abdul_waheed/Music/FYP
+# Command line: vivado
+# Log file: /home/abdul_waheed/Music/FYP/vivado.log
+# Journal file: /home/abdul_waheed/Music/FYP/vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project /home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.xpr
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository '/opt/Xilinx/Vivado/2018.2/data/ip'.
+reset_run impl_1
+launch_runs impl_1 -jobs 10
+[Fri Apr 19 15:17:10 2024] Launched impl_1...
+Run output will be captured here: /home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/runme.log
+open_run impl_1
+INFO: [Netlist 29-17] Analyzing 248 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-479] Netlist was created with Vivado 2018.2
+INFO: [Device 21-403] Loading part xc7a100tcsg324-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Timing 38-478] Restoring timing data from binary archive.
+INFO: [Timing 38-479] Binary timing data restore complete.
+INFO: [Project 1-856] Restoring constraints from binary archive.
+INFO: [Project 1-853] Binary constraint restore complete.
+Reading XDEF placement.
+Reading placer database...
+Reading XDEF routing.
+Read XDEF File: Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.10 . Memory (MB): peak = 6920.344 ; gain = 2.602 ; free physical = 4133 ; free virtual = 12340
+Restored from archive | CPU: 0.120000 secs | Memory: 4.928482 MB |
+Finished XDEF File Restore: Time (s): cpu = 00:00:00.11 ; elapsed = 00:00:00.10 . Memory (MB): peak = 6920.344 ; gain = 2.602 ; free physical = 4133 ; free virtual = 12340
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:17 ; elapsed = 00:00:18 . Memory (MB): peak = 7131.816 ; gain = 805.047 ; free physical = 3997 ; free virtual = 12210
+WARNING: [Timing 38-313] There are no user specified timing constraints. Timing constraints are needed for proper timing analysis.
+launch_runs impl_1 -to_step write_bitstream -jobs 10
+[Fri Apr 19 15:18:50 2024] Launched impl_1...
+Run output will be captured here: /home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/runme.log
+open_hw
+connect_hw_server
+INFO: [Labtools 27-2285] Connecting to hw_server url TCP:localhost:3121
+INFO: [Labtools 27-2222] Launching hw_server...
+INFO: [Labtools 27-2221] Launch Output:
+
+****** Xilinx hw_server v2018.2
+  **** Build date : Jun 14 2018-20:18:37
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+
+open_hw_target
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD322CA
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/CEP.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/CEP.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+ERROR: [Labtoolstcl 44-513] HW Target shutdown. Closing target: localhost:3121/xilinx_tcf/Digilent/210292AD322CA
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem] -no_script -reset -force -quiet
+remove_files  -fileset sim_1 /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem] -no_script -reset -force -quiet
+remove_files  /home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem
+synth_design -rtl -name rtl_1
+Command: synth_design -rtl -name rtl_1
+Starting synth_design
+Using part: xc7a100tcsg324-1
+Top: CEP
+---------------------------------------------------------------------------------
+Starting RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:01 . Memory (MB): peak = 7793.367 ; gain = 45.102 ; free physical = 260 ; free virtual = 11208
+---------------------------------------------------------------------------------
+INFO: [Synth 8-6157] synthesizing module 'CEP' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'RISC_V' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/RISC_V.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'Controller' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/Controller.sv:3]
+	Parameter R_type bound to: 5'b01100 
+	Parameter I_type bound to: 5'b00100 
+	Parameter Load_type bound to: 5'b00000 
+	Parameter S_type bound to: 5'b01000 
+	Parameter B_type bound to: 5'b11000 
+	Parameter JAL_TYPE bound to: 5'b11011 
+	Parameter Jalr_type bound to: 5'b11001 
+	Parameter lui_type bound to: 5'b01101 
+	Parameter auipc_type bound to: 5'b00101 
+	Parameter csr_type bound to: 5'b11100 
+	Parameter GEMM_type bound to: 5'b00010 
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/Controller.sv:91]
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/Controller.sv:159]
+INFO: [Synth 8-6157] synthesizing module 'Pipeline_reg' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+	Parameter WIDTH bound to: 1 - type: integer 
+	Parameter reset bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Pipeline_reg' (1#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'Pipeline_reg__parameterized0' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+	Parameter WIDTH bound to: 2 - type: integer 
+	Parameter reset bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Pipeline_reg__parameterized0' (1#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'Controller' (2#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/Controller.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'datapath' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/datapath.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'Fetch' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Fetch.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'Instrmem' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Instrmem.sv:1]
+INFO: [Synth 8-3876] $readmem data file 'ICACHE.mem' is read successfully [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Instrmem.sv:7]
+INFO: [Synth 8-6155] done synthesizing module 'Instrmem' (3#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Instrmem.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'Pipeline_reg__parameterized1' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+	Parameter WIDTH bound to: 32 - type: integer 
+	Parameter reset bound to: 19 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Pipeline_reg__parameterized1' (3#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'Fetch' (4#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Fetch.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'Decode' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Decode.sv:6]
+	Parameter I_type bound to: 5'b00100 
+	Parameter Load_type bound to: 5'b00000 
+	Parameter B_type bound to: 5'b11000 
+	Parameter S_type bound to: 5'b01000 
+	Parameter J_type bound to: 5'b11011 
+	Parameter Jalr_type bound to: 5'b11001 
+	Parameter lui_type bound to: 5'b01101 
+	Parameter auipc_type bound to: 5'b00101 
+INFO: [Synth 8-6157] synthesizing module 'Pipeline_reg__parameterized2' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+	Parameter WIDTH bound to: 32 - type: integer 
+	Parameter reset bound to: 0 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'Pipeline_reg__parameterized2' (4#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Pipeline_reg.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'Regfile' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Regfile.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'Regfile' (5#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/Regfile.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'ALU' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/ALU.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'mux16x1' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/mux16x1.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'mux16x1' (6#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/mux16x1.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'ALU' (7#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/ALU.sv:2]
+INFO: [Synth 8-6157] synthesizing module 'Branch_block' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Branch_block.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'Branch_block' (8#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Branch_block.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'Decode' (9#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Decode.sv:6]
+INFO: [Synth 8-6157] synthesizing module 'wb_stage' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/wb_stage.sv:3]
+	Parameter I_type bound to: 5'b00100 
+	Parameter Load_type bound to: 5'b00000 
+	Parameter B_type bound to: 5'b11000 
+	Parameter S_type bound to: 5'b01000 
+	Parameter J_type bound to: 5'b11011 
+	Parameter Jalr_type bound to: 5'b11001 
+	Parameter lui_type bound to: 5'b01101 
+	Parameter auipc_type bound to: 5'b00101 
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/wb_stage.sv:46]
+INFO: [Synth 8-6157] synthesizing module 'LS_controller' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:1]
+	Parameter b bound to: 3'b000 
+	Parameter h bound to: 3'b001 
+	Parameter w bound to: 3'b010 
+	Parameter bu bound to: 3'b100 
+	Parameter hu bound to: 3'b101 
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:21]
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:46]
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:89]
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:98]
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:108]
+INFO: [Synth 8-226] default block is never used [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:117]
+INFO: [Synth 8-6155] done synthesizing module 'LS_controller' (10#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/LS_controller.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'CSR_reg' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/CSR_reg.sv:1]
+	Parameter mepc_addr bound to: 12'b001101000001 
+	Parameter mcause_addr bound to: 12'b001101000010 
+	Parameter mip_addr bound to: 12'b001101000100 
+	Parameter mtvec_addr bound to: 12'b001100000101 
+	Parameter mie_addr bound to: 12'b001100000100 
+	Parameter mstatus_addr bound to: 12'b001100000000 
+INFO: [Synth 8-6155] done synthesizing module 'CSR_reg' (11#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/CSR_reg.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'wb_stage' (12#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/wb_stage.sv:3]
+INFO: [Synth 8-6157] synthesizing module 'Hazard_detection' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Hazard_detection.sv:1]
+	Parameter NORMAL bound to: 1'b0 
+	Parameter STALLED bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'Hazard_detection' (13#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/Hazard_detection.sv:1]
+INFO: [Synth 8-6157] synthesizing module 'Rocc_Controller' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/Rocc_controller.sv:1]
+	Parameter NORMAL bound to: 1'b0 
+	Parameter WAIT bound to: 1'b1 
+INFO: [Synth 8-6155] done synthesizing module 'Rocc_Controller' (14#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Decoders/Rocc_controller.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'datapath' (15#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Datapath/datapath.sv:5]
+INFO: [Synth 8-6157] synthesizing module 'timer' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/timer.sv:1]
+	Parameter WIDTH bound to: 4 - type: integer 
+INFO: [Synth 8-6155] done synthesizing module 'timer' (16#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/timer.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'RISC_V' (17#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/RISC_V.sv:1]
+WARNING: [Synth 8-350] instance 'RISC_V_instance' of module 'RISC_V' requires 16 connections, but only 10 given [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+INFO: [Synth 8-6157] synthesizing module 'x7segb8' [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/x7segb8.sv:1]
+INFO: [Synth 8-6155] done synthesizing module 'x7segb8' (18#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/Utilities/x7segb8.sv:1]
+WARNING: [Synth 8-3848] Net gemm_done in module/entity CEP does not have driver. [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:9]
+INFO: [Synth 8-6155] done synthesizing module 'CEP' (19#1) [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:1]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[19]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[18]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[17]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[16]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[15]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[11]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[10]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[9]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[8]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[7]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[6]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[5]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[4]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[3]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[2]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[1]
+WARNING: [Synth 8-3331] design wb_stage has unconnected port instruction[0]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[31]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[30]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[29]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[28]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[27]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[26]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[25]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[24]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[23]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[22]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[21]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[20]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[19]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[18]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[17]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[16]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[15]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[14]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[13]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[12]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[1]
+WARNING: [Synth 8-3331] design Instrmem has unconnected port addr_i[0]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[31]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[28]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[27]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[26]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[24]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[23]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[22]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[21]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[20]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[19]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[18]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[17]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[16]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[15]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[11]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[10]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[9]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[8]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[7]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[1]
+WARNING: [Synth 8-3331] design Controller has unconnected port instruction[0]
+WARNING: [Synth 8-3331] design Controller has unconnected port gemm_done
+---------------------------------------------------------------------------------
+Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7834.617 ; gain = 86.352 ; free physical = 242 ; free virtual = 11217
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:gemm_done to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[31] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[30] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[29] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[28] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[27] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[26] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[25] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[24] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[23] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[22] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[21] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[20] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[19] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[18] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[17] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[16] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[15] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[14] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[13] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[12] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[11] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[10] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[9] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[8] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[7] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[6] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[5] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[4] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[3] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[2] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[1] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+WARNING: [Synth 8-3295] tying undriven pin RISC_V_instance:system_bus_rd_data[0] to constant 0 [/home/abdul_waheed/Music/FYP/rtl/RISCV_Core/CEP.sv:12]
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7834.617 ; gain = 86.352 ; free physical = 238 ; free virtual = 11220
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 7834.617 ; gain = 86.352 ; free physical = 238 ; free virtual = 11220
+---------------------------------------------------------------------------------
+INFO: [Project 1-570] Preparing netlist for logic optimization
+
+Processing XDC Constraints
+Initializing timing engine
+Parsing XDC File [/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.srcs/constrs_1/new/constraints.xdc]
+Finished Parsing XDC File [/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.srcs/constrs_1/new/constraints.xdc]
+Completed Processing XDC Constraints
+
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+RTL Elaboration Complete:  : Time (s): cpu = 00:00:07 ; elapsed = 00:00:03 . Memory (MB): peak = 8054.707 ; gain = 306.441 ; free physical = 170 ; free virtual = 11076
+57 Infos, 96 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 10
+[Fri Apr 19 16:44:30 2024] Launched synth_1...
+Run output will be captured here: /home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/synth_1/runme.log
+[Fri Apr 19 16:44:30 2024] Launched impl_1...
+Run output will be captured here: /home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/runme.log
+INFO: [Labtoolstcl 44-466] Opening hw_target localhost:3121/xilinx_tcf/Digilent/210292AD322CA
+INFO: [Labtools 27-1435] Device xc7a100t (JTAG device index = 0) is not programmed (DONE status = 0).
+WARNING: [Labtoolstcl 44-129] No matching hw_ila_data was found.
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/CEP.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+INFO: [Labtools 27-3164] End of startup status: HIGH
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+INFO: [Labtools 27-1434] Device xc7a100t (JTAG device index = 0) is programmed with a design that has no supported debug core(s) in it.
+WARNING: [Labtools 27-3361] The debug hub core was not detected.
+Resolution: 
+1. Make sure the clock connected to the debug hub (dbg_hub) core is a free running clock and is active.
+2. Make sure the BSCAN_SWITCH_USER_MASK device property in Vivado Hardware Manager reflects the user scan chain setting in the design and refresh the device.  To determine the user scan chain setting in the design, open the implemented design and use 'get_property C_USER_SCAN_CHAIN [get_debug_cores dbg_hub]'.
+For more details on setting the scan chain property, consult the Vivado Debug and Programming User Guide (UG908).
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem] -no_script -reset -force -quiet
+remove_files  /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem
+exit
+INFO: [Common 17-206] Exiting Vivado at Fri Apr 19 16:49:43 2024...

@@ -71,26 +71,19 @@
 
 #include<stdio.h>
 
-void load_value_reg (int x);
-
- void delay (int i){
-     for (int e=0 ; e < i ; e++){}
-}
 
 void main (void) {
     int a=0;
     int w=30;
-    int r;
-    r= w+ w*3;
-    load_value_reg(a);
-    a=3;
-    load_value_reg(w);
-    a=6;
-    load_value_reg(r);
+    // int r;
+    // r= w+ w;
+    asm("mv a1, %0" : : "r" (w));
+    for (int e=0 ; e < 1000 ; e++){}
+//     a=3;
+//    asm("mv a1, %0" : : "r" (w));
+//     for (int e=0 ; e < 1000; e++){}
+//     a=6;
+//    asm("mv a1, %0" : : "r" (a));
+//     for (int e=0 ; e < 1000 ; e++){}
 
-}
-
-void load_value_reg (int x){
-    asm("mv a0, %0" : : "r" (x));
-	delay(1000);
 }

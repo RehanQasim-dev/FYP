@@ -38,5 +38,5 @@ void delay (int i){
 
 void load_value_reg (int x){
     asm("mv a0, %0" : : "r" (x));
-	delay(1000);
+	delay(1000000000);
 }
