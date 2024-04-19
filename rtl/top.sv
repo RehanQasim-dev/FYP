@@ -1,6 +1,6 @@
 module top (
     input clk,
-    rst88888,
+    rst,
     output logic [7:0] an,
     output logic [6:0] a_to_g
 
@@ -19,10 +19,10 @@ logic is_gemm_addr_late;
   logic [3:0] system_bus_mask;
   RISC_V RISC_V_instance (
       .clk(clk),
-      .rst(rst88888),
+      .rst(rst),
       .timer_en(0),
       .ext_inter(0),
-      //        .reset(rst88888),
+      //        .reset(rst),
       //       .interrupt(1'b0),
       .system_bus_en(system_bus_en),
       .system_bus_rdwr(system_bus_rdwr),
@@ -37,7 +37,7 @@ logic is_gemm_addr_late;
   x7segb8 x7segb8_instance (
       .x(result),
       .clk(clk),
-      .clr(rst88888),
+      .clr(rst),
       .a_to_g(a_to_g),
       .an(an),
       .dp()
@@ -73,7 +73,7 @@ logic is_gemm_addr_late;
 
   gemm gemm_instance (
       .clk(clk),
-      .rst(rst88888),
+      .rst(rst),
       .system_bus_en(en_gemm_conf),
       .system_bus_rdwr(system_bus_rdwr),
       .system_bus_rd_data(gemm_conf_read),
