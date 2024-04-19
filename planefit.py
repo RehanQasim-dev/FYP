@@ -7,7 +7,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.pipeline import make_pipeline
 
 # Read the CSV file without header
-data = pd.read_csv('./log.csv', header=None)
+data = pd.read_csv('./log_500.csv', header=None)
 
 # Extract data for plotting
 x = data.iloc[:, 0].values  # First column (M dim size)
