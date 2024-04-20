@@ -1,0 +1,237 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sat Apr 20 11:57:19 2024
+# Process ID: 130176
+# Current directory: /home/abdul_waheed/Music/FYP
+# Command line: vivado
+# Log file: /home/abdul_waheed/Music/FYP/vivado.log
+# Journal file: /home/abdul_waheed/Music/FYP/vivado.jou
+#-----------------------------------------------------------
+start_gui
+source /home/abdul_waheed/Music/FYP/project.tcl
+synth_design -rtl -name rtl_1
+add_files -norecurse {/home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem}
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/Controller/buffer_accum_ctrl.sv
+synth_design -rtl -name rtl_1
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_top [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+current_wave_config {}
+add_wave {{/tb_top/DUT/clk}} {{/tb_top/DUT/rst}} {{/tb_top/DUT/an}} {{/tb_top/DUT/a_to_g}} {{/tb_top/DUT/is_gemm_addr_late}} {{/tb_top/DUT/system_bus_en}} {{/tb_top/DUT/system_bus_rdwr}} {{/tb_top/DUT/system_bus_rd_data}} {{/tb_top/DUT/system_bus_wr_data}} {{/tb_top/DUT/gemm_conf_read}} {{/tb_top/DUT/mem_read_data}} {{/tb_top/DUT/gemm_conf_read_ppl}} {{/tb_top/DUT/result}} {{/tb_top/DUT/system_bus_addr}} {{/tb_top/DUT/interface_control}} {{/tb_top/DUT/interface_rdwr}} {{/tb_top/DUT/interface_en}} {{/tb_top/DUT/interface_addr}} {{/tb_top/DUT/interface_rd_data}} {{/tb_top/DUT/interface_wr_data}} {{/tb_top/DUT/system_bus_mask}} {{/tb_top/DUT/is_gemm_addr}} {{/tb_top/DUT/en_gemm_conf}} {{/tb_top/DUT/en_Dmem}} 
+restart
+run all
+current_wave_config {tb_top_behav1.wcfg}
+log_wave -r {/tb_top/DUT/RISC_V_instance} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/RISC_V_instance}} 
+restart
+run all
+close_sim
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+current_wave_config {}
+add_wave {{/tb_top/DUT}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/RISC_V_instance}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/x7segb8_instance}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/memory_instance}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/gemm_instance}} 
+restart
+run all
+add_wave {{/tb_top/DUT/RISC_V_instance/clk}} {{/tb_top/DUT/RISC_V_instance/rst}} {{/tb_top/DUT/RISC_V_instance/timer_en}} {{/tb_top/DUT/RISC_V_instance/ext_inter}} {{/tb_top/DUT/RISC_V_instance/gemm_done}} {{/tb_top/DUT/RISC_V_instance/gemm_valid}} {{/tb_top/DUT/RISC_V_instance/gemm_rdata1}} {{/tb_top/DUT/RISC_V_instance/gemm_rdata2}} {{/tb_top/DUT/RISC_V_instance/gemm_instruction}} {{/tb_top/DUT/RISC_V_instance/system_bus_en}} {{/tb_top/DUT/RISC_V_instance/system_bus_rdwr}} {{/tb_top/DUT/RISC_V_instance/system_bus_rd_data}} {{/tb_top/DUT/RISC_V_instance/system_bus_wr_data}} {{/tb_top/DUT/RISC_V_instance/system_bus_addr}} {{/tb_top/DUT/RISC_V_instance/system_bus_mask}} {{/tb_top/DUT/RISC_V_instance/data_to_sevseg}} {{/tb_top/DUT/RISC_V_instance/instruction}} {{/tb_top/DUT/RISC_V_instance/interrupt}} {{/tb_top/DUT/RISC_V_instance/flush}} {{/tb_top/DUT/RISC_V_instance/stall}} {{/tb_top/DUT/RISC_V_instance/ovf}} {{/tb_top/DUT/RISC_V_instance/mem_read}} {{/tb_top/DUT/RISC_V_instance/reg_wr}} {{/tb_top/DUT/RISC_V_instance/A_sel}} {{/tb_top/DUT/RISC_V_instance/PC_sel}} {{/tb_top/DUT/RISC_V_instance/B_sel}} {{/tb_top/DUT/RISC_V_instance/br_taken}} {{/tb_top/DUT/RISC_V_instance/mem_wr}} {{/tb_top/DUT/RISC_V_instance/csr_reg_r}} {{/tb_top/DUT/RISC_V_instance/csr_reg_wr}} {{/tb_top/DUT/RISC_V_instance/is_mret}} {{/tb_top/DUT/RISC_V_instance/wb_sel}} {{/tb_top/DUT/RISC_V_instance/ALUctrl}} {{/tb_top/DUT/RISC_V_instance/is_GemmInstr}} 
+current_wave_config {Untitled 1}
+add_wave {{/tb_top/DUT/RISC_V_instance/datapath/Decode_instance/Regfile_instance/write_en}} {{/tb_top/DUT/RISC_V_instance/datapath/Decode_instance/Regfile_instance/rd}} {{/tb_top/DUT/RISC_V_instance/datapath/Decode_instance/Regfile_instance/data_to_seven_led}} {{/tb_top/DUT/RISC_V_instance/datapath/Decode_instance/Regfile_instance/register_memory}} 
+close_sim
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+relaunch_sim
+relaunch_sim
+refresh_design
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+wait_on_run impl_1
+close_design
+open_run impl_1
+open_hw
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+synth_design -rtl -name rtl_1
+place_ports rst R15
+set_property target_constrs_file /home/abdul_waheed/Music/FYP/Vivado/Nexys-A7-100T-Master.xdc [current_fileset -constrset]
+save_constraints -force
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+wait_on_run impl_1
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/top.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+relaunch_sim
+add_wave {{/tb_top/DUT}} 
+close_sim
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+run 10 us
+run 10 us
+current_wave_config {tb_top_behav.wcfg}
+add_wave {{/tb_top/DUT/x7segb8_instance/x}} {{/tb_top/DUT/x7segb8_instance/clk}} {{/tb_top/DUT/x7segb8_instance/clr}} {{/tb_top/DUT/x7segb8_instance/a_to_g}} {{/tb_top/DUT/x7segb8_instance/an}} {{/tb_top/DUT/x7segb8_instance/dp}} {{/tb_top/DUT/x7segb8_instance/s}} {{/tb_top/DUT/x7segb8_instance/digit}} {{/tb_top/DUT/x7segb8_instance/aen}} {{/tb_top/DUT/x7segb8_instance/clkdiv}} 
+restart
+run all
+run 10 us
+run 10 us
+save_wave_config {/home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg}
+close_sim
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+reset_run synth_1
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+wait_on_run impl_1
+close_sim
+current_design impl_1
+report_timing_summary -delay_type min_max -report_unconstrained -check_timing_verbose -max_paths 10 -input_pins -routable_nets -name timing_1
+close_design
+open_run impl_1
+reset_run synth_1
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+refresh_design
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+wait_on_run impl_1
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/flip_flop.sv
+current_design rtl_1
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/tff.sv
+refresh_design
+export_ip_user_files -of_objects  [get_files /home/abdul_waheed/Music/FYP/rtl/flip_flop.sv] -no_script -reset -force -quiet
+remove_files  /home/abdul_waheed/Music/FYP/rtl/flip_flop.sv
+refresh_design
+launch_simulation
+refresh_design
+launch_simulation
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+current_wave_config {tb_random_gemm_behav.wcfg}
+add_wave {{/tb_top/DUT/clk_high}} {{/tb_top/DUT/clk}} {{/tb_top/DUT/clk_div_1}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/clk_high}} {{/tb_top/DUT/clk}} {{/tb_top/DUT/clk_div_1}} 
+run all
+close_sim
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+current_wave_config {}
+add_wave {{/tb_top/DUT/clk_high}} {{/tb_top/DUT/clk}} {{/tb_top/DUT/clk_div_1}} 
+restart
+run 10 us
+close_sim
+refresh_design
+refresh_design
+refresh_design
+refresh_design
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/soc.sv
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top soc [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+refresh_design
+refresh_design
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+add_wave {{/tb_top/DUT/clk}} {{/tb_top/DUT/rst}} {{/tb_top/DUT/clk_25}} 
+restart
+run 10 us
+close_sim
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+current_wave_config {}
+add_wave {{/tb_top/DUT/clk}} {{/tb_top/DUT/rst}} {{/tb_top/DUT/an}} {{/tb_top/DUT/a_to_g}} {{/tb_top/DUT/clk_50}} {{/tb_top/DUT/clk_25}} 
+restart
+run 10 us
+run 10 us
+run 10 us
+run 10 us
+restart
+run 10 us
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/top_instance/RISC_V_instance}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/top_instance/x7segb8_instance}} 
+restart
+run 10 us
+run 10 us
+run 10 us
+run 10 us
+close_sim
+refresh_design
+reset_run synth_1
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+current_design impl_1
+refresh_design
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+wait_on_run impl_1

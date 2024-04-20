@@ -1,9 +1,6 @@
 .global verilate
 verilate:
-li x5 , 10
-li x8, 15
-add x28, x5, x8
-addi x7, x8, 45
+li x12 , 2345
 j loop
 nop
 nop

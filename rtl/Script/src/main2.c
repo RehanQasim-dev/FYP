@@ -77,7 +77,7 @@ void main (void) {
     int w=30;
     // int r;
     // r= w+ w;
-    asm("mv a1, %0" : : "r" (w));
+    asm("mv a2, %0" : : "r" (w));
     while (1){}
 //     a=3;
 //    asm("mv a1, %0" : : "r" (w));

@@ -10,10 +10,10 @@ module x7segb8 (
   logic [ 2:0] s;
   logic [ 3:0] digit;
   logic [ 7:0] aen;
-  logic [19:0] clkdiv;
+  logic [17:0] clkdiv;
 
   assign dp = 1;
-  assign s = clkdiv[17:15];
+  assign s = clkdiv[15:13];
   // set aen(3 downto 0) for leading blanks
   assign aen[7] = x[31] | x[30] | x[29] | x[28];
   assign aen[6] = x[31] | x[30] | x[29] | x[28] | x[27] | x[26] | x[25] | x[24];
@@ -81,9 +81,9 @@ module x7segb8 (
   // Clock divider
   always_ff @(posedge clk) begin
     if (clr) begin
-      clkdiv <= 20'b0;
+      clkdiv <= 18'b0;
     end else begin
-      clkdiv <= clkdiv + 20'b1;
+      clkdiv <= clkdiv + 18'b1;
     end
   end
 endmodule

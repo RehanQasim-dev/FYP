@@ -1,0 +1,117 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sat Apr 20 14:40:27 2024
+# Process ID: 1127331
+# Current directory: /home/abdul_waheed/Music/FYP
+# Command line: vivado
+# Log file: /home/abdul_waheed/Music/FYP/vivado.log
+# Journal file: /home/abdul_waheed/Music/FYP/vivado.jou
+#-----------------------------------------------------------
+start_gui
+source /home/abdul_waheed/Music/FYP/project.tcl
+add_files -norecurse {/home/abdul_waheed/Music/FYP/rtl/tff.sv /home/abdul_waheed/Music/FYP/rtl/soc.sv}
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top soc [current_fileset]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+synth_design -rtl -name rtl_1
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/Controller/buffer_accum_ctrl.sv
+synth_design -rtl -name rtl_1
+refresh_design
+refresh_design
+refresh_design
+refresh_design
+refresh_design
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_random_gemm.tcl
+# Disabling source management mode.  This is to allow the top design properties to be set without GUI intervention.
+set_property source_mgmt_mode None [current_project]
+set_property top tb_top [get_filesets sim_1]
+set_property top_lib xil_defaultlib [get_filesets sim_1]
+# Re-enabling previously disabled source management mode.
+set_property source_mgmt_mode DisplayOnly [current_project]
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+add_wave {{/tb_top/DUT/clk}} {{/tb_top/DUT/rst}} {{/tb_top/DUT/an}} {{/tb_top/DUT/a_to_g}} {{/tb_top/DUT/rst_new}} {{/tb_top/DUT/clk_25}} 
+restart
+run 10 us
+run 10 us
+current_wave_config {Untitled 1}
+add_wave {{/tb_top/DUT/divider_1/clk}} {{/tb_top/DUT/divider_1/rst}} {{/tb_top/DUT/divider_1/out}} {{/tb_top/DUT/divider_1/rst_out}} {{/tb_top/DUT/divider_1/d}} {{/tb_top/DUT/divider_1/reset}} {{/tb_top/DUT/divider_1/rst_trigger}} 
+restart
+run 10 us
+close_sim
+close_sim
+refresh_design
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+add_wave {{/tb_top/DUT/clk}} {{/tb_top/DUT/rst}} {{/tb_top/DUT/an}} {{/tb_top/DUT/a_to_g}} {{/tb_top/DUT/rst_new}} {{/tb_top/DUT/clk_25}} 
+restart
+current_wave_config {Untitled 2}
+add_wave {{/tb_top/DUT/divider_1/clk}} {{/tb_top/DUT/divider_1/rst}} {{/tb_top/DUT/divider_1/out}} {{/tb_top/DUT/divider_1/rst_out}} {{/tb_top/DUT/divider_1/d}} {{/tb_top/DUT/divider_1/reset}} {{/tb_top/DUT/divider_1/rst_trigger}} 
+restart
+run 10 us
+relaunch_sim
+restart
+run 10 us
+add_wave {{/tb_top/DUT/top_instance/clk}} {{/tb_top/DUT/top_instance/rst}} {{/tb_top/DUT/top_instance/an}} {{/tb_top/DUT/top_instance/a_to_g}} {{/tb_top/DUT/top_instance/is_gemm_addr_late}} {{/tb_top/DUT/top_instance/system_bus_en}} {{/tb_top/DUT/top_instance/system_bus_rdwr}} {{/tb_top/DUT/top_instance/system_bus_rd_data}} {{/tb_top/DUT/top_instance/system_bus_wr_data}} {{/tb_top/DUT/top_instance/gemm_conf_read}} {{/tb_top/DUT/top_instance/mem_read_data}} {{/tb_top/DUT/top_instance/gemm_conf_read_ppl}} {{/tb_top/DUT/top_instance/result}} {{/tb_top/DUT/top_instance/system_bus_addr}} {{/tb_top/DUT/top_instance/interface_control}} {{/tb_top/DUT/top_instance/interface_rdwr}} {{/tb_top/DUT/top_instance/interface_en}} {{/tb_top/DUT/top_instance/interface_addr}} {{/tb_top/DUT/top_instance/interface_rd_data}} {{/tb_top/DUT/top_instance/interface_wr_data}} {{/tb_top/DUT/top_instance/system_bus_mask}} {{/tb_top/DUT/top_instance/is_gemm_addr}} {{/tb_top/DUT/top_instance/en_gemm_conf}} {{/tb_top/DUT/top_instance/en_Dmem}} 
+current_wave_config {Untitled 3}
+add_wave {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/clk}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/rst}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/PC_sel}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/flush}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/stall}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/epc_taken}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/epc}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/ALU_o}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/instruction_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/PC_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/not_stalled}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/PC}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/PC_mux_o}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/PC_ppl_in}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Fetch/instruction}} 
+current_wave_config {Untitled 3}
+add_wave {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/clk}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rst}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/flush}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/stall}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/reg_wr}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/A_sel}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/B_sel}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/forw_a}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/forw_b}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/instruction}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/PC}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/wdata}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/ALUctrl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/br_taken}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/PC_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/ALU_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rdata2_forwarded_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rdata1_forwarded_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/instruction_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/data_to_sevseg}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rdata1}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/PC_ppl_in}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rdata2}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rdata1_forwarded}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/rdata2_forwarded}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/imm}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/ALU_op_b}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/ALU_op_a}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/ALU_o}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/raddr1}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/raddr2}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/waddr_ppl}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/func3}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/I_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/Load_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/B_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/S_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/J_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/Jalr_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/lui_type}} {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/auipc_type}} 
+current_wave_config {Untitled 3}
+add_wave {{/tb_top/DUT/top_instance/RISC_V_instance/datapath/Decode_instance/Regfile_instance/register_memory}} 
+restart
+run 10 us
+close_sim
+refresh_design
+launch_runs impl_1 -jobs 20
+wait_on_run impl_1
+close_design
+open_run impl_1
+launch_runs impl_1 -to_step write_bitstream -jobs 20
+wait_on_run impl_1
+open_hw
+connect_hw_server
+open_hw_target
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/soc.bit} [get_hw_devices xc7a100t_0]
+current_hw_device [get_hw_devices xc7a100t_0]
+refresh_hw_device -update_hw_probes false [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/soc.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+set_property PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property FULL_PROBES.FILE {} [get_hw_devices xc7a100t_0]
+set_property PROGRAM.FILE {/home/abdul_waheed/Music/FYP/vivado_gemm/vivado_gemm.runs/impl_1/soc.bit} [get_hw_devices xc7a100t_0]
+program_hw_devices [get_hw_devices xc7a100t_0]
+refresh_hw_device [lindex [get_hw_devices xc7a100t_0] 0]
+launch_simulation
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_random_gemm_behav.wcfg
+open_wave_config /home/abdul_waheed/Music/FYP/Vivado/tb_top_behav1.wcfg
+source tb_top.tcl
+current_wave_config {}
+add_wave {{/tb_top/DUT}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/top_instance/x7segb8_instance/x}} {{/tb_top/DUT/top_instance/x7segb8_instance/clk}} {{/tb_top/DUT/top_instance/x7segb8_instance/clr}} {{/tb_top/DUT/top_instance/x7segb8_instance/a_to_g}} {{/tb_top/DUT/top_instance/x7segb8_instance/an}} {{/tb_top/DUT/top_instance/x7segb8_instance/dp}} {{/tb_top/DUT/top_instance/x7segb8_instance/s}} {{/tb_top/DUT/top_instance/x7segb8_instance/digit}} {{/tb_top/DUT/top_instance/x7segb8_instance/aen}} {{/tb_top/DUT/top_instance/x7segb8_instance/clkdiv}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/top_instance/x7segb8_instance/x}} {{/tb_top/DUT/top_instance/x7segb8_instance/clk}} {{/tb_top/DUT/top_instance/x7segb8_instance/clr}} {{/tb_top/DUT/top_instance/x7segb8_instance/a_to_g}} {{/tb_top/DUT/top_instance/x7segb8_instance/an}} {{/tb_top/DUT/top_instance/x7segb8_instance/dp}} {{/tb_top/DUT/top_instance/x7segb8_instance/s}} {{/tb_top/DUT/top_instance/x7segb8_instance/digit}} {{/tb_top/DUT/top_instance/x7segb8_instance/aen}} {{/tb_top/DUT/top_instance/x7segb8_instance/clkdiv}} 
+current_wave_config {tb_top_behav1.wcfg}
+add_wave {{/tb_top/DUT/top_instance/x7segb8_instance/x}} {{/tb_top/DUT/top_instance/x7segb8_instance/clk}} {{/tb_top/DUT/top_instance/x7segb8_instance/clr}} {{/tb_top/DUT/top_instance/x7segb8_instance/a_to_g}} {{/tb_top/DUT/top_instance/x7segb8_instance/an}} {{/tb_top/DUT/top_instance/x7segb8_instance/dp}} {{/tb_top/DUT/top_instance/x7segb8_instance/s}} {{/tb_top/DUT/top_instance/x7segb8_instance/digit}} {{/tb_top/DUT/top_instance/x7segb8_instance/aen}} {{/tb_top/DUT/top_instance/x7segb8_instance/clkdiv}} 
+add_wave {{/tb_top/DUT/clk}} {{/tb_top/DUT/rst}} {{/tb_top/DUT/an}} {{/tb_top/DUT/a_to_g}} {{/tb_top/DUT/rst_new}} {{/tb_top/DUT/clk_25}} 
+close_sim

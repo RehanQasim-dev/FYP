@@ -4,10 +4,10 @@ module soc (
     output logic [6:0] a_to_g
 );
 
-logic clk_50, clk_25;
+logic rst_new, clk_25;
 
-    tff divider_1 (clk, rst, clk_25);
+    tff divider_1 (clk, rst, clk_25, rst_new);
    
-    top top_instance (clk_25,rst, an, a_to_g);
+    top top_instance (clk_25,rst_new, an, a_to_g);
     
 endmodule
