@@ -78,7 +78,7 @@ void main (void) {
     // int r;
     // r= w+ w;
     asm("mv a1, %0" : : "r" (w));
-    for (int e=0 ; e < 1000 ; e++){}
+    while (1){}
 //     a=3;
 //    asm("mv a1, %0" : : "r" (w));
 //     for (int e=0 ; e < 1000; e++){}

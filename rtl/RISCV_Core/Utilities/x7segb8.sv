@@ -13,7 +13,7 @@ module x7segb8 (
   logic [19:0] clkdiv;
 
   assign dp = 1;
-  assign s = clkdiv[19:17];
+  assign s = clkdiv[17:15];
   // set aen(3 downto 0) for leading blanks
   assign aen[7] = x[31] | x[30] | x[29] | x[28];
   assign aen[6] = x[31] | x[30] | x[29] | x[28] | x[27] | x[26] | x[25] | x[24];

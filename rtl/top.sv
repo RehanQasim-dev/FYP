@@ -2,12 +2,11 @@ module top (
     input logic clk,
      rst,
     output logic [7:0] an,
-    output logic [6:0] a_to_g,
-    output logic is_gemm_addr_late
+    output logic [6:0] a_to_g
 
 );
 //logic rst =0;
-// logic is_gemm_addr_late;
+logic is_gemm_addr_late;
   logic system_bus_en, system_bus_rdwr;
   logic [31:0]
       system_bus_rd_data,
@@ -44,7 +43,7 @@ module top (
   x7segb8 x7segb8_instance (
       .x(result),
       .clk(clk),
-      //   .clr(rst),
+        .clr(rst),
       .a_to_g(a_to_g),
       .an(an),
       .dp()
@@ -60,7 +59,7 @@ module top (
   assign en_Dmem = system_bus_en && (~is_gemm_addr);
   memory #(
       .NUM_RAMS(16),
-      .A_WID(9),
+      .A_WID(11),
       .D_WID(8)
   ) memory_instance (
       .clk(clk),
