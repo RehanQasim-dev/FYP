@@ -1,0 +1,17 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:02:38 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Sat Apr 20 11:57:19 2024
+# Process ID: 130176
+# Current directory: /home/abdul_waheed/Music/FYP
+# Command line: vivado
+# Log file: /home/abdul_waheed/Music/FYP/vivado.log
+# Journal file: /home/abdul_waheed/Music/FYP/vivado.jou
+#-----------------------------------------------------------
+start_gui
+source /home/abdul_waheed/Music/FYP/project.tcl
+synth_design -rtl -name rtl_1
+add_files -norecurse {/home/abdul_waheed/Music/FYP/rtl/Script/build/DCACHE.mem /home/abdul_waheed/Music/FYP/rtl/Script/build/ICACHE.mem}
+add_files -norecurse /home/abdul_waheed/Music/FYP/rtl/Controller/buffer_accum_ctrl.sv
+synth_design -rtl -name rtl_1

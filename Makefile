@@ -64,7 +64,7 @@ verilate_command_gemm := $(verilator) 	+define+$(defines)		\
 					-Wno-CMPCONST	\
 					-Wno-CASEINCOMPLETE	\
 					-Wno-INITIALDLY	\
-					-Wno-fatal	\
+					-Wno-LATCH	\
 					-Wno-UNOPTFLAT 				\
 					-Wno-IMPLICIT 				\
 					-Wno-PINMISSING 			\

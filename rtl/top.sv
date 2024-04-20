@@ -1,12 +1,12 @@
 module top (
     input logic clk,
-//     rst,
+     rst,
     output logic [7:0] an,
     output logic [6:0] a_to_g,
     output logic is_gemm_addr_late
 
 );
-logic rst =0;
+//logic rst =0;
 // logic is_gemm_addr_late;
   logic system_bus_en, system_bus_rdwr;
   logic [31:0]
