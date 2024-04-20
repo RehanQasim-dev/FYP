@@ -21,7 +21,7 @@ module Regfile (
   assign valid_write_en = |rd & write_en;
   assign rs1_out = register_memory[rs1_in];
   assign rs2_out = register_memory[rs2_in];
-  assign data_to_seven_led = register_memory[11];
+  assign data_to_seven_led = register_memory[28];
   always_ff @(negedge clk)  // make reset for two cycles at the start
     if (rst) register_memory = '{default: '0};
     else if (valid_write_en) register_memory[rd] <= write_data;

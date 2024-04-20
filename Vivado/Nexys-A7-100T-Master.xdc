@@ -12,13 +12,13 @@
 #set_property -dict {PACKAGE_PIN J15 IOSTANDARD LVCMOS33} [get_ports rst]
 ## 100MHz system clock
 ###############################################################################################
-set_property -dict { PACKAGE_PIN E3  IOSTANDARD LVCMOS33} [get_ports { clk }];
+set_property -dict {PACKAGE_PIN E3 IOSTANDARD LVCMOS33} [get_ports clk]
 #create_clock -add -name sys_clk -period 10.00 [get_ports { clk }];
 #create_clock -add -name sys_clk_pin -period 10.00 -waveform {0 5} [get_ports { CLK100MHZ }];
 
 ## CPU Reset
 ###############################################################################################
-#set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33} [get_ports { rst88888 }];
+set_property -dict {PACKAGE_PIN C12 IOSTANDARD LVCMOS33} [get_ports rst]
 #set_property -dict { PACKAGE_PIN L16   IOSTANDARD LVCMOS33 } [get_ports { SW[1] }]; #IO_L3N_T0_DQS_EMCCLK_14 Sch=sw[1]
 #set_property -dict { PACKAGE_PIN M13   IOSTANDARD LVCMOS33 } [get_ports { SW[2] }]; #IO_L6N_T0_D08_VREF_14 Sch=sw[2]
 #set_property -dict { PACKAGE_PIN R15   IOSTANDARD LVCMOS33 } [get_ports { SW[3] }]; #IO_L13N_T2_MRCC_14 Sch=sw[3]
@@ -250,3 +250,14 @@ set_property PACKAGE_PIN P14 [get_ports {an[4]}]
 set_property PACKAGE_PIN T14 [get_ports {an[5]}]
 set_property PACKAGE_PIN K2 [get_ports {an[6]}]
 set_property PACKAGE_PIN U13 [get_ports {an[7]}]
+
+#set_property IOSTANDARD LVCMOS33 [get_ports rst]
+#set_property PACKAGE_PIN C12 [get_ports rst]
+
+#set_property IOSTANDARD LVCMOS33 [get_ports ext_inter]
+#set_property IOSTANDARD LVCMOS33 [get_ports timer_en]
+#set_property PACKAGE_PIN T13 [get_ports ext_inter]
+#set_property PACKAGE_PIN U12 [get_ports timer_en]
+
+set_property IOSTANDARD LVCMOS33 [get_ports is_gemm_addr_late]
+set_property PACKAGE_PIN U17 [get_ports is_gemm_addr_late]
