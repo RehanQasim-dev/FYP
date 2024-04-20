@@ -53,7 +53,7 @@ module store_controller (
     done_store = 0;
     buffer_sel = 'x;
     count_clr = 0;
-
+    ns = IDLE;
     case (cs)
       IDLE:
       if (can_do_store) begin

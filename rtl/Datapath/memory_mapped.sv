@@ -196,6 +196,9 @@ module memory_mapped (
         `base_addr + 24: system_bus_rd_data = {31'b0, tile_dimension_buff_empty};
         default: system_bus_rd_data = 0;
       endcase
+    else begin
+      system_bus_rd_data = 0;
+    end
   end
   assign conf_empty = tile_dimension_buff_empty;
   assign store = GEMM_control[0];

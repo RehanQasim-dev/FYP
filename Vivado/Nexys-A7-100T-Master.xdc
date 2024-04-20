@@ -18,7 +18,7 @@ set_property -dict { PACKAGE_PIN E3  IOSTANDARD LVCMOS33} [get_ports { clk }];
 
 ## CPU Reset
 ###############################################################################################
-#set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33} [get_ports { rst88888 }];
+set_property -dict { PACKAGE_PIN C12 IOSTANDARD LVCMOS33} [get_ports { rst }];
 #set_property -dict { PACKAGE_PIN L16   IOSTANDARD LVCMOS33 } [get_ports { SW[1] }]; #IO_L3N_T0_DQS_EMCCLK_14 Sch=sw[1]
 #set_property -dict { PACKAGE_PIN M13   IOSTANDARD LVCMOS33 } [get_ports { SW[2] }]; #IO_L6N_T0_D08_VREF_14 Sch=sw[2]
 #set_property -dict { PACKAGE_PIN R15   IOSTANDARD LVCMOS33 } [get_ports { SW[3] }]; #IO_L13N_T2_MRCC_14 Sch=sw[3]
