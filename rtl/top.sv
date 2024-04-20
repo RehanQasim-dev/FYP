@@ -10,7 +10,12 @@ logic rst =0;
 // logic is_gemm_addr_late;
   logic system_bus_en, system_bus_rdwr;
   logic [31:0]
-      system_bus_rd_data, system_bus_wr_data, gemm_conf_read, mem_read_data, gemm_conf_read_ppl,result;
+      system_bus_rd_data,
+      system_bus_wr_data,
+      gemm_conf_read,
+      mem_read_data,
+      gemm_conf_read_ppl,
+      result;
   logic [31:0] system_bus_addr;
   logic [4:0] interface_control;
   logic interface_rdwr;
@@ -32,14 +37,14 @@ logic rst =0;
       .system_bus_wr_data(system_bus_wr_data),
       .system_bus_addr(system_bus_addr),
       .system_bus_mask(system_bus_mask),
-      .data_to_sevseg (result)
+      .data_to_sevseg(result)
   );
 
-  
+
   x7segb8 x7segb8_instance (
       .x(result),
       .clk(clk),
-      .clr(rst),
+      //   .clr(rst),
       .a_to_g(a_to_g),
       .an(an),
       .dp()

@@ -39,6 +39,8 @@ module Load_Ex_controller (
 
 );
   // logic use_store_addr;
+  logic [2:0] ns, cs;  // Next state and current state
+
   assign use_store_addr = cs == STORE;
   logic conf_buff_read, prefetch_done;  // Configuration buffer read signal
   logic if_en, wfetch;
@@ -64,7 +66,6 @@ module Load_Ex_controller (
 
   // Internal signals
   logic clr_size_counter, en_size_counter, do_read_B, do_read_A;
-  logic [2:0] ns, cs;  // Next state and current state
 
   logic [31:0] count;
 
@@ -93,6 +94,7 @@ module Load_Ex_controller (
     can_store = 0;
     prefetch_start = 0;
     we_accum_ctrl = 0;
+    ns = IDLE;
 
     // State machine logic
     case (cs)

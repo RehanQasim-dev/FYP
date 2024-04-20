@@ -77,8 +77,9 @@ module x7segb8 (
     end
   end
 
+
   // Clock divider
-  always_ff @(posedge clk or posedge clr) begin
+  always_ff @(posedge clk) begin
     if (clr) begin
       clkdiv <= 20'b0;
     end else begin
