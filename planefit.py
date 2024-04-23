@@ -1,54 +1,33 @@
-import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
-from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LinearRegression
-from sklearn.pipeline import make_pipeline
 
-# Read the CSV file without header
-data = pd.read_csv('./log_500.csv', header=None)
+# Define the range of values for each variable
+m_range = np.linspace(20, 500, 100)  # Adjust as needed
+k_range = np.linspace(20, 500, 100)  # Adjust as needed
+n_range = np.linspace(20, 500, 100)  # Adjust as needed
 
-# Extract data for plotting
-x = data.iloc[:, 0].values  # First column (M dim size)
-y = data.iloc[:, 1].values  # Second column (K dim size)
-z = data.iloc[:, 2].values  # Third column (N dim size)
-c = data.iloc[:, 3].values  # Fourth column (No of Cycles)
+# Create a mesh grid for the 3D plot
+m_grid, k_grid, n_grid = np.meshgrid(m_range, k_range, n_range)
 
-# Create a higher-degree polynomial regression model
-degree = 3  # You can adjust the degree as needed
-model = make_pipeline(PolynomialFeatures(degree), LinearRegression())
+# Calculate the function M^3 + K^2 + N^2 for each point on the mesh grid
+result_grid = m_grid**3 + k_grid**3 + n_grid**3
 
-# Fit the model
-model.fit(np.column_stack((x, y, z)), c)
-
-# Generate points for the surface plot
-x_surf = np.linspace(min(x), max(x), 100)
-y_surf = np.linspace(min(y), max(y), 100)
-z_surf = np.linspace(min(z), max(z), 100)
-x_surf, y_surf, z_surf = np.meshgrid(x_surf, y_surf, z_surf)
-c_surf = model.predict(np.column_stack((x_surf.ravel(), y_surf.ravel(), z_surf.ravel())))
-
-# Create 3D plot
+# Create the 3D plot
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
 
-# Plot the surface
-ax.scatter(x_surf, y_surf, z_surf, c=c_surf, cmap='viridis')
+# Plot the surface with varying color based on the result
+scatter = ax.scatter(m_grid.ravel(), k_grid.ravel(), n_grid.ravel(), c=result_grid.ravel(), cmap='viridis', alpha=0.7)
 
-# Plot the original data points
-ax.scatter(x, y, z, c=c, cmap='viridis')
+# Add a color bar to represent the range of the calculated values
+colorbar = fig.colorbar(scatter, ax=ax, pad=0.1)
 
-# Add color bar
-sm = plt.cm.ScalarMappable(cmap='viridis')
-sm.set_array(c)
-cbar = plt.colorbar(sm, ax=ax, label='No of Cycles')
+# Set axis labels and plot title
+ax.set_xlabel('M')
+ax.set_ylabel('K')
+ax.set_zlabel('N')
+ax.set_title('3D Plot of M^3 + K^3 + N^3')
 
-# Label axes and add title
-ax.set_xlabel('M dim size')
-ax.set_ylabel('K dim size')
-ax.set_zlabel('N dim size')
-ax.set_title('3D Plot')
-
-# Show plot
+# Display the plot
 plt.show()

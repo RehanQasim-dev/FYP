@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 
 # Read the CSV file without header
-data = pd.read_csv('./log.csv', header=None)
+data = pd.read_csv('./log_500.csv', header=None)
 
 # Extract data for plotting
 x = data.iloc[:, 0]  # First column
