@@ -2,7 +2,7 @@
 
 module tb_top;
   logic clk, rst;
-  soc DUT (
+  top DUT (
       .clk(clk),
       .rst(rst)
   );
